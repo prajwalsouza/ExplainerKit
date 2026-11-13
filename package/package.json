@@ -1,0 +1,451 @@
+{
+  "name": "explainerkit",
+  "version": "0.1.0-alpha.1",
+  "license": "MIT",
+  "type": "module",
+  "description": "An independent JavaScript foundation for interactive visual explanations",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    },
+    "./rig": {
+      "types": "./src/rig.d.ts",
+      "import": "./src/rig.js",
+      "default": "./src/rig.js"
+    },
+    "./core": {
+      "types": "./src/core/index.d.ts",
+      "import": "./src/core/index.js",
+      "default": "./src/core/index.js"
+    },
+    "./scroll": {
+      "types": "./src/scroll.d.ts",
+      "import": "./src/scroll.js",
+      "default": "./src/scroll.js"
+    },
+    "./rigging": {
+      "types": "./src/rigging.d.ts",
+      "import": "./src/rigging.js",
+      "default": "./src/rigging.js"
+    },
+    "./transitions": {
+      "types": "./src/core/transition.d.ts",
+      "import": "./src/core/transition.js",
+      "default": "./src/core/transition.js"
+    },
+    "./renderers/svg": {
+      "types": "./src/renderers/svg.d.ts",
+      "import": "./src/renderers/svg.js",
+      "default": "./src/renderers/svg.js"
+    },
+    "./renderers/canvas": {
+      "types": "./src/renderers/canvas.d.ts",
+      "import": "./src/renderers/canvas.js",
+      "default": "./src/renderers/canvas.js"
+    },
+    "./film": {
+      "types": "./src/film/index.d.ts",
+      "import": "./src/film/index.js",
+      "default": "./src/film/index.js"
+    },
+    "./film.css": {
+      "types": "./src/film/film.css.d.ts",
+      "default": "./src/film/film.css"
+    },
+    "./adaptive": {
+      "types": "./src/layout/adaptive.d.ts",
+      "import": "./src/layout/adaptive.js",
+      "default": "./src/layout/adaptive.js"
+    },
+    "./camera": {
+      "types": "./src/camera/index.d.ts",
+      "import": "./src/camera/index.js",
+      "default": "./src/camera/index.js"
+    },
+    "./rigs": {
+      "types": "./src/rigs/index.d.ts",
+      "import": "./src/rigs/index.js",
+      "default": "./src/rigs/index.js"
+    },
+    "./morph": {
+      "types": "./src/morph/index.d.ts",
+      "import": "./src/morph/index.js",
+      "default": "./src/morph/index.js"
+    },
+    "./audit": {
+      "types": "./src/audit/index.d.ts",
+      "import": "./src/audit/index.js",
+      "default": "./src/audit/index.js"
+    },
+    "./design": {
+      "types": "./src/design/index.d.ts",
+      "import": "./src/design/index.js",
+      "default": "./src/design/index.js"
+    },
+    "./compose": {
+      "types": "./src/compose/index.d.ts",
+      "import": "./src/compose/index.js",
+      "default": "./src/compose/index.js"
+    },
+    "./parallax": {
+      "types": "./src/parallax/index.d.ts",
+      "import": "./src/parallax/index.js",
+      "default": "./src/parallax/index.js"
+    },
+    "./perception": {
+      "types": "./src/perception/index.d.ts",
+      "import": "./src/perception/index.js",
+      "default": "./src/perception/index.js"
+    },
+    "./modeling": {
+      "types": "./src/modeling/index.d.ts",
+      "import": "./src/modeling/index.js",
+      "default": "./src/modeling/index.js"
+    },
+    "./model": {
+      "types": "./src/model/index.d.ts",
+      "import": "./src/model/index.js",
+      "default": "./src/model/index.js"
+    },
+    "./graphics": {
+      "types": "./src/graphics/index.d.ts",
+      "import": "./src/graphics/index.js",
+      "default": "./src/graphics/index.js"
+    },
+    "./physics": {
+      "types": "./src/physics/index.d.ts",
+      "import": "./src/physics/index.js",
+      "default": "./src/physics/index.js"
+    },
+    "./dom": {
+      "types": "./src/adapters/dom.d.ts",
+      "import": "./src/adapters/dom.js",
+      "default": "./src/adapters/dom.js"
+    },
+    "./typography": {
+      "types": "./src/typography/index.d.ts",
+      "import": "./src/typography/index.js",
+      "default": "./src/typography/index.js"
+    },
+    "./spatial": {
+      "types": "./src/spatial/index.d.ts",
+      "import": "./src/spatial/index.js",
+      "default": "./src/spatial/index.js"
+    },
+    "./renderers/three": {
+      "types": "./src/renderers/three.d.ts",
+      "import": "./src/renderers/three.js",
+      "default": "./src/renderers/three.js"
+    },
+    "./renderers/webgl": {
+      "types": "./src/renderers/webgl.d.ts",
+      "import": "./src/renderers/webgl.js",
+      "default": "./src/renderers/webgl.js"
+    },
+    "./import/svg": {
+      "types": "./src/import/svg.d.ts",
+      "import": "./src/import/svg.js",
+      "default": "./src/import/svg.js"
+    },
+    "./import/font": {
+      "types": "./src/import/font.d.ts",
+      "import": "./src/import/font.js",
+      "default": "./src/import/font.js"
+    },
+    "./zoom": {
+      "types": "./src/zoom/index.d.ts",
+      "import": "./src/zoom/index.js",
+      "default": "./src/zoom/index.js"
+    },
+    "./particles": {
+      "types": "./src/particles/index.d.ts",
+      "import": "./src/particles/index.js",
+      "default": "./src/particles/index.js"
+    },
+    "./mechanisms": {
+      "types": "./src/mechanisms/index.d.ts",
+      "import": "./src/mechanisms/index.js",
+      "default": "./src/mechanisms/index.js"
+    },
+    "./import/gltf": {
+      "types": "./src/import/gltf.d.ts",
+      "import": "./src/import/gltf.js",
+      "default": "./src/import/gltf.js"
+    },
+    "./shapes": {
+      "types": "./src/shapes/index.d.ts",
+      "import": "./src/shapes/index.js",
+      "default": "./src/shapes/index.js"
+    },
+    "./story": {
+      "types": "./src/story/index.d.ts",
+      "import": "./src/story/index.js",
+      "default": "./src/story/index.js"
+    },
+    "./assets/preload": {
+      "types": "./src/assets/preload.d.ts",
+      "import": "./src/assets/preload.js",
+      "default": "./src/assets/preload.js"
+    },
+    "./look": {
+      "types": "./src/look/index.d.ts",
+      "import": "./src/look/index.js",
+      "default": "./src/look/index.js"
+    },
+    "./characters": {
+      "types": "./src/characters/index.d.ts",
+      "import": "./src/characters/index.js",
+      "default": "./src/characters/index.js"
+    },
+    "./composition": {
+      "types": "./src/composition/layers.d.ts",
+      "import": "./src/composition/layers.js",
+      "default": "./src/composition/layers.js"
+    },
+    "./player": {
+      "types": "./src/player/index.d.ts",
+      "import": "./src/player/index.js",
+      "default": "./src/player/index.js"
+    },
+    "./media": {
+      "types": "./src/media/index.d.ts",
+      "import": "./src/media/index.js",
+      "default": "./src/media/index.js"
+    },
+    "./timeline": {
+      "types": "./src/timeline/index.d.ts",
+      "import": "./src/timeline/index.js",
+      "default": "./src/timeline/index.js"
+    },
+    "./project": {
+      "types": "./src/project/index.d.ts",
+      "import": "./src/project/index.js",
+      "default": "./src/project/index.js"
+    },
+    "./layout/labels": {
+      "types": "./src/layout/labels.d.ts",
+      "import": "./src/layout/labels.js",
+      "default": "./src/layout/labels.js"
+    },
+    "./layout/annotations": {
+      "types": "./src/layout/annotations.d.ts",
+      "import": "./src/layout/annotations.js",
+      "default": "./src/layout/annotations.js"
+    },
+    "./sound": {
+      "types": "./src/sound/index.d.ts",
+      "import": "./src/sound/index.js",
+      "default": "./src/sound/index.js"
+    },
+    "./media/audio": {
+      "types": "./src/media/audio.d.ts",
+      "import": "./src/media/audio.js",
+      "default": "./src/media/audio.js"
+    },
+    "./procedural": {
+      "types": "./src/procedural/index.d.ts",
+      "import": "./src/procedural/index.js",
+      "default": "./src/procedural/index.js"
+    },
+    "./waapi": {
+      "types": "./src/adapters/waapi.d.ts",
+      "import": "./src/adapters/waapi.js",
+      "default": "./src/adapters/waapi.js"
+    },
+    "./data": {
+      "types": "./src/data/index.d.ts",
+      "import": "./src/data/index.js",
+      "default": "./src/data/index.js"
+    },
+    "./geometry": {
+      "types": "./src/geometry/index.d.ts",
+      "import": "./src/geometry/index.js",
+      "default": "./src/geometry/index.js"
+    },
+    "./geometry/shapes": {
+      "types": "./src/geometry/shapes/index.d.ts",
+      "import": "./src/geometry/shapes/index.js",
+      "default": "./src/geometry/shapes/index.js"
+    },
+    "./layout": {
+      "types": "./src/layout/index.d.ts",
+      "import": "./src/layout/index.js",
+      "default": "./src/layout/index.js"
+    },
+    "./color": {
+      "types": "./src/color/index.d.ts",
+      "import": "./src/color/index.js",
+      "default": "./src/color/index.js"
+    },
+    "./motion": {
+      "types": "./src/motion/index.d.ts",
+      "import": "./src/motion/index.js",
+      "default": "./src/motion/index.js"
+    },
+    "./motion/effects": {
+      "types": "./src/motion/common-effects.d.ts",
+      "import": "./src/motion/common-effects.js",
+      "default": "./src/motion/common-effects.js"
+    },
+    "./noise": {
+      "types": "./src/noise/index.d.ts",
+      "import": "./src/noise/index.js",
+      "default": "./src/noise/index.js"
+    },
+    "./editor/timeline": {
+      "types": "./src/editor/timeline/index.d.ts",
+      "import": "./src/editor/timeline/index.js",
+      "default": "./src/editor/timeline/index.js"
+    },
+    "./adapters/dom": {
+      "types": "./src/adapters/dom.d.ts",
+      "import": "./src/adapters/dom.js",
+      "default": "./src/adapters/dom.js"
+    },
+    "./adapters/waapi": {
+      "types": "./src/adapters/waapi.d.ts",
+      "import": "./src/adapters/waapi.js",
+      "default": "./src/adapters/waapi.js"
+    },
+    "./inputs": {
+      "types": "./src/inputs/index.d.ts",
+      "import": "./src/inputs/index.js",
+      "default": "./src/inputs/index.js"
+    },
+    "./sound/mix": {
+      "types": "./src/sound/mix.d.ts",
+      "import": "./src/sound/mix.js",
+      "default": "./src/sound/mix.js"
+    },
+    "./sound/studio": {
+      "types": "./src/sound/studio/index.d.ts",
+      "import": "./src/sound/studio/index.js",
+      "default": "./src/sound/studio/index.js"
+    },
+    "./music": {
+      "types": "./src/music/index.d.ts",
+      "import": "./src/music/index.js",
+      "default": "./src/music/index.js"
+    },
+    "./vfx": {
+      "types": "./src/vfx/index.d.ts",
+      "import": "./src/vfx/index.js",
+      "default": "./src/vfx/index.js"
+    }
+  },
+  "scripts": {
+    "test": "node --test tests/core/*.test.js tests/layout/*.test.js tests/modules/*.test.js tests/renderers.test.js tests/server.test.js",
+    "bench": "node benchmarks/core.mjs",
+    "bench:visual": "node benchmarks/visual/run.mjs",
+    "serve": "node scripts/serve.mjs",
+    "build:authoring-pipeline": "node examples/authoring-pipeline/build.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "test:effects": "node scripts/common-effects-check.mjs",
+    "test:about": "node scripts/about-page-check.mjs",
+    "verify:films": "node examples/verify-numbers.mjs",
+    "audit:films": "node scripts/audit-films.mjs",
+    "audit:3d": "node scripts/audit-3d.mjs",
+    "setup:three": "node scripts/prepare-three-peer.mjs",
+    "build:characters": "node scripts/build-character-pack.mjs",
+    "build:cinematic-assets": "node scripts/build-source-document-pack.mjs && node scripts/build-cinematic-packs.mjs",
+    "lookdev:capture": "node scripts/capture-cinematic-lookdev.mjs",
+    "export:film": "node scripts/export-film.mjs",
+    "docs:inventory": "node scripts/release-inventory.mjs",
+    "docs:check": "node scripts/release-inventory.mjs --check && node scripts/check-doc-links.mjs && node scripts/check-runtime-reference.mjs && node scripts/agents/build.mjs --check",
+    "check:package": "node scripts/check-package.mjs",
+    "types:build": "node scripts/build-types.mjs",
+    "test:types": "tsc --noEmit -p tests/types/tsconfig.json",
+    "format:check": "prettier --check \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.js\"",
+    "lint": "eslint src",
+    "test:browser:matrix": "node scripts/browser-matrix.mjs",
+    "test:package-consumer": "node scripts/package-consumer.mjs",
+    "test:distribution": "node scripts/distribution-check.mjs",
+    "docs:build": "node scripts/docs-site.mjs",
+    "fuzz:importers": "node scripts/fuzz-importers.mjs",
+    "bench:visual:browser": "node benchmarks/visual/browser.mjs",
+    "test:coverage": "node scripts/coverage.mjs",
+    "bench:production": "node benchmarks/production.mjs",
+    "test:reference": "node --test --test-concurrency=1 tests/reference/*.test.mjs",
+    "check:architecture": "node scripts/check-architecture.mjs",
+    "docs:public": "node scripts/docs-site.mjs --public",
+    "check:release": "node scripts/check-release.mjs",
+    "check": "npm run check:architecture && npm run lint && npm run format:check && npm test && npm run test:types && npm run docs:check && npm run check:package && npm run test:package-consumer",
+    "prebuild": "npm run check",
+    "build": "node scripts/build-release.mjs",
+    "agents:build": "node scripts/agents/build.mjs",
+    "agents:check": "node scripts/agents/build.mjs --check",
+    "test:agents": "node --test --test-concurrency=2 tests/agents/*.test.mjs",
+    "agents:eval": "node scripts/agents/eval.mjs",
+    "mcp": "node agents/mcp/server.mjs",
+    "export:public": "node scripts/export-public.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "three": "^0.186.1"
+  },
+  "peerDependenciesMeta": {
+    "three": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "10.0.1",
+    "esbuild": "0.28.2",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
+    "playwright": "1.64.1",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3"
+  },
+  "files": [
+    "src/",
+    "agents/",
+    "!agents/eval/",
+    "llms.txt",
+    "scripts/export-film.mjs",
+    "scripts/lib/cdp.mjs",
+    "docs/modules/",
+    "!docs/modules/live-inputs-and-augmentation.md",
+    "docs/getting-started.md",
+    "docs/runtime-api.md",
+    "docs/error-codes.md",
+    "docs/types.md",
+    "docs/agents.md",
+    "docs/api-inventory.md",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prajwalsouza/ExplainerKit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prajwalsouza/ExplainerKit/issues"
+  },
+  "homepage": "https://github.com/prajwalsouza/ExplainerKit#readme",
+  "keywords": [
+    "animation",
+    "explainer",
+    "visualization",
+    "svg",
+    "canvas",
+    "interactive",
+    "deterministic"
+  ],
+  "types": "./src/index.d.ts",
+  "bin": {
+    "explainerkit-mcp": "./agents/mcp/server.mjs",
+    "explainerkit-export-film": "./scripts/export-film.mjs"
+  }
+}

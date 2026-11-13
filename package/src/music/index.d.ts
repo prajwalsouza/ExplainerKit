@@ -1,0 +1,27 @@
+// Generated declaration inference with reviewed overrides; see docs/types.md for scope.
+export {analyzeMusic, beatsFromText, MUSIC_ANALYSIS_VERSION} from './analysis.js';
+export type {ExternalBeat, MusicAnalysis, MusicAnalysisOptions, MusicBeat, MusicChord, MusicKey, MusicSection, MusicSectionRole, MusicEvent, MusicEventType, MusicCurves} from './analysis.js';
+export {MAX_MUSIC_SECONDS} from './input.js';
+export type {MusicPCMInput} from './input.js';
+export {CHORD_QUALITIES, CHORD_VOCABULARIES, PITCH_NAMES} from './harmony.js';
+export type {ChordQuality} from './harmony.js';
+export {musicGrid, GRID_UNITS} from './grid.js';
+export type {MusicGrid, GridUnit, GridPosition, PinAction, PinTarget, PinnedAction} from './grid.js';
+export {createAdaptiveScore} from './adaptive.js';
+export type {AdaptiveScore, AdaptiveScoreOptions, AdaptiveClip, AdaptiveChange, AdaptivePlan, AdaptiveQuantize, AdaptiveSources, PlaylistItem, ScheduledClip, AdaptiveMarker} from './adaptive.js';
+export {retargetMusic, renderMusicEdits} from './retarget.js';
+export type {RetargetPlan, MusicEdit} from './retarget.js';
+export {createMusicScore, musicScoreTime, SCORE_LIMITS} from './score.js';
+export type {MusicScoreInput, MusicScore, MusicScoreTime, MusicTempo, MusicMeter, MusicMeterInput, MusicTrack, MusicTrackInput, MusicNote, MusicNoteInput, MusicChannelMessage} from './score.js';
+export {editMusicNotes, repeatMusicPhrase} from './score-edit.js';
+export type {MusicNoteEdit, MusicPhraseRepetition} from './score-edit.js';
+export {readMidi, writeMidi} from './midi.js';
+export type {MidiReadResult} from './midi.js';
+export {renderMusicScore} from './score-render.js';
+export type {MusicScoreRender, MusicScoreRenderOptions, MusicTrackRenderOptions} from './score-render.js';
+export {SCORE_INSTRUMENTS} from './score-voices.js';
+export type {ScoreInstrument} from './score-voices.js';
+export {produceMusic, PRODUCTION_LIMITS} from './production.js';
+export type {MusicProduction, MusicProductionOptions, MusicProductionStem, ProductionTrack, ProductionBus, ProductionReturn, ProductionMaster, ProductionEffect, ProductionPoint} from './production.js';
+export {arrangeMusic, arpeggiate, chordPitches, voiceLead, CHORD_SHAPES} from './compose.js';
+export type {Arrangement, ArrangementPart, ArrangementTempo, ArrangedNote, ArpeggioNote, ArpeggioOptions, VoiceLeadOptions} from './compose.js';

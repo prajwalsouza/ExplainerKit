@@ -1,0 +1,7 @@
+// Generated declaration inference with reviewed overrides; see docs/types.md for scope.
+export interface PlaybackPCM {readonly sampleRate:number;readonly channels:ReadonlyArray<Float32Array|Float64Array|readonly number[]>;readonly duration?:number;readonly metadata?:unknown;readonly clippedSamples?:number;}
+export interface SoundPlayer {readonly disposed:boolean;readonly time:number;readonly duration:number;readonly driver:'scroll'|'media'|null;readonly reducedMotion:boolean;speed:number;element?:Element;on(name:string,listener:(value:any)=>void):()=>void;setDriver(driver:'scroll'|'media'|null):unknown;syncTime(time:number,options:{source:'media';playing:boolean}):unknown;seek(time:number):unknown;pause():unknown;play():unknown;reportError(error:unknown):void;}
+export interface SoundPlaybackOptions {document?:Document;offset?:number;volume?:number;muted?:boolean;reducedMotion?:'respect'|'audio-only';onError?:(error:unknown)=>void;}
+export interface SoundPlayback {readonly media:HTMLAudioElement;readonly disposed:boolean;readonly error:unknown;readonly playing:boolean;readonly reducedMotion:'respect'|'audio-only';volume:number;muted:boolean;speed:number;play():Promise<void>;pause():void;seek(time:number):void;refresh():void;dispose():void;}
+/** Captures PCM and owns one browser audio/Blob, reusing the existing media clock. */
+export function attachSoundtrack(player:SoundPlayer,input:PlaybackPCM,options?:SoundPlaybackOptions):SoundPlayback;

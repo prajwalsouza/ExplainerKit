@@ -1,0 +1,67 @@
+from,to,turns
+Monica,Rachel,418
+Rachel,Ross,390
+Chandler,Joey,323
+Joey,Ross,276
+Monica,Phoebe,275
+Chandler,Ross,261
+Monica,Others,249
+Chandler,Others,233
+Monica,Ross,226
+Phoebe,Rachel,205
+Chandler,Phoebe,201
+Joey,Monica,191
+Others,Rachel,185
+Others,Phoebe,182
+Chandler,Rachel,178
+Joey,Others,172
+Chandler,Monica,170
+Phoebe,Ross,143
+Others,Ross,130
+Joey,Phoebe,120
+Carol,Ross,108
+Ross,Susan,99
+Joey,Rachel,84
+Chandler,Janice,60
+Barry,Rachel,50
+Judy,Monica,37
+Carol,Susan,22
+Paolo,Ross,21
+Judy,Ross,19
+Barry,Others,11
+Mr. Heckles,Ross,11
+Mr. Heckles,Rachel,10
+Monica,Mr. Heckles,9
+Mr. Heckles,Phoebe,9
+Paolo,Phoebe,9
+Paolo,Rachel,9
+Monica,Nurse Sizemore,8
+Carol,Rachel,7
+Nurse Sizemore,Ross,7
+Carol,Others,6
+Barry,Bernice,5
+Nurse Sizemore,Rachel,5
+Janice,Monica,4
+Nurse Sizemore,Others,4
+Janice,Joey,3
+Joey,Nurse Sizemore,3
+Mr. Heckles,Others,3
+Phoebe,Susan,3
+Judy,Others,2
+Monica,Paolo,2
+Others,Paolo,2
+Others,Susan,2
+Barry,Ross,1
+Bernice,Rachel,1
+Carol,Monica,1
+Carol,Nurse Sizemore,1
+Carol,Phoebe,1
+Chandler,Judy,1
+Chandler,Nurse Sizemore,1
+Janice,Others,1
+Janice,Ross,1
+Joey,Judy,1
+Judy,Phoebe,1
+Judy,Rachel,1
+Monica,Susan,1
+Rachel,Susan,1

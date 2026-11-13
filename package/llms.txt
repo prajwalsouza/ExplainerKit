@@ -1,0 +1,151 @@
+# ExplainerKit
+
+> ExplainerKit is a JavaScript library for interactive visual explanations: scenes of shapes, text and characters whose values can be animated, driven by sliders or scroll, timed to narration or music, and rendered with SVG, Canvas or an optional Three.js renderer. Every frame is a pure function of time, so scenes can be seeked, exported and audited.
+
+The package is an alpha release (0.1.0-alpha.1). Its JavaScript API is the only interface, so an agent uses it by writing ES modules that import `explainerkit` or `explainerkit/<module>`. Before writing code, find the module for the task in the list below, read its guide and start from the closest recipe, because guessed option names are rejected at run time. Check the result by running it: the MCP server in `agents/mcp/server.mjs` and the command `node agents/cli.mjs preview <file>` render a module in headless Chromium and return screenshots and errors. Tools and setup are described in [docs/agents.md](docs/agents.md).
+
+## Start here
+
+- [Getting started](docs/getting-started.md): create a scene, render a frame, and choose between npm and plain HTML.
+- [Runtime API](docs/runtime-api.md): parameters, bindings, controls, components, mounting and playback.
+- [Module map](docs/modules/index.md): every public import with its guides.
+- [Error codes](docs/error-codes.md): what each validation error means.
+- [Capability catalog](agents/catalog.json): the machine-readable form of this file, with export names and fixed vocabularies.
+
+## Build and connect
+
+- `explainerkit`: Shorter import for the same `Scene` and `scene` constructors. Guides: [Library layers and imports](docs/modules/library-layers.md).
+- `explainerkit/core`: Scene identity, handles, components, keyed data, parameters, bindings, tracks and sampling. Guides: [Runtime API](docs/runtime-api.md).
+- `explainerkit/graphics`: Validated paint, gradients, clipping and textures. Guides: [Reveal, fill and frame](docs/modules/graphics.md).
+- `explainerkit/typography`: Editable letters and symbols, plus animated HTML text. Guides: [Glyph objects and animated reflow](docs/modules/glyph-objects.md), [Animate the page you already have](docs/modules/dom-typography.md).
+- `explainerkit/data`: Scales, units, transformations and plot/axis blueprints. Guides: [Give data a visual meaning](docs/modules/data-modeling.md).
+- `explainerkit/geometry`: Path construction, placements, measurement, deformation, polyhedra and drawing tools. Guides: [Connected constructions](docs/modules/advanced-constructions.md), [Drawing, correspondence and batch sampling](docs/modules/drawing-batches.md), [Turn and split a 3D shape](docs/modules/polyhedra.md).
+- `explainerkit/geometry/shapes`: Combine, intersect, subtract or split polygons and outlines. Guides: [Cut a shape. Keep track of the pieces.](docs/modules/shape-operations.md).
+- `explainerkit/color`: Procedural HSLA, safe conversions, hue-aware mixing and explicit RGB interpolation. Guides: [Color: procedural HSLA, explicit conversions](docs/modules/color.md).
+
+## Present, edit and export
+
+- `explainerkit/scroll`: Scroll-to-time adapter. Guides: [Story scroll and asset delivery](docs/modules/story-delivery.md).
+- `explainerkit/film`: Narrated film composition and player. Guides: [Film kit: light, depth, machines and type](docs/modules/film-kit.md).
+- `explainerkit/story`: Scroll acts, holds, controls and reversible cue policies. Guides: [Story scroll and asset delivery](docs/modules/story-delivery.md), [Scroll cues and hover intent](docs/modules/story-cues-hover-intent.md).
+- `explainerkit/assets/preload`: Explicit bounded resource loading. Guides: [Story scroll and asset delivery](docs/modules/story-delivery.md).
+- `explainerkit/player`: Browser mounting, clock, interaction lifecycle and disposal. Guides: [Runtime API](docs/runtime-api.md), [Play and synchronize a timeline](docs/modules/timeline-player.md), [Play native scenes through an existing renderer](docs/modules/projection-player.md).
+- `explainerkit/media`: Media-clock synchronization. Guides: [Let the picture follow the voice](docs/modules/media-clock.md).
+- `explainerkit/project`: Bounded project recipes and history. Guides: [Versioned project recipes and history](docs/modules/projects.md).
+- `explainerkit/sound`: Sound generation and explicit playback. Guides: [Semantic sound for motion](docs/modules/sound.md), [Audition an original soundtrack](docs/modules/sound-playback.md).
+- `explainerkit/editor/timeline`: Optional keyframe/timeline editing. Guides: [Edit animation keys and curves](docs/modules/timeline.md).
+- `explainerkit/sound/mix`: PCM mixing and WAV encoding. Guides: [Mix recorded audio and combine it with video](docs/modules/audio-mixing.md).
+- `explainerkit/sound/studio`: Synthesizer, plucked, struck, percussion and sampled instruments, an effect rack with equalisers, dynamics, reverbs and delays, and loudness meters. Guides: [Studio instruments](docs/modules/studio-instruments.md), [Studio effects and meters](docs/modules/studio-effects.md).
+- `explainerkit/music`: Score composition and variations, MIDI exchange, arrangement in bars and beats, produced mixes with buses, returns, loudness targets and stems, song analysis, beat grids, retargeting and adaptive scores. Guides: [Music](docs/modules/music.md), [Produce a score](docs/modules/music-production.md), [Time visuals to music](docs/modules/music-analysis.md).
+
+## Move and transform
+
+- `explainerkit/transitions`: Capture and interpolate supported scene states. Guides: [Runtime API](docs/runtime-api.md).
+- `explainerkit/rigs`: Calculate joint positions and deform artwork with skeletons and skins. Guides: [Solve a rig for several targets](docs/modules/advanced-rigs.md).
+- `explainerkit/morph`: Match points and outlines, change shapes, and animate splits or merges. Guides: [Refusing unsafe polygon samples and applying shape keys](docs/modules/morph-safety.md).
+- `explainerkit/physics`: Analytic oscillator and trajectory models; no universal physics simulation. Guides: [Secondary motion](docs/modules/secondary-motion.md).
+- `explainerkit/motion`: Pure timelines, easing, staggering, motion paths, springs and secondary motion. Guides: [Schedule motion with a timeline](docs/modules/timelines.md), [Reusable easing and staggering](docs/modules/motion-curves.md), [Native spring timing](docs/modules/native-motion.md).
+- `explainerkit/motion/effects`: Seekable typewriter, object wipe, fly-in, pulse, teeter and colour flash presets. Guides: [Add a familiar animation effect](docs/modules/common-effects.md).
+- `explainerkit/noise`: Scalar/vector fields, fractal/ridged noise, domain warp and deterministic grids. Guides: [Procedural fields and instances](docs/modules/procedural.md), [Density fields, network spacing and fractal noise](docs/modules/procedural-fields-networks.md).
+- `explainerkit/inputs`: Live observations, settled hover intent and reactive parameter/data bindings. Guides: [Live inputs and reactive scenes](docs/modules/live-inputs.md), [Scroll cues and hover intent](docs/modules/story-cues-hover-intent.md).
+
+## Render or import
+
+- `explainerkit/renderers/svg`: Native SVG scene rendering. Guides: [One model, explicit rendering choices](docs/modules/renderer-contracts.md).
+- `explainerkit/renderers/canvas`: Native Canvas 2D scene rendering. Guides: [One model, explicit rendering choices](docs/modules/renderer-contracts.md).
+- `explainerkit/renderers/three`: Explicit optional Three.js rendering with reversible owned-material palettes. Guides: [A spatial model can choose its renderer](docs/modules/spatial-three.md), [Reversible Three.js material palettes](docs/modules/three-material-palettes.md).
+- `explainerkit/renderers/webgl`: Native WebGL point/line buffers. Guides: [Draw a large set of points and connections](docs/modules/webgl-points.md).
+- `explainerkit/import/svg`: Inert supported SVG geometry. Guides: [Bring an SVG into the scene](docs/modules/svg-import.md).
+- `explainerkit/import/font`: Bounded TrueType/WOFF outlines. Guides: [Letters as geometry](docs/modules/font-outlines.md).
+- `explainerkit/import/gltf`: Bounded static glTF/GLB geometry. Guides: [Bring a static model into line art](docs/modules/gltf-import.md).
+- `explainerkit/adapters/dom`: Connect authored values to HTML. Guides: [Animate the page you already have](docs/modules/dom-typography.md).
+- `explainerkit/adapters/waapi`: Explicit native browser animation. Guides: [Animate existing page elements](docs/modules/waapi.md).
+
+## Arrange and frame
+
+- `explainerkit/camera`: Camera control, transforms, framing, depth, focus and shutter math. Guides: [Camera choreography and screen backdrops](docs/modules/camera-choreography.md), [Add depth and focus with layers](docs/modules/depth-layers.md).
+- `explainerkit/audit`: Composition, motion, continuity, contrast, measured palette and 3D rendering diagnostics. Guides: [Composition audit](docs/modules/composition-audit.md), [Measure authored motion](docs/modules/motion-diagnostics.md), [Continuity and contrast audits](docs/modules/continuity-audit.md), [Palette measurements and comparison](docs/modules/palette-audit.md), [3D rendering audit](docs/modules/render-audit.md).
+- `explainerkit/parallax`: Depth-layer relationships for scroll presentation. Guides: [Parallax for scroll stories](docs/modules/parallax.md).
+- `explainerkit/perception`: Grouping suggestions with author overrides. Guides: [Form, articulation and grouping](docs/modules/rigs-morphing-perception.md).
+- `explainerkit/spatial`: First-party 3D transforms, projection and picking. Guides: [A spatial model can choose its renderer](docs/modules/spatial-three.md).
+- `explainerkit/zoom`: Nested coordinate systems and detail that changes with screen size. Guides: [Change the scale. Keep the place.](docs/modules/deep-zoom.md).
+- `explainerkit/look`: Visual effects and color adjustments, with resource limits. Guides: [Shape the light and the surface](docs/modules/look.md).
+- `explainerkit/layout/labels`: Focused measured-label API. Guides: [Measured label placement](docs/modules/measured-labels.md).
+- `explainerkit/layout/annotations`: Focused annotation policy. Guides: [Place readable annotations around scene objects](docs/modules/annotations.md).
+- `explainerkit/layout`: Placement, text wrapping, callouts, measured labels and responsive planning. Guides: [Compose: decide where things go](docs/modules/compose.md), [Place readable annotations around scene objects](docs/modules/annotations.md).
+
+## Write and design explanations
+
+- `explainerkit/design`: Model-assisted research, story design, scripts, fables and series, then hooks and attention, and visual design (shot plans, structure, colour, motion, feeling, sound and multimedia checks), with deterministic measures and checks. Guides: [Design explanations with a language model](docs/modules/design.md).
+
+## Add a specialist construction
+
+- `explainerkit/particles`: Seeded emitters sampled by time. Guides: [Motion that can be sampled in either direction](docs/modules/particles-mechanisms.md).
+- `explainerkit/mechanisms`: Connect 2D movement in gears, rolling objects, cranks and belts. Guides: [Motion that can be sampled in either direction](docs/modules/particles-mechanisms.md).
+- `explainerkit/characters`: Character runtime, faces, poses, walking and acting. Guides: [Characters](docs/modules/characters.md), [Lightweight biped motion in 2D and 3D](docs/modules/biped-motion.md), [Characters in profile](docs/modules/character-profiles.md), [Independent character timing](docs/modules/coordinated-motion.md), [Keyed acting and track-driven travel](docs/modules/keyed-poses-follow.md).
+- `explainerkit/procedural`: Points, density fields, network spacing, instances and generated masses. Guides: [Procedural fields and instances](docs/modules/procedural.md), [Density fields, network spacing and fractal noise](docs/modules/procedural-fields-networks.md).
+
+## Video VFX
+
+- `explainerkit/vfx`: Recorded footage analysis, camera track preparation with default stabilization, point and plane tracking, and compositing. Guides: [Track graphics on recorded video](docs/modules/video-vfx.md).
+
+## Recipes
+
+Each recipe is a complete module, run in Chromium by `npm run test:agents`. It renders into `<div id="stage">` and exports the player so that tools can seek it.
+
+- [Animate a value over time and bind several properties to it](agents/recipes/animate-parameter.js): Animate one parameter from a start to an end value and derive positions, colour and labels from it. Uses `explainerkit/core`, `explainerkit/color`.
+- [Move a camera between regions of a large world](agents/recipes/camera-shots.js): Register named regions in a big scene and choreograph camera shots: frame, cut, zoom and whip pan. Uses `explainerkit/core`.
+- [Add a character who walks, waves and speaks](agents/recipes/characters.js): Place a ready-made character in a scene and direct it to walk, wave, talk and show emotion on a timeline. Uses `explainerkit/core`, `explainerkit/characters`.
+- [Use ready-made entrances: fly in, typewriter and wipe](agents/recipes/common-effects.js): Apply seekable preset effects such as flyIn, typewriter, wipe and pulse to shapes and text. Uses `explainerkit/core`, `explainerkit/motion/effects`.
+- [Draw a bar chart from data with scales](agents/recipes/data-chart.js): Map numbers and categories to positions with linear and band scales and draw labelled bars with ticks. Uses `explainerkit/core`, `explainerkit/data`.
+- [Turn meshing gears and a crank from one angle](agents/recipes/gears.js): Build a mechanism of meshing gears and a crank linkage, sample it from a driving angle and draw it. Uses `explainerkit/core`, `explainerkit/mechanisms`.
+- [Time visual changes to the beats and moments of a song](agents/recipes/music-grid.js): Analyse decoded music, then pin actions to bars, beats and events such as the drop and pulse a shape on every beat. Uses `explainerkit/core`, `explainerkit/music`.
+- [Time shapes to narration lines](agents/recipes/narrated-beats.js): Turn narration sentences into beat times, then make shapes enter, move, dim and explain themselves at those beats. Uses `explainerkit/core`.
+- [Emit seeded particles that can be seeked](agents/recipes/particles.js): Create a deterministic particle emitter and draw its particles at the scene time as a point cloud. Uses `explainerkit/core`, `explainerkit/particles`.
+- [Arrange parts and produce a mastered mix](agents/recipes/produce-score.js): Write a pad, a harp figure and a drum in bars and beats, mix them through a shared hall to a loudness target and show the parts with the measured result. Uses `explainerkit/core`, `explainerkit/color`, `explainerkit/music`, `explainerkit/sound/studio`.
+- [Draw a scene, animate it and play it](agents/recipes/scene-and-player.js): Create a scene with shapes, schedule a move with easing, mount it in the page and play it. Uses `explainerkit/core`.
+- [Compose a phrase and vary its ending](agents/recipes/score-variation.js): Repeat a short score, edit the last note, render stereo audio and show the result on a piano roll. Uses `explainerkit/core`, `explainerkit/color`, `explainerkit/music`.
+- [Drive a scene by scrolling the page](agents/recipes/scroll-story.js): Pin the scene in a sticky stage and map scroll position to scene time through acts with held moments. Uses `explainerkit/core`, `explainerkit/story`.
+- [Let the reader drag a value that drives the drawing](agents/recipes/slider-parameter.js): Add a parameter with a slider control and bind shape properties to it so the picture updates live. Uses `explainerkit/core`.
+- [Give a move a sound that is timed to it](agents/recipes/sound-cues.js): Generate a whoosh and impact tied to an animation and attach the soundtrack to the scene player. Uses `explainerkit/core`, `explainerkit/sound`.
+- [Draw rotating 3D line art inside a 2D scene](agents/recipes/space-3d.js): Add a perspective space to a scene and animate a wireframe sphere and box without Three.js. Uses `explainerkit/core`, `explainerkit/spatial`.
+- [Choreograph several moves with a timeline, labels and keyframes](agents/recipes/timeline-motion.js): Build a pure motion timeline with labels, relative positions and keyframes, then drive scene properties from it. Uses `explainerkit/core`, `explainerkit/motion`.
+- [Place an annotation on a tracked surface](agents/recipes/video-vfx.js): Sample a saved planar track and pin an ExplainerKit annotation to the surface. Uses `explainerkit/core`, `explainerkit/vfx`.
+
+## Fixed vocabularies
+
+These lists come from the source. Values outside them are rejected.
+
+- Named easings: linear, smooth, easeOut, easeInOut, launch, titleOpen, anticipateOut, linearStop, snapIn. A trusted function from progress to progress is also accepted.
+- Entrance styles for `handle.enter(at, {style})`: fade, rise, pop, cut, reveal.
+- Shape types: group, circle, rect, line, path, cloud, text. Every shape accepts x, y, z, rotation, pivot, skewX, skewY, rotationX, rotationY, scaleX, scaleY, scaleZ, depth, opacity, fillOpacity, strokeOpacity, fill, stroke, strokeWidth, strokeDasharray, strokeDashoffset, strokeLinecap, strokeLinejoin, strokeMiterlimit, clip, fillRule, blur, glow, mask, blend, shade, texture.
+- `group` also accepts only the shared properties.
+- `circle` also accepts r.
+- `rect` also accepts width, height, rx.
+- `line` also accepts x1, y1, x2, y2, fill, stroke.
+- `path` also accepts commands, trimStart, trimEnd, trimOffset.
+- `cloud` also accepts points, pointSize, pointShape, pointBlend.
+- `text` also accepts text, fontSize, fontFamily, fontWeight, letterSpacing, align, baseline, wrap, lineHeight, minScreenSize, halo, textOutline, textAdvance.
+- Preset effects from `commonEffect(name)`: typewriter, wipe, flyIn, pulse, teeter, colorFlash.
+- Sound effects: whoosh, swipe, impact, tick, click, pop, reveal, riser, reverse, stinger, shimmer. Instruments: felt, mallet, pluck, bell, glass, pad.
+- Character starters: cow, mouse, dragonfly, frog, bean-everyday, bean-scientist, bean-engineer, bean-student, bean-night, stick-classic, stick-xkcd, stick-bold, stick-heavy, stick-pill, bird-robin, bird-canary, bird-bluebird, fish-clown, fish-teal, microbe-mint, microbe-violet. Moods: neutral, happy, sad, surprised, angry, thinking, sleepy.
+- Music grid units: bar, beat, half, third, quarter, onset, section.
+
+## Common mistakes
+
+- For new VFX shots, prepare fitted camera poses with compileCameraTrack. Its standard level repairs isolated pose spikes by default. Choose strong for smaller spikes or none to inspect the original poses.
+- Text alignment is the `align` property with the values start, middle and end. `textAnchor` is SVG vocabulary and is rejected.
+- That easing name does not exist. Named easings are listed in vocabularies.easings, for example easeOut, easeInOut, smooth or linear, or pass a trusted progress function.
+- Text `align` takes start, middle or end, not center, left or right.
+- Path commands are absolute M, L, C, Q and Z only. Convert relative, smooth (S, T), arc (A) and horizontal or vertical (H, V) commands, or build paths with explainerkit/geometry.
+- The `glow` property is an object, not a number. See docs/modules/graphics.md.
+- A cloud takes `points: {positions: [x0, y0, x1, y1, …], radii?, colors?}`, not an array of {x, y} objects.
+- A band scale exposes `bandwidth` and `step` as numbers, not methods. Write `x.bandwidth`.
+- Create scenes with `scene({width, height})` from explainerkit/core. There is no global ExplainerKit object.
+- You rarely need your own animation loop. Animate with `to`, parameters or timelines and let `scene.mount()` return a player that owns the clock, so seeking and export keep working.
+- ExplainerKit has its own scales, timelines and effects. Check find_capability before adding another animation or charting library. Three.js is supplied to explainerkit/renderers/three, not imported by ExplainerKit.
+- Drawing directly to SVG or Canvas bypasses the scene, so seeking, export and audits cannot see it. Add shapes to a scene and mount it, or use a renderer from explainerkit/renderers/svg or explainerkit/renderers/canvas.
+
+## Compatibility imports
+
+`explainerkit/rig`, `explainerkit/rigging`, `explainerkit/adaptive`, `explainerkit/compose`, `explainerkit/modeling`, `explainerkit/model`, `explainerkit/dom`, `explainerkit/shapes`, `explainerkit/composition`, `explainerkit/timeline`, `explainerkit/media/audio`, `explainerkit/waapi` remain for existing code. Use the imports above in new code.

@@ -1,0 +1,19 @@
+// Generated declaration inference with reviewed overrides; see docs/types.md for scope.
+export { cubicBezier } from "../core/timing.js";
+export { idle } from "../core/idle.js";
+export { springTiming } from "./spring-timing.js";
+export type SpringTimingOptions = import("./spring-timing.js").SpringTimingOptions;
+export type TimelineValue = import("./timeline.js").TimelineValue;
+export type TimelineOptions = import("./timeline.js").TimelineOptions;
+export type TimelineChannel = import("./timeline.js").TimelineChannel;
+export type TimelineSnapshot = import("./timeline.js").TimelineSnapshot;
+export type TimelineValuesSnapshot = import("./timeline.js").TimelineValuesSnapshot;
+export type PreparedTimeline = import("./timeline.js").PreparedTimeline;
+export type TimelineEvent = import("./timeline.js").TimelineEvent;
+export { ease, beats, readingPace } from "../core/motion.js";
+export { motionStyle, MOTION_STYLES } from "../core/motion-style.js";
+export { spring, springEasing, inertia, lag, jiggle, squashStretch } from "../physics/index.js";
+export { motionPath, bindMotionPath } from "../geometry/motion-path.js";
+export { easingCurve, stagger } from "./curves.js";
+export { commonEffect, bindCommonEffect } from "./common-effects.js";
+export { Timeline, createTimeline } from "./timeline.js";

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ExplainerKit</title>
+  <meta name="description" content="ExplainerKit is a JavaScript library for explanations that move, respond and rewind.">
+  <link rel="icon" href="data:,">
+  <script src="./theme-init.js"></script>
+  <!-- Where the page finds the library and Three.js. This copy points at the repository's source; the public build
+       rewrites it to the built runtime and the vendored Three.js beside the page. -->
+  <script type="importmap">{"imports":{"explainerkit":"./runtime/src/index.js","explainerkit/rig":"./runtime/src/rig.js","explainerkit/core":"./runtime/src/core/index.js","explainerkit/scroll":"./runtime/src/scroll.js","explainerkit/rigging":"./runtime/src/rigging.js","explainerkit/transitions":"./runtime/src/core/transition.js","explainerkit/renderers/svg":"./runtime/src/renderers/svg.js","explainerkit/renderers/canvas":"./runtime/src/renderers/canvas.js","explainerkit/film":"./runtime/src/film/index.js","explainerkit/film.css":"./runtime/src/film/film.css","explainerkit/adaptive":"./runtime/src/layout/adaptive.js","explainerkit/camera":"./runtime/src/camera/index.js","explainerkit/rigs":"./runtime/src/rigs/index.js","explainerkit/morph":"./runtime/src/morph/index.js","explainerkit/audit":"./runtime/src/audit/index.js","explainerkit/design":"./runtime/src/design/index.js","explainerkit/compose":"./runtime/src/compose/index.js","explainerkit/parallax":"./runtime/src/parallax/index.js","explainerkit/perception":"./runtime/src/perception/index.js","explainerkit/modeling":"./runtime/src/modeling/index.js","explainerkit/model":"./runtime/src/model/index.js","explainerkit/graphics":"./runtime/src/graphics/index.js","explainerkit/physics":"./runtime/src/physics/index.js","explainerkit/dom":"./runtime/src/adapters/dom.js","explainerkit/typography":"./runtime/src/typography/index.js","explainerkit/spatial":"./runtime/src/spatial/index.js","explainerkit/renderers/three":"./runtime/src/renderers/three.js","explainerkit/renderers/webgl":"./runtime/src/renderers/webgl.js","explainerkit/import/svg":"./runtime/src/import/svg.js","explainerkit/import/font":"./runtime/src/import/font.js","explainerkit/zoom":"./runtime/src/zoom/index.js","explainerkit/particles":"./runtime/src/particles/index.js","explainerkit/mechanisms":"./runtime/src/mechanisms/index.js","explainerkit/import/gltf":"./runtime/src/import/gltf.js","explainerkit/shapes":"./runtime/src/shapes/index.js","explainerkit/story":"./runtime/src/story/index.js","explainerkit/assets/preload":"./runtime/src/assets/preload.js","explainerkit/look":"./runtime/src/look/index.js","explainerkit/characters":"./runtime/src/characters/index.js","explainerkit/composition":"./runtime/src/composition/layers.js","explainerkit/player":"./runtime/src/player/index.js","explainerkit/media":"./runtime/src/media/index.js","explainerkit/timeline":"./runtime/src/timeline/index.js","explainerkit/project":"./runtime/src/project/index.js","explainerkit/layout/labels":"./runtime/src/layout/labels.js","explainerkit/layout/annotations":"./runtime/src/layout/annotations.js","explainerkit/sound":"./runtime/src/sound/index.js","explainerkit/media/audio":"./runtime/src/media/audio.js","explainerkit/procedural":"./runtime/src/procedural/index.js","explainerkit/waapi":"./runtime/src/adapters/waapi.js","explainerkit/data":"./runtime/src/data/index.js","explainerkit/geometry":"./runtime/src/geometry/index.js","explainerkit/geometry/shapes":"./runtime/src/geometry/shapes/index.js","explainerkit/layout":"./runtime/src/layout/index.js","explainerkit/color":"./runtime/src/color/index.js","explainerkit/motion":"./runtime/src/motion/index.js","explainerkit/motion/effects":"./runtime/src/motion/common-effects.js","explainerkit/noise":"./runtime/src/noise/index.js","explainerkit/editor/timeline":"./runtime/src/editor/timeline/index.js","explainerkit/adapters/dom":"./runtime/src/adapters/dom.js","explainerkit/adapters/waapi":"./runtime/src/adapters/waapi.js","explainerkit/inputs":"./runtime/src/inputs/index.js","explainerkit/sound/mix":"./runtime/src/sound/mix.js","explainerkit/sound/studio":"./runtime/src/sound/studio/index.js","explainerkit/music":"./runtime/src/music/index.js","explainerkit/vfx":"./runtime/src/vfx/index.js","three":"./vendor/three/three.module.js"}}</script>
+  <!-- The first paint needs nothing but this page: the paper and the vermilion plane, flying by CSS alone.
+       Everything else waits for main.js, which takes the plane over in the same pose and lets the rest join. -->
+  <style>
+    html { background: hsl(42 50% 96.5%); }
+    html.night { background: hsl(30 2% 8%); }
+    html.night .boot polygon:first-child { fill: hsl(214 78% 56%); }
+    html.night .boot polygon + polygon { fill: hsl(214 72% 41%); }
+    body { margin: 0; }
+    .boot { position: fixed; left: 62vw; top: 36vh; width: 0; height: 0; z-index: 3; pointer-events: none; }
+    .boot svg { position: absolute; width: clamp(30px, 5.2vmin, 64px); height: auto; offset-path: path('M0 0C60 -46 150 -46 150 0S60 46 0 0-60 -46-150 0-60 46 0 0'); offset-rotate: auto; offset-anchor: 50% 50%; animation: boot-fly 9s linear infinite; overflow: visible; }
+    .boot polygon { animation: boot-bank 9s linear infinite; transform-origin: 0 0; transform-box: view-box; }
+    @keyframes boot-fly { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+    @keyframes boot-bank { 0%, 50%, 100% { transform: scaleY(1); } 25%, 75% { transform: scaleY(.62); } }
+    @media (max-aspect-ratio: 10/11) { .boot { left: 50vw; top: 30vh; } .boot svg { offset-path: path('M0 0C36 -34 90 -34 90 0S36 34 0 0-36 -34-90 0-36 34 0 0'); } }
+    .boot.leaving { translate: 45vw -60vh; transition: translate .9s cubic-bezier(.5, 0, .9, .5); }
+    @media (prefers-reduced-motion: reduce) { .boot svg, .boot polygon { animation: none; } }
+    html:not(.ready) body > :not(.boot) { visibility: hidden; animation: boot-show 0s 30s forwards; /* if the script never runs */ }
+    @keyframes boot-show { to { visibility: visible; } }
+  </style>
+</head>
+<body>
+  <div class="boot" id="boot" aria-hidden="true"><svg viewBox="-20 -12 40 24"><polygon points="15.5,0 -15.5,-6 -13.5,0" fill="hsl(8 74% 54%)"/><polygon points="15.5,0 -15.5,4.5 -13.5,0" fill="hsl(6 72% 41%)"/></svg></div>
+  <link rel="stylesheet" href="./style.css">
+  <header class="brand"><a href="./index.html">explainerkit</a></header>
+  <button id="theme" class="theme" type="button" aria-label="Switch to night" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><mask id="theme-bite"><rect x="-10" y="-10" width="40" height="40" fill="#fff"/><circle class="bite-mask" cx="24" cy="-4" r="6.4" fill="#000"/></mask><g class="rays"><path d="M10 1.2v2.3M10 16.5v2.3M1.2 10h2.3M16.5 10h2.3M3.8 3.8l1.6 1.6M14.6 14.6l1.6 1.6M3.8 16.2l1.6-1.6M14.6 5.4l1.6-1.6"/></g><circle class="disc" cx="10" cy="10" r="4.2" mask="url(#theme-bite)"/></svg></button>
+  <div id="stage" class="stage" role="img" aria-label="An animated story that changes as you scroll, built with ExplainerKit.">
+    <canvas id="back"></canvas>
+    <canvas id="gl"></canvas>
+    <canvas id="ink"></canvas>
+    <div id="cast" class="cast"></div>
+    <canvas id="front"></canvas>
+  </div>
+  <div id="room-shot" class="footage room-shot" role="img" aria-label="The chart hangs on the wall of a dining room as the camera pulls back, and paper objects stand on the table" hidden></div>
+  <p id="room-credit" class="footage-credit" hidden>Footage by <a href="https://www.pexels.com/video/modern-dining-room-with-natural-lighting-39576525/">Alef Morais</a> · Pexels</p>
+  <div id="river-shot" class="footage river-shot" role="img" aria-label="A waterfall with its measured flow drawn over it, carrying paper boats" hidden></div>
+  <p id="river-credit" class="footage-credit" hidden>Footage from <a href="https://mixkit.co/free-stock-video/small-river-in-the-forest-4374/">Mixkit</a></p>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+  <main id="story" class="story">
+    <hgroup class="title">
+      <h1>Every <em class="focus">frame</em>,<br>on demand.</h1>
+      <p>ExplainerKit is a JavaScript library for explanations that move, respond and rewind.</p>
+    </hgroup>
+    <hgroup class="caption" data-caption="ribbon"><p class="module"><span>explainerkit/geometry</span></p><h2>Paths that draw themselves.</h2><p>Build, measure and deform curves and shapes. Reveal any path, carry anything along it, and keep an even pace by arc length.</p></hgroup>
+    <hgroup class="caption" data-caption="dandelion"><p class="module"><span>explainerkit/physics</span><span>explainerkit/noise</span></p><h2>Motion that responds.</h2><p>Springs, oscillators and live pointer velocity, with seeded fields and repeatable randomness. Every frame can be replayed exactly.</p></hgroup>
+    <hgroup class="caption" data-caption="garden"><p class="module"><span>explainerkit/procedural</span><span>explainerkit/import/svg</span></p><h2>Generated, not placed.</h2><p>Scatter by Poisson sampling, along paths or through fields, so nothing looks arranged. Bring your own SVG and it becomes geometry.</p></hgroup>
+    <hgroup class="caption" data-caption="city"><p class="module"><span>explainerkit/layout</span><span>explainerkit/spatial</span></p><h2>Labels that keep clear.</h2><p>Labels that never collide, and 3D projection, rays and picking that know when something is hidden. Rendered here by Three.js from the same scene.</p></hgroup>
+    <hgroup class="caption" data-caption="earth"><p class="module"><span>explainerkit/zoom</span></p><h2>Every scale, one camera.</h2><p>From a street to the planet at a steady perceived speed, with levels of detail handing over as you go.</p></hgroup>
+    <hgroup class="caption" data-caption="rings"><p class="module"><span>explainerkit/motion</span></p><h2>Choreography, in a line.</h2><p>Timelines, easing, springs and stagger. Order any number of parts from the first, the last or the centre.</p></hgroup>
+    <hgroup class="caption" data-caption="live"><p class="module"><span>explainerkit/inputs</span></p><h2>Live input, live data.</h2><p>Pointer, drag and drop, files, microphone, camera and device sensors arrive as ordinary parameters and data rows, validated and bounded. Bind them, and the scene reacts.</p></hgroup>
+    <hgroup class="caption" data-caption="room"><p class="module"><span>explainerkit/vfx</span><span>explainerkit/spatial</span></p><h2>Into real footage.</h2><p>Recover the camera from a recorded shot, then hang a chart on its wall and set things on its table. They keep their place as the camera moves. Tap the table to add one.</p></hgroup>
+    <hgroup class="caption" data-caption="river"><p class="module"><span>explainerkit/vfx</span></p><h2>Measure what moves.</h2><p>Read a velocity field from the footage itself, then draw it, trace it and let things ride it. Point at the water for its speed, or tap to launch a boat.</p></hgroup>
+    <div class="start">
+      <h2>Make your own.</h2>
+      <button id="install" class="install" type="button" aria-label="Copy the install command: npm i explainerkit"><code><span class="cmd">npm i</span> <span class="pkg">explainerkit</span></code><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg></button>
+      <nav class="links" aria-label="Learn more"><a href="./docs/getting-started.html">Getting started</a><a href="./docs/modules/index.html">Modules</a><a href="./docs/index.html">Documentation</a><a href="https://github.com/prajwalsouza/ExplainerKit">GitHub</a></nav>
+    </div>
+  </main>
+  <div class="scroll-cue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></svg></div>
+  <p id="hint" class="hint">Tap to fold a plane</p>
+  <button id="sample" class="sample" type="button" hidden>Drop an SVG here, or try a sample</button>
+  <div id="live-controls" class="live-controls" hidden>
+    <button id="live-toggle" class="live-toggle" type="button" aria-expanded="false" aria-controls="live-menu" aria-label="Bring your own data or voice"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8.5" class="orbit"/><circle cx="20.5" cy="12" r="1.4" class="moon"/><circle cx="7.75" cy="4.64" r="1.1" class="moon"/><circle cx="7.75" cy="19.36" r="1.2" class="moon"/></svg></button>
+    <div id="live-menu" class="live-menu" role="group" aria-label="Live input">
+      <button id="live-file" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V2.5M4.5 6 8 2.5 11.5 6M2.5 10.5v2a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-2"/></svg><span>Your CSV</span></button>
+      <button id="live-sample" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2"/><path d="M8 1.5v2.5M8 12v2.5M1.5 8H4M12 8h2.5M3.4 3.4l1.8 1.8M10.8 10.8l1.8 1.8M3.4 12.6l1.8-1.8M10.8 5.2l1.8-1.8"/></svg><span class="label">Sample</span></button>
+      <button id="live-view" type="button" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11M2.5 8h11"/></svg><span class="label">Next view</span></button>
+      <button id="live-listen" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="1.5" width="5" height="9" rx="2.5"/><path d="M3 8a5 5 0 0 0 10 0M8 13v2"/></svg><span class="label">Listen</span></button>
+    </div>
+    <input id="live-input" type="file" accept=".csv,text/csv" hidden>
+  </div>
+  <div id="live-labels" class="live-labels" aria-hidden="true"></div>
+  <div id="live-card" class="live-card" role="status" hidden></div>
+  <figure id="live-caption" class="live-caption" hidden>
+    <figcaption><span id="live-title" class="title"></span><span id="live-what" class="what"></span></figcaption>
+    <div id="live-views" class="views" role="group" aria-label="View" hidden></div>
+    <div id="live-seasons" class="seasons" role="group" aria-label="Season" hidden>
+      <button type="button" data-season="1" style="--hue: 214" aria-label="Season 1"><i></i><b>1</b></button><button type="button" data-season="2" style="--hue: 233" aria-label="Season 2"><i></i><b>2</b></button><button type="button" data-season="3" style="--hue: 253" aria-label="Season 3"><i></i><b>3</b></button><button type="button" data-season="4" style="--hue: 272" aria-label="Season 4"><i></i><b>4</b></button><button type="button" data-season="5" style="--hue: 291" aria-label="Season 5"><i></i><b>5</b></button><button type="button" data-season="6" style="--hue: 311" aria-label="Season 6"><i></i><b>6</b></button><button type="button" data-season="7" style="--hue: 330" aria-label="Season 7"><i></i><b>7</b></button><button type="button" data-season="8" style="--hue: 349" aria-label="Season 8"><i></i><b>8</b></button><button type="button" data-season="9" style="--hue: 9" aria-label="Season 9"><i></i><b>9</b></button><button type="button" data-season="10" style="--hue: 28" aria-label="Season 10"><i></i><b>10</b></button><button type="button" data-season="all" style="--hue: 300" class="all" aria-label="All seasons"><i></i><b>All</b></button>
+    </div>
+    <p id="live-credit" class="credit" hidden>Data: <a href="https://github.com/emorynlp/character-mining" rel="noopener">Emory NLP Character Mining</a>. <span id="live-credit-how">Interaction counts derived by ExplainerKit from shared scenes and consecutive speaker turns.</span></p>
+  </figure>
+  <nav class="rail" id="rail" aria-label="Story position"></nav>
+  <figure class="chip" aria-live="polite">
+    <pre><code></code></pre>
+    <button id="copy" class="copy" aria-label="Copy code"></button>
+  </figure>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

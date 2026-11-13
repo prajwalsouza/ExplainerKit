@@ -1,0 +1,1175 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Public API inventory · ExplainerKit</title><link rel="stylesheet" href="./style.css"><meta name="docs-root" content="./"><script src="./site.js"></script></head><body style="--h:200"><a class="skip" href="#main">Skip to content</a><button class="theme" type="button" aria-label="Switch between light and dark"><svg class="sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 20 20"><path d="M15.5 12.8A6.5 6.5 0 0 1 7.2 4.5a6.5 6.5 0 1 0 8.3 8.3z"/></svg></button><div class="shell"><details class="nav-panel" open><summary>Documentation <span>Browse modules</span></summary><nav class="sidebar" tabindex="0" aria-label="Documentation"><a class="brand" href="./../index.html"><i></i>explainerkit</a><div class="site-links"><a href="./../index.html" aria-label="ExplainerKit home" title="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></a><a href="./getting-started.html" aria-label="Documentation" title="Docs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V4c-4-1-7-1-10 1Zm0 0v15"/></svg></a></div><h4 style="--fh:214"><i></i>Start</h4><a style="--fh:214" href="getting-started.html">Getting started</a><a style="--fh:214" href="modules/index.html">Choose a module</a><a style="--fh:214" href="runtime-api.html">Runtime API</a><h4 style="--fh:214"><i></i>Build and connect</h4><a style="--fh:214" href="modules/library-layers.html">Library layers</a><a style="--fh:214" href="modules/data-modeling.html">Data</a><a style="--fh:214" href="modules/advanced-constructions.html">Constructions</a><a style="--fh:214" href="modules/drawing-batches.html">Drawing</a><a style="--fh:214" href="modules/polyhedra.html">Polyhedra</a><a style="--fh:214" href="modules/shape-operations.html">Shape operations</a><a style="--fh:214" href="modules/graphics.html">Graphics</a><a style="--fh:214" href="modules/color.html">Color</a><a style="--fh:214" href="modules/glyph-objects.html">Glyphs</a><a style="--fh:214" href="modules/dom-typography.html">DOM text</a><h4 style="--fh:18"><i></i>Move and transform</h4><a style="--fh:18" href="modules/timelines.html">Timelines</a><a style="--fh:18" href="modules/motion-curves.html">Curves/stagger</a><a style="--fh:18" href="modules/native-motion.html">Springs</a><a style="--fh:18" href="modules/common-effects.html">Common effects</a><a style="--fh:18" href="modules/live-inputs.html">Live inputs</a><a style="--fh:18" href="modules/story-cues-hover-intent.html">Hover intent</a><a style="--fh:18" href="modules/secondary-motion.html">Secondary motion</a><a style="--fh:18" href="modules/morph-safety.html">Morph safety</a><a style="--fh:18" href="modules/advanced-rigs.html">Rigs</a><a style="--fh:18" href="modules/procedural.html">Procedural</a><a style="--fh:18" href="modules/procedural-fields-networks.html">Fractal fields</a><h4 style="--fh:276"><i></i>Arrange and frame</h4><a style="--fh:276" href="modules/compose.html">Compose</a><a style="--fh:276" href="modules/annotations.html">Annotations</a><a style="--fh:276" href="modules/measured-labels.html">Measured labels</a><a style="--fh:276" href="modules/camera-choreography.html">Camera</a><a style="--fh:276" href="modules/depth-layers.html">Depth</a><a style="--fh:276" href="modules/spatial-three.html">Spatial</a><a style="--fh:276" href="modules/deep-zoom.html">Deep zoom</a><a style="--fh:276" href="modules/look.html">Look</a><a style="--fh:276" href="modules/parallax.html">Parallax</a><a style="--fh:276" href="modules/composition-audit.html">Composition</a><a style="--fh:276" href="modules/motion-diagnostics.html">Motion</a><a style="--fh:276" href="modules/continuity-audit.html">Continuity</a><a style="--fh:276" href="modules/palette-audit.html">Palettes</a><a style="--fh:276" href="modules/render-audit.html">3D rendering</a><a style="--fh:276" href="modules/rigs-morphing-perception.html">Grouping</a><h4 style="--fh:257"><i></i>Video VFX</h4><a style="--fh:257" href="modules/video-vfx.html">Track graphics on recorded video</a><a style="--fh:257" href="modules/video-vfx.html#compare-text-anchors">Text anchors</a><a style="--fh:257" href="modules/video-vfx.html#replace-a-screen-behind-a-speaker">Foreground mattes</a><a style="--fh:257" href="modules/video-vfx.html#track-screens-and-surfaces">Surface tracking</a><a style="--fh:257" href="modules/video-vfx.html#place-an-object-in-a-moving-shot">3D placement and occlusion</a><a style="--fh:257" href="modules/video-vfx.html#composite-behind-moving-people">Moving foreground</a><a style="--fh:257" href="modules/video-vfx.html#match-the-light-and-shadow">Lighting and shadows</a><a style="--fh:257" href="modules/video-vfx.html#animate-a-character-in-recorded-footage">Rigged characters</a><a style="--fh:257" href="modules/video-vfx.html#bring-a-woodland-into-a-living-room">Woodland and rover</a><a style="--fh:257" href="modules/video-vfx.html#place-clues-in-moving-footage">Scene text</a><a style="--fh:257" href="modules/video-vfx.html#guide-a-flock-through-a-recorded-room">Boids in footage</a><h4 style="--fh:168"><i></i>Add a specialist construction</h4><a style="--fh:168" href="modules/characters.html">Characters</a><a style="--fh:168" href="modules/biped-motion.html">Shared 2D/3D biped motion</a><a style="--fh:168" href="modules/character-profiles.html">Profile rigs</a><a style="--fh:168" href="modules/coordinated-motion.html">Coordinated timing</a><a style="--fh:168" href="modules/keyed-poses-follow.html">Pose keys</a><a style="--fh:168" href="modules/particles-mechanisms.html">Mechanisms</a><h4 style="--fh:96"><i></i>Write and design explanations</h4><a style="--fh:96" href="modules/design.html">Design explanations</a><h4 style="--fh:334"><i></i>Present, edit and export</h4><a style="--fh:334" href="modules/timeline-player.html">Timeline playback</a><a style="--fh:334" href="modules/projection-player.html">Existing-renderer projection</a><a style="--fh:334" href="modules/story-delivery.html">Story delivery</a><a style="--fh:334" href="modules/film-kit.html">Film</a><a style="--fh:334" href="modules/media-clock.html">Media clock</a><a style="--fh:334" href="modules/sound.html">Sound</a><a style="--fh:334" href="modules/sound-playback.html">Playback</a><a style="--fh:334" href="modules/audio-mixing.html">Mixing</a><a style="--fh:334" href="modules/studio-instruments.html">Studio instruments</a><a style="--fh:334" href="modules/studio-effects.html">Studio effects and meters</a><a style="--fh:334" href="modules/music.html">Music</a><a style="--fh:334" href="modules/music-production.html">Produce a score</a><a style="--fh:334" href="modules/music-analysis.html">Time visuals to music</a><a style="--fh:334" href="modules/timeline.html">Timeline</a><a style="--fh:334" href="modules/projects.html">Projects</a><h4 style="--fh:42"><i></i>Render or import</h4><a style="--fh:42" href="modules/renderer-contracts.html">Renderer contracts</a><a style="--fh:42" href="modules/webgl-points.html">WebGL</a><a style="--fh:42" href="modules/three-material-palettes.html">Material palettes</a><a style="--fh:42" href="modules/waapi.html">WAAPI</a><a style="--fh:42" href="modules/svg-import.html">SVG</a><a style="--fh:42" href="modules/font-outlines.html">Fonts</a><a style="--fh:42" href="modules/gltf-import.html">GlTF</a><h4 style="--fh:200"><i></i>Reference</h4><a style="--fh:200" href="api-inventory.html" aria-current="page">Exports</a><a style="--fh:200" href="error-codes.html">Errors</a><a style="--fh:200" href="types.html">Types</a><a style="--fh:200" href="architecture.html">Architecture</a></nav></details><main class="page" id="main"><header class="page-heading"><div class="family">Reference / Documentation</div><h1 id="public-api-inventory">Public API inventory</h1><p>Use this inventory when you know an import path and need to check which names it exports. For a task explanation and examples, begin with the <a href="modules/index.html">module map</a> or <a href="runtime-api.html">runtime API</a>, then return here to look up the exact exported name.</p></header><details class="contents contents-long"><summary>On this page <span>67 sections</span></summary><nav aria-label="On this page"><a href="#naming-and-units">Naming and units</a><a href="#explainerkit">explainerkit</a><a href="#explainerkitrig">explainerkit/rig</a><a href="#explainerkitcore">explainerkit/core</a><a href="#explainerkitscroll">explainerkit/scroll</a><a href="#explainerkitrigging">explainerkit/rigging</a><a href="#explainerkittransitions">explainerkit/transitions</a><a href="#explainerkitrendererssvg">explainerkit/renderers/svg</a><a href="#explainerkitrendererscanvas">explainerkit/renderers/canvas</a><a href="#explainerkitfilm">explainerkit/film</a><a href="#explainerkitfilmcss">explainerkit/film.css</a><a href="#explainerkitadaptive">explainerkit/adaptive</a><a href="#explainerkitcamera">explainerkit/camera</a><a href="#explainerkitrigs">explainerkit/rigs</a><a href="#explainerkitmorph">explainerkit/morph</a><a href="#explainerkitaudit">explainerkit/audit</a><a href="#explainerkitdesign">explainerkit/design</a><a href="#explainerkitcompose">explainerkit/compose</a><a href="#explainerkitparallax">explainerkit/parallax</a><a href="#explainerkitperception">explainerkit/perception</a><a href="#explainerkitmodeling">explainerkit/modeling</a><a href="#explainerkitmodel">explainerkit/model</a><a href="#explainerkitgraphics">explainerkit/graphics</a><a href="#explainerkitphysics">explainerkit/physics</a><a href="#explainerkitdom">explainerkit/dom</a><a href="#explainerkittypography">explainerkit/typography</a><a href="#explainerkitspatial">explainerkit/spatial</a><a href="#explainerkitrenderersthree">explainerkit/renderers/three</a><a href="#explainerkitrendererswebgl">explainerkit/renderers/webgl</a><a href="#explainerkitimportsvg">explainerkit/import/svg</a><a href="#explainerkitimportfont">explainerkit/import/font</a><a href="#explainerkitzoom">explainerkit/zoom</a><a href="#explainerkitparticles">explainerkit/particles</a><a href="#explainerkitmechanisms">explainerkit/mechanisms</a><a href="#explainerkitimportgltf">explainerkit/import/gltf</a><a href="#explainerkitshapes">explainerkit/shapes</a><a href="#explainerkitstory">explainerkit/story</a><a href="#explainerkitassetspreload">explainerkit/assets/preload</a><a href="#explainerkitlook">explainerkit/look</a><a href="#explainerkitcharacters">explainerkit/characters</a><a href="#explainerkitcomposition">explainerkit/composition</a><a href="#explainerkitplayer">explainerkit/player</a><a href="#explainerkitmedia">explainerkit/media</a><a href="#explainerkittimeline">explainerkit/timeline</a><a href="#explainerkitproject">explainerkit/project</a><a href="#explainerkitlayoutlabels">explainerkit/layout/labels</a><a href="#explainerkitlayoutannotations">explainerkit/layout/annotations</a><a href="#explainerkitsound">explainerkit/sound</a><a href="#explainerkitmediaaudio">explainerkit/media/audio</a><a href="#explainerkitprocedural">explainerkit/procedural</a><a href="#explainerkitwaapi">explainerkit/waapi</a><a href="#explainerkitdata">explainerkit/data</a><a href="#explainerkitgeometry">explainerkit/geometry</a><a href="#explainerkitgeometryshapes">explainerkit/geometry/shapes</a><a href="#explainerkitlayout">explainerkit/layout</a><a href="#explainerkitcolor">explainerkit/color</a><a href="#explainerkitmotion">explainerkit/motion</a><a href="#explainerkitmotioneffects">explainerkit/motion/effects</a><a href="#explainerkitnoise">explainerkit/noise</a><a href="#explainerkiteditortimeline">explainerkit/editor/timeline</a><a href="#explainerkitadaptersdom">explainerkit/adapters/dom</a><a href="#explainerkitadapterswaapi">explainerkit/adapters/waapi</a><a href="#explainerkitinputs">explainerkit/inputs</a><a href="#explainerkitsoundmix">explainerkit/sound/mix</a><a href="#explainerkitsoundstudio">explainerkit/sound/studio</a><a href="#explainerkitmusic">explainerkit/music</a><a href="#explainerkitvfx">explainerkit/vfx</a></nav></details><article class="doc"><p>The JavaScript exports are <strong>experimental</strong> while the package version begins with <code>0.</code>, so their availability is not a promise of 1.0 stability or complete behavioral coverage. Import a module through the package path shown in its heading rather than assuming that every internal source-file path is public. CSS entries load styles instead of JavaScript functions.</p><h2 id="naming-and-units">Naming and units</h2>
+<p>Public time values use seconds, and geometry angles use radians. A field named <code>at</code> specifies the starting time, while <code>duration</code> specifies how long an interval lasts. File-size limits use bytes and renderer-output limits use pixels, so those limits should not be interpreted as scene coordinates or time values.</p>
+<p>Drawing coordinates use the units authored in the scene, which are usually pixels before the chosen view transforms them. Character speeds and dimensions use character units that are scaled by the instance. Spatial coordinates and quantitative data keep the units chosen by the application rather than implicitly becoming metres. Document that choice when a drawing represents a physical quantity.</p>
+<p>HSLA color values use degrees for hue, percentages for saturation and lightness, and alpha from 0–1 for opacity. These are color-authoring units rather than measurements of perceived brightness, so use the <a href="modules/color.html">color guide</a> when conversion or contrast matters.</p>
+<p>Joint and skeleton calculations are available from <code>explainerkit/rigs</code>. Forward kinematics (FK) calculates positions from joint angles, while inverse kinematics (IK) solves angles for a requested target. Other rig tools connect artwork to bones or curves, with the <a href="modules/library-layers.html">library layers guide</a> explaining how those calculations use the same scene. Subject modules such as <code>mechanisms</code> or <code>characters</code> are loaded separately when their constructions are needed.</p>
+<p>Shape operations have different representations and limits. The convex-polygon operations exposed through <code>explainerkit/geometry/shapes</code> combine their supported polygons, while <code>booleanPath</code> operates on path outlines after approximating curves with line segments. Appearance helpers belong to <code>explainerkit/look</code>, and the implementation-source link under an entry identifies where its code lives without creating another public import path.</p>
+<h2 id="explainerkit"><code>explainerkit</code></h2>
+<p>The implementation is in <a href="../runtime/src/index.js">./src/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>KitError</code></td><td>experimental</td></tr>
+<tr><td><code>MOTION_STYLES</code></td><td>experimental</td></tr>
+<tr><td><code>Scene</code></td><td>experimental</td></tr>
+<tr><td><code>analyse</code></td><td>experimental</td></tr>
+<tr><td><code>applyLayout</code></td><td>experimental</td></tr>
+<tr><td><code>attachScroll</code></td><td>experimental</td></tr>
+<tr><td><code>beats</code></td><td>experimental</td></tr>
+<tr><td><code>cameraMatrix</code></td><td>experimental</td></tr>
+<tr><td><code>captureState</code></td><td>experimental</td></tr>
+<tr><td><code>clamp</code></td><td>experimental</td></tr>
+<tr><td><code>createTransition</code></td><td>experimental</td></tr>
+<tr><td><code>cubicBezier</code></td><td>experimental</td></tr>
+<tr><td><code>ease</code></td><td>experimental</td></tr>
+<tr><td><code>estimateText</code></td><td>experimental</td></tr>
+<tr><td><code>fitRegion</code></td><td>experimental</td></tr>
+<tr><td><code>fkTwoBone</code></td><td>experimental</td></tr>
+<tr><td><code>idle</code></td><td>experimental</td></tr>
+<tr><td><code>interpolateStates</code></td><td>experimental</td></tr>
+<tr><td><code>invertMatrix</code></td><td>experimental</td></tr>
+<tr><td><code>lerp</code></td><td>experimental</td></tr>
+<tr><td><code>linearScale</code></td><td>experimental</td></tr>
+<tr><td><code>measureNode</code></td><td>experimental</td></tr>
+<tr><td><code>motionStyle</code></td><td>experimental</td></tr>
+<tr><td><code>multiplyMatrices</code></td><td>experimental</td></tr>
+<tr><td><code>planLayout</code></td><td>experimental</td></tr>
+<tr><td><code>readingPace</code></td><td>experimental</td></tr>
+<tr><td><code>scene</code></td><td>experimental</td></tr>
+<tr><td><code>scrollProgress</code></td><td>experimental</td></tr>
+<tr><td><code>scrollTime</code></td><td>experimental</td></tr>
+<tr><td><code>seeded</code></td><td>experimental</td></tr>
+<tr><td><code>solveTwoBone</code></td><td>experimental</td></tr>
+<tr><td><code>toAuthored</code></td><td>experimental</td></tr>
+<tr><td><code>transformPoint</code></td><td>experimental</td></tr>
+<tr><td><code>twoBoneRig</code></td><td>experimental</td></tr>
+<tr><td><code>worldPose</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrig"><code>explainerkit/rig</code></h2>
+<p>The implementation is in <a href="../runtime/src/rig.js">./src/rig.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>fkTwoBone</code></td><td>experimental</td></tr>
+<tr><td><code>solveTwoBone</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitcore"><code>explainerkit/core</code></h2>
+<p>The implementation is in <a href="../runtime/src/core/index.js">./src/core/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>KitError</code></td><td>experimental</td></tr>
+<tr><td><code>MOTION_STYLES</code></td><td>experimental</td></tr>
+<tr><td><code>Scene</code></td><td>experimental</td></tr>
+<tr><td><code>beats</code></td><td>experimental</td></tr>
+<tr><td><code>clamp</code></td><td>experimental</td></tr>
+<tr><td><code>cubicBezier</code></td><td>experimental</td></tr>
+<tr><td><code>ease</code></td><td>experimental</td></tr>
+<tr><td><code>idle</code></td><td>experimental</td></tr>
+<tr><td><code>lerp</code></td><td>experimental</td></tr>
+<tr><td><code>linearScale</code></td><td>experimental</td></tr>
+<tr><td><code>motionStyle</code></td><td>experimental</td></tr>
+<tr><td><code>readingPace</code></td><td>experimental</td></tr>
+<tr><td><code>scene</code></td><td>experimental</td></tr>
+<tr><td><code>seeded</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitscroll"><code>explainerkit/scroll</code></h2>
+<p>The implementation is in <a href="../runtime/src/scroll.js">./src/scroll.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>ARRIVALS</code></td><td>experimental</td></tr>
+<tr><td><code>DEFAULT_PACE_BOUNDS</code></td><td>experimental</td></tr>
+<tr><td><code>SCROLL_PACES</code></td><td>experimental</td></tr>
+<tr><td><code>arrivalPlan</code></td><td>experimental</td></tr>
+<tr><td><code>arrivalTime</code></td><td>experimental</td></tr>
+<tr><td><code>attachScroll</code></td><td>experimental</td></tr>
+<tr><td><code>scrollPace</code></td><td>experimental</td></tr>
+<tr><td><code>scrollProgress</code></td><td>experimental</td></tr>
+<tr><td><code>scrollTime</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrigging"><code>explainerkit/rigging</code></h2>
+<p>The implementation is in <a href="../runtime/src/rigging.js">./src/rigging.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>twoBoneRig</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkittransitions"><code>explainerkit/transitions</code></h2>
+<p>The implementation is in <a href="../runtime/src/core/transition.js">./src/core/transition.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>captureState</code></td><td>experimental</td></tr>
+<tr><td><code>createTransition</code></td><td>experimental</td></tr>
+<tr><td><code>interpolateStates</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrendererssvg"><code>explainerkit/renderers/svg</code></h2>
+<p>The implementation is in <a href="../runtime/src/renderers/svg.js">./src/renderers/svg.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>MAX_SVG_POINTS</code></td><td>experimental</td></tr>
+<tr><td><code>createSVGRenderer</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrendererscanvas"><code>explainerkit/renderers/canvas</code></h2>
+<p>The implementation is in <a href="../runtime/src/renderers/canvas.js">./src/renderers/canvas.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>createCanvasRenderer</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitfilm"><code>explainerkit/film</code></h2>
+<p>The implementation is in <a href="../runtime/src/film/index.js">./src/film/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>film</code></td><td>experimental</td></tr>
+<tr><td><code>palette</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitfilmcss"><code>explainerkit/film.css</code></h2>
+<p>The implementation is in <a href="../runtime/src/film/film.css">./src/film/film.css</a>.</p>
+<p>This <strong>experimental stylesheet</strong> changes film-control styles when imported. It supplies presentation rather than a JavaScript function.</p>
+<h2 id="explainerkitadaptive"><code>explainerkit/adaptive</code></h2>
+<p>The implementation is in <a href="../runtime/src/layout/adaptive.js">./src/layout/adaptive.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>analyse</code></td><td>experimental</td></tr>
+<tr><td><code>applyLayout</code></td><td>experimental</td></tr>
+<tr><td><code>bandsOf</code></td><td>experimental</td></tr>
+<tr><td><code>estimateText</code></td><td>experimental</td></tr>
+<tr><td><code>measureNode</code></td><td>experimental</td></tr>
+<tr><td><code>planLayout</code></td><td>experimental</td></tr>
+<tr><td><code>toAuthored</code></td><td>experimental</td></tr>
+<tr><td><code>units</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitcamera"><code>explainerkit/camera</code></h2>
+<p>The implementation is in <a href="../runtime/src/camera/index.js">./src/camera/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>Camera</code></td><td>experimental</td></tr>
+<tr><td><code>MAX_CAMERA_ZOOM</code></td><td>experimental</td></tr>
+<tr><td><code>MIN_CAMERA_ZOOM</code></td><td>experimental</td></tr>
+<tr><td><code>cameraDefaults</code></td><td>experimental</td></tr>
+<tr><td><code>cameraMatrix</code></td><td>experimental</td></tr>
+<tr><td><code>fitRegion</code></td><td>experimental</td></tr>
+<tr><td><code>focusBlur</code></td><td>experimental</td></tr>
+<tr><td><code>invertMatrix</code></td><td>experimental</td></tr>
+<tr><td><code>layerPose</code></td><td>experimental</td></tr>
+<tr><td><code>multiplyMatrices</code></td><td>experimental</td></tr>
+<tr><td><code>projectLayer</code></td><td>experimental</td></tr>
+<tr><td><code>shutterTimes</code></td><td>experimental</td></tr>
+<tr><td><code>transformPoint</code></td><td>experimental</td></tr>
+<tr><td><code>worldPose</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrigs"><code>explainerkit/rigs</code></h2>
+<p>The implementation is in <a href="../runtime/src/rigs/index.js">./src/rigs/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>bindSkin</code></td><td>experimental</td></tr>
+<tr><td><code>fkTwoBone</code></td><td>experimental</td></tr>
+<tr><td><code>skeleton</code></td><td>experimental</td></tr>
+<tr><td><code>skeletonRig</code></td><td>experimental</td></tr>
+<tr><td><code>solveRigGoals</code></td><td>experimental</td></tr>
+<tr><td><code>solveTwoBone</code></td><td>experimental</td></tr>
+<tr><td><code>solveTwoBone3D</code></td><td>experimental</td></tr>
+<tr><td><code>splineRig</code></td><td>experimental</td></tr>
+<tr><td><code>twoBoneRig</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmorph"><code>explainerkit/morph</code></h2>
+<p>The implementation is in <a href="../runtime/src/morph/index.js">./src/morph/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>colorInterpolator</code></td><td>experimental</td></tr>
+<tr><td><code>createCompoundMorph</code></td><td>experimental</td></tr>
+<tr><td><code>createMergeMorph</code></td><td>experimental</td></tr>
+<tr><td><code>createMorph</code></td><td>experimental</td></tr>
+<tr><td><code>createSafeMorph</code></td><td>experimental</td></tr>
+<tr><td><code>createSceneTransition</code></td><td>experimental</td></tr>
+<tr><td><code>createShapeKeys</code></td><td>experimental</td></tr>
+<tr><td><code>createSplitMorph</code></td><td>experimental</td></tr>
+<tr><td><code>flattenPath</code></td><td>experimental</td></tr>
+<tr><td><code>matchCut</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitaudit"><code>explainerkit/audit</code></h2>
+<p>The implementation is in <a href="../runtime/src/audit/index.js">./src/audit/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>CONTINUITY</code></td><td>experimental</td></tr>
+<tr><td><code>RENDER_3D</code></td><td>experimental</td></tr>
+<tr><td><code>RULES</code></td><td>experimental</td></tr>
+<tr><td><code>auditFrame</code></td><td>experimental</td></tr>
+<tr><td><code>auditHandover</code></td><td>experimental</td></tr>
+<tr><td><code>auditHandoverWindow</code></td><td>experimental</td></tr>
+<tr><td><code>auditMotion</code></td><td>experimental</td></tr>
+<tr><td><code>auditPalette</code></td><td>experimental</td></tr>
+<tr><td><code>auditRender3D</code></td><td>experimental</td></tr>
+<tr><td><code>auditRendererStats</code></td><td>experimental</td></tr>
+<tr><td><code>auditScene</code></td><td>experimental</td></tr>
+<tr><td><code>auditStripes</code></td><td>experimental</td></tr>
+<tr><td><code>auditTextOverPixels</code></td><td>experimental</td></tr>
+<tr><td><code>colorDistance</code></td><td>experimental</td></tr>
+<tr><td><code>comparePalettes</code></td><td>experimental</td></tr>
+<tr><td><code>contrastRatio</code></td><td>experimental</td></tr>
+<tr><td><code>describeThreeScene</code></td><td>experimental</td></tr>
+<tr><td><code>fitSimilarity</code></td><td>experimental</td></tr>
+<tr><td><code>frameMarks</code></td><td>experimental</td></tr>
+<tr><td><code>parseColor</code></td><td>experimental</td></tr>
+<tr><td><code>relativeLuminance</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitdesign"><code>explainerkit/design</code></h2>
+<p>The implementation is in <a href="../runtime/src/design/index.js">./src/design/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>ABSTRACTIONS</code></td><td>experimental</td></tr>
+<tr><td><code>ALLEGORIES</code></td><td>experimental</td></tr>
+<tr><td><code>ANIMATION_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>ATTENTION_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>ATTENTION_LEDGER</code></td><td>experimental</td></tr>
+<tr><td><code>ATTENTION_PART_WORDS</code></td><td>experimental</td></tr>
+<tr><td><code>AUDIENCE_LEVELS</code></td><td>experimental</td></tr>
+<tr><td><code>CAMERA_MOVES</code></td><td>experimental</td></tr>
+<tr><td><code>CAVEAT_RULES</code></td><td>experimental</td></tr>
+<tr><td><code>CINEMATOGRAPHY_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>DEFAULT_AUDIENCE</code></td><td>experimental</td></tr>
+<tr><td><code>DEFAULT_STYLE</code></td><td>experimental</td></tr>
+<tr><td><code>DEPICTIONS</code></td><td>experimental</td></tr>
+<tr><td><code>DEPTHS</code></td><td>experimental</td></tr>
+<tr><td><code>EARN_KINDS</code></td><td>experimental</td></tr>
+<tr><td><code>EFFORTS</code></td><td>experimental</td></tr>
+<tr><td><code>ELEMENT_ROLES</code></td><td>experimental</td></tr>
+<tr><td><code>EMOTION_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>EMOTION_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>EVIDENCE</code></td><td>experimental</td></tr>
+<tr><td><code>EXPLAINER_STAGES</code></td><td>experimental</td></tr>
+<tr><td><code>EXPLORER</code></td><td>experimental</td></tr>
+<tr><td><code>FABLE_STAGES</code></td><td>experimental</td></tr>
+<tr><td><code>FAR_FIELDS</code></td><td>experimental</td></tr>
+<tr><td><code>FEELING_LEVELS</code></td><td>experimental</td></tr>
+<tr><td><code>FRAMINGS</code></td><td>experimental</td></tr>
+<tr><td><code>HEDGES</code></td><td>experimental</td></tr>
+<tr><td><code>HOOK_FLAVOURS</code></td><td>experimental</td></tr>
+<tr><td><code>HOOK_PATTERNS</code></td><td>experimental</td></tr>
+<tr><td><code>HOOK_REFERENCES</code></td><td>experimental</td></tr>
+<tr><td><code>IMAGE_USE_CASES</code></td><td>experimental</td></tr>
+<tr><td><code>INSIGHT_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>INSTRUCTIONS</code></td><td>experimental</td></tr>
+<tr><td><code>INVITATIONS</code></td><td>experimental</td></tr>
+<tr><td><code>LENSES</code></td><td>experimental</td></tr>
+<tr><td><code>LENS_FAMILIES</code></td><td>experimental</td></tr>
+<tr><td><code>LOOK_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>LOOK_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>MEDIA</code></td><td>experimental</td></tr>
+<tr><td><code>METAPHOR_TYPES</code></td><td>experimental</td></tr>
+<tr><td><code>MOTION_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>MOTION_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>MOTION_VERBS</code></td><td>experimental</td></tr>
+<tr><td><code>MULTIMEDIA_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>MULTIMEDIA_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>OPERATIONS</code></td><td>experimental</td></tr>
+<tr><td><code>OPERATION_KINDS</code></td><td>experimental</td></tr>
+<tr><td><code>PALETTE_ROLES</code></td><td>experimental</td></tr>
+<tr><td><code>PATCHABLE</code></td><td>experimental</td></tr>
+<tr><td><code>PHILOSOPHY_JARGON</code></td><td>experimental</td></tr>
+<tr><td><code>PLAIN_RULES</code></td><td>experimental</td></tr>
+<tr><td><code>PRODUCTION_EXAMPLES</code></td><td>experimental</td></tr>
+<tr><td><code>PRODUCTION_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>PRODUCTION_RULES</code></td><td>experimental</td></tr>
+<tr><td><code>PROVOCATIONS</code></td><td>experimental</td></tr>
+<tr><td><code>REFERENCES</code></td><td>experimental</td></tr>
+<tr><td><code>REFERENCE_KINDS</code></td><td>experimental</td></tr>
+<tr><td><code>REFERENCE_MODULES</code></td><td>experimental</td></tr>
+<tr><td><code>REGISTERS</code></td><td>experimental</td></tr>
+<tr><td><code>SERIES_STAGES</code></td><td>experimental</td></tr>
+<tr><td><code>SHAPES</code></td><td>experimental</td></tr>
+<tr><td><code>SHOT_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>SHOT_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>SOUND_PRINCIPLES</code></td><td>experimental</td></tr>
+<tr><td><code>SPEND_KINDS</code></td><td>experimental</td></tr>
+<tr><td><code>STIMULI</code></td><td>experimental</td></tr>
+<tr><td><code>STOCK_PHRASES</code></td><td>experimental</td></tr>
+<tr><td><code>STRUCTURE_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>TERMS_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>TRANSITIONS</code></td><td>experimental</td></tr>
+<tr><td><code>VISUAL_COMPONENTS</code></td><td>experimental</td></tr>
+<tr><td><code>VISUAL_STAGES</code></td><td>experimental</td></tr>
+<tr><td><code>VISUAL_STYLES</code></td><td>experimental</td></tr>
+<tr><td><code>VISUAL_VOCABULARY</code></td><td>experimental</td></tr>
+<tr><td><code>VOICE_EXAMPLES</code></td><td>experimental</td></tr>
+<tr><td><code>VOICE_GATE</code></td><td>experimental</td></tr>
+<tr><td><code>VOICE_RULES</code></td><td>experimental</td></tr>
+<tr><td><code>allegoryCoverage</code></td><td>experimental</td></tr>
+<tr><td><code>applyEdits</code></td><td>experimental</td></tr>
+<tr><td><code>applyShotPatches</code></td><td>experimental</td></tr>
+<tr><td><code>assessCohesion</code></td><td>experimental</td></tr>
+<tr><td><code>attentionMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>attentionProblems</code></td><td>experimental</td></tr>
+<tr><td><code>audienceInsight</code></td><td>experimental</td></tr>
+<tr><td><code>audienceProblems</code></td><td>experimental</td></tr>
+<tr><td><code>auditAttention</code></td><td>experimental</td></tr>
+<tr><td><code>auditAttentionPart</code></td><td>experimental</td></tr>
+<tr><td><code>auditForAudience</code></td><td>experimental</td></tr>
+<tr><td><code>auditInsight</code></td><td>experimental</td></tr>
+<tr><td><code>auditMultimedia</code></td><td>experimental</td></tr>
+<tr><td><code>auditScriptAttention</code></td><td>experimental</td></tr>
+<tr><td><code>auditScriptInsight</code></td><td>experimental</td></tr>
+<tr><td><code>boolean</code></td><td>experimental</td></tr>
+<tr><td><code>bridgeChapters</code></td><td>experimental</td></tr>
+<tr><td><code>buildAudience</code></td><td>experimental</td></tr>
+<tr><td><code>checkAllegories</code></td><td>experimental</td></tr>
+<tr><td><code>checkCascade</code></td><td>experimental</td></tr>
+<tr><td><code>checkCuts</code></td><td>experimental</td></tr>
+<tr><td><code>checkMultimedia</code></td><td>experimental</td></tr>
+<tr><td><code>checkPhilosophy</code></td><td>experimental</td></tr>
+<tr><td><code>checkStitch</code></td><td>experimental</td></tr>
+<tr><td><code>checkTelling</code></td><td>experimental</td></tr>
+<tr><td><code>checkTellings</code></td><td>experimental</td></tr>
+<tr><td><code>checkTerms</code></td><td>experimental</td></tr>
+<tr><td><code>chooseAllegory</code></td><td>experimental</td></tr>
+<tr><td><code>chooseDepth</code></td><td>experimental</td></tr>
+<tr><td><code>chooseSeed</code></td><td>experimental</td></tr>
+<tr><td><code>chooseTelling</code></td><td>experimental</td></tr>
+<tr><td><code>cohesionMap</code></td><td>experimental</td></tr>
+<tr><td><code>connectDistant</code></td><td>experimental</td></tr>
+<tr><td><code>consultPhilosophy</code></td><td>experimental</td></tr>
+<tr><td><code>coverObjectives</code></td><td>experimental</td></tr>
+<tr><td><code>createDesignRun</code></td><td>experimental</td></tr>
+<tr><td><code>createFrames</code></td><td>experimental</td></tr>
+<tr><td><code>cutNames</code></td><td>experimental</td></tr>
+<tr><td><code>decodePatches</code></td><td>experimental</td></tr>
+<tr><td><code>deepenFrame</code></td><td>experimental</td></tr>
+<tr><td><code>defineOperation</code></td><td>experimental</td></tr>
+<tr><td><code>definePrinciple</code></td><td>experimental</td></tr>
+<tr><td><code>defineReference</code></td><td>experimental</td></tr>
+<tr><td><code>depictIdeas</code></td><td>experimental</td></tr>
+<tr><td><code>designEmotion</code></td><td>experimental</td></tr>
+<tr><td><code>designExplainer</code></td><td>experimental</td></tr>
+<tr><td><code>designFable</code></td><td>experimental</td></tr>
+<tr><td><code>designLook</code></td><td>experimental</td></tr>
+<tr><td><code>designMotion</code></td><td>experimental</td></tr>
+<tr><td><code>designSeries</code></td><td>experimental</td></tr>
+<tr><td><code>designSound</code></td><td>experimental</td></tr>
+<tr><td><code>designStructure</code></td><td>experimental</td></tr>
+<tr><td><code>designVisuals</code></td><td>experimental</td></tr>
+<tr><td><code>developTelling</code></td><td>experimental</td></tr>
+<tr><td><code>discoverExplainer</code></td><td>experimental</td></tr>
+<tr><td><code>draftScript</code></td><td>experimental</td></tr>
+<tr><td><code>emotionMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>engineerCascade</code></td><td>experimental</td></tr>
+<tr><td><code>engineerHooks</code></td><td>experimental</td></tr>
+<tr><td><code>engineerInsight</code></td><td>experimental</td></tr>
+<tr><td><code>eurekaGraph</code></td><td>experimental</td></tr>
+<tr><td><code>expectShape</code></td><td>experimental</td></tr>
+<tr><td><code>exploreEveryday</code></td><td>experimental</td></tr>
+<tr><td><code>exploreStories</code></td><td>experimental</td></tr>
+<tr><td><code>exploreSurprises</code></td><td>experimental</td></tr>
+<tr><td><code>exploreUnusualSources</code></td><td>experimental</td></tr>
+<tr><td><code>exploreWide</code></td><td>experimental</td></tr>
+<tr><td><code>fableMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>findImage</code></td><td>experimental</td></tr>
+<tr><td><code>findMeaning</code></td><td>experimental</td></tr>
+<tr><td><code>findParallels</code></td><td>experimental</td></tr>
+<tr><td><code>findPeople</code></td><td>experimental</td></tr>
+<tr><td><code>findTerms</code></td><td>experimental</td></tr>
+<tr><td><code>flowStats</code></td><td>experimental</td></tr>
+<tr><td><code>freshFrames</code></td><td>experimental</td></tr>
+<tr><td><code>generateImages</code></td><td>experimental</td></tr>
+<tr><td><code>imagePromptSpec</code></td><td>experimental</td></tr>
+<tr><td><code>insightMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>insightProblems</code></td><td>experimental</td></tr>
+<tr><td><code>investigate</code></td><td>experimental</td></tr>
+<tr><td><code>keepAttention</code></td><td>experimental</td></tr>
+<tr><td><code>keepRatio</code></td><td>experimental</td></tr>
+<tr><td><code>keepWanderings</code></td><td>experimental</td></tr>
+<tr><td><code>lateralPass</code></td><td>experimental</td></tr>
+<tr><td><code>list</code></td><td>experimental</td></tr>
+<tr><td><code>locateQuote</code></td><td>experimental</td></tr>
+<tr><td><code>lookMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>mapAllegory</code></td><td>experimental</td></tr>
+<tr><td><code>mapDebates</code></td><td>experimental</td></tr>
+<tr><td><code>motionMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>multimediaMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>nameIt</code></td><td>experimental</td></tr>
+<tr><td><code>narrationEditShape</code></td><td>experimental</td></tr>
+<tr><td><code>number</code></td><td>experimental</td></tr>
+<tr><td><code>oneOf</code></td><td>experimental</td></tr>
+<tr><td><code>outlineExplainer</code></td><td>experimental</td></tr>
+<tr><td><code>outlineFable</code></td><td>experimental</td></tr>
+<tr><td><code>outlineSeries</code></td><td>experimental</td></tr>
+<tr><td><code>patchShape</code></td><td>experimental</td></tr>
+<tr><td><code>persona</code></td><td>experimental</td></tr>
+<tr><td><code>philosophyJargon</code></td><td>experimental</td></tr>
+<tr><td><code>pickLenses</code></td><td>experimental</td></tr>
+<tr><td><code>pickStimuli</code></td><td>experimental</td></tr>
+<tr><td><code>planAttention</code></td><td>experimental</td></tr>
+<tr><td><code>planEmotion</code></td><td>experimental</td></tr>
+<tr><td><code>planLook</code></td><td>experimental</td></tr>
+<tr><td><code>planMotion</code></td><td>experimental</td></tr>
+<tr><td><code>planShots</code></td><td>experimental</td></tr>
+<tr><td><code>planSound</code></td><td>experimental</td></tr>
+<tr><td><code>planStructure</code></td><td>experimental</td></tr>
+<tr><td><code>planSubtopics</code></td><td>experimental</td></tr>
+<tr><td><code>plotFable</code></td><td>experimental</td></tr>
+<tr><td><code>polishVoice</code></td><td>experimental</td></tr>
+<tr><td><code>principleRules</code></td><td>experimental</td></tr>
+<tr><td><code>principles</code></td><td>experimental</td></tr>
+<tr><td><code>proposeSeeds</code></td><td>experimental</td></tr>
+<tr><td><code>proposeTruths</code></td><td>experimental</td></tr>
+<tr><td><code>provoke</code></td><td>experimental</td></tr>
+<tr><td><code>randomEntry</code></td><td>experimental</td></tr>
+<tr><td><code>rankSeeds</code></td><td>experimental</td></tr>
+<tr><td><code>readAround</code></td><td>experimental</td></tr>
+<tr><td><code>record</code></td><td>experimental</td></tr>
+<tr><td><code>referenceExamples</code></td><td>experimental</td></tr>
+<tr><td><code>referencesFor</code></td><td>experimental</td></tr>
+<tr><td><code>reframe</code></td><td>experimental</td></tr>
+<tr><td><code>reframeLoop</code></td><td>experimental</td></tr>
+<tr><td><code>renderOutline</code></td><td>experimental</td></tr>
+<tr><td><code>renderPrompt</code></td><td>experimental</td></tr>
+<tr><td><code>replanShots</code></td><td>experimental</td></tr>
+<tr><td><code>researchHooks</code></td><td>experimental</td></tr>
+<tr><td><code>researchVisuals</code></td><td>experimental</td></tr>
+<tr><td><code>resolveMedium</code></td><td>experimental</td></tr>
+<tr><td><code>resolveStyle</code></td><td>experimental</td></tr>
+<tr><td><code>reviewAllegory</code></td><td>experimental</td></tr>
+<tr><td><code>reviewFable</code></td><td>experimental</td></tr>
+<tr><td><code>reviewLearning</code></td><td>experimental</td></tr>
+<tr><td><code>reviewScience</code></td><td>experimental</td></tr>
+<tr><td><code>reviewStory</code></td><td>experimental</td></tr>
+<tr><td><code>revise</code></td><td>experimental</td></tr>
+<tr><td><code>reviseFable</code></td><td>experimental</td></tr>
+<tr><td><code>reviseForAttention</code></td><td>experimental</td></tr>
+<tr><td><code>reviseForInsight</code></td><td>experimental</td></tr>
+<tr><td><code>rewritePlain</code></td><td>experimental</td></tr>
+<tr><td><code>scriptMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>scriptStats</code></td><td>experimental</td></tr>
+<tr><td><code>shapeErrors</code></td><td>experimental</td></tr>
+<tr><td><code>shortRuns</code></td><td>experimental</td></tr>
+<tr><td><code>shotDigest</code></td><td>experimental</td></tr>
+<tr><td><code>shotShape</code></td><td>experimental</td></tr>
+<tr><td><code>shotSpans</code></td><td>experimental</td></tr>
+<tr><td><code>soundMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>stitch</code></td><td>experimental</td></tr>
+<tr><td><code>string</code></td><td>experimental</td></tr>
+<tr><td><code>structureMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>summariseDiscovery</code></td><td>experimental</td></tr>
+<tr><td><code>surpriseMoments</code></td><td>experimental</td></tr>
+<tr><td><code>targetPersona</code></td><td>experimental</td></tr>
+<tr><td><code>termHits</code></td><td>experimental</td></tr>
+<tr><td><code>termMeasures</code></td><td>experimental</td></tr>
+<tr><td><code>timeShots</code></td><td>experimental</td></tr>
+<tr><td><code>timeShotsMeasure</code></td><td>experimental</td></tr>
+<tr><td><code>voiceProblems</code></td><td>experimental</td></tr>
+<tr><td><code>wander</code></td><td>experimental</td></tr>
+<tr><td><code>weighLeap</code></td><td>experimental</td></tr>
+<tr><td><code>withStyle</code></td><td>experimental</td></tr>
+<tr><td><code>workBackward</code></td><td>experimental</td></tr>
+<tr><td><code>writeChapters</code></td><td>experimental</td></tr>
+<tr><td><code>writeExplainer</code></td><td>experimental</td></tr>
+<tr><td><code>writeFable</code></td><td>experimental</td></tr>
+<tr><td><code>writeImagePrompts</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitcompose"><code>explainerkit/compose</code></h2>
+<p>The implementation is in <a href="../runtime/src/compose/index.js">./src/compose/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>attach</code></td><td>experimental</td></tr>
+<tr><td><code>bubble</code></td><td>experimental</td></tr>
+<tr><td><code>callout</code></td><td>experimental</td></tr>
+<tr><td><code>effectBatch</code></td><td>experimental</td></tr>
+<tr><td><code>inkFor</code></td><td>experimental</td></tr>
+<tr><td><code>panel</code></td><td>experimental</td></tr>
+<tr><td><code>paragraph</code></td><td>experimental</td></tr>
+<tr><td><code>pathPoint</code></td><td>experimental</td></tr>
+<tr><td><code>place</code></td><td>experimental</td></tr>
+<tr><td><code>stage</code></td><td>experimental</td></tr>
+<tr><td><code>wrapText</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitparallax"><code>explainerkit/parallax</code></h2>
+<p>The implementation is in <a href="../runtime/src/parallax/index.js">./src/parallax/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>PARALLAX_RULES</code></td><td>experimental</td></tr>
+<tr><td><code>auditParallax</code></td><td>experimental</td></tr>
+<tr><td><code>connectParallax</code></td><td>experimental</td></tr>
+<tr><td><code>coverage</code></td><td>experimental</td></tr>
+<tr><td><code>depthFor</code></td><td>experimental</td></tr>
+<tr><td><code>fitBackdrop</code></td><td>experimental</td></tr>
+<tr><td><code>formatParallax</code></td><td>experimental</td></tr>
+<tr><td><code>parallaxRig</code></td><td>experimental</td></tr>
+<tr><td><code>speedFor</code></td><td>experimental</td></tr>
+<tr><td><code>storyPins</code></td><td>experimental</td></tr>
+<tr><td><code>storyRate</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitperception"><code>explainerkit/perception</code></h2>
+<p>The implementation is in <a href="../runtime/src/perception/index.js">./src/perception/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>groupStagger</code></td><td>experimental</td></tr>
+<tr><td><code>perceptualGroups</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmodeling"><code>explainerkit/modeling</code></h2>
+<p>The implementation is in <a href="../runtime/src/modeling/index.js">./src/modeling/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>Line</code></td><td>experimental</td></tr>
+<tr><td><code>bindMotionPath</code></td><td>experimental</td></tr>
+<tr><td><code>ellipsePath</code></td><td>experimental</td></tr>
+<tr><td><code>gridPlacements</code></td><td>experimental</td></tr>
+<tr><td><code>inkStroke</code></td><td>experimental</td></tr>
+<tr><td><code>lattice</code></td><td>experimental</td></tr>
+<tr><td><code>measurePath</code></td><td>experimental</td></tr>
+<tr><td><code>motionPath</code></td><td>experimental</td></tr>
+<tr><td><code>outlineDraw</code></td><td>experimental</td></tr>
+<tr><td><code>pairPoints</code></td><td>experimental</td></tr>
+<tr><td><code>pathPlacements</code></td><td>experimental</td></tr>
+<tr><td><code>polygonPath</code></td><td>experimental</td></tr>
+<tr><td><code>polyhedron</code></td><td>experimental</td></tr>
+<tr><td><code>radialPlacements</code></td><td>experimental</td></tr>
+<tr><td><code>regularPolygon</code></td><td>experimental</td></tr>
+<tr><td><code>roundedRectPath</code></td><td>experimental</td></tr>
+<tr><td><code>samplePath</code></td><td>experimental</td></tr>
+<tr><td><code>split</code></td><td>experimental</td></tr>
+<tr><td><code>starPath</code></td><td>experimental</td></tr>
+<tr><td><code>transformPath</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmodel"><code>explainerkit/model</code></h2>
+<p>The implementation is in <a href="../runtime/src/model/index.js">./src/model/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>areaPath</code></td><td>experimental</td></tr>
+<tr><td><code>axisBlueprint</code></td><td>experimental</td></tr>
+<tr><td><code>bandScale</code></td><td>experimental</td></tr>
+<tr><td><code>bin</code></td><td>experimental</td></tr>
+<tr><td><code>convert</code></td><td>experimental</td></tr>
+<tr><td><code>defineUnit</code></td><td>experimental</td></tr>
+<tr><td><code>divideUnits</code></td><td>experimental</td></tr>
+<tr><td><code>filterRows</code></td><td>experimental</td></tr>
+<tr><td><code>linePath</code></td><td>experimental</td></tr>
+<tr><td><code>mapRows</code></td><td>experimental</td></tr>
+<tr><td><code>multiplyUnits</code></td><td>experimental</td></tr>
+<tr><td><code>ordinalScale</code></td><td>experimental</td></tr>
+<tr><td><code>powerUnit</code></td><td>experimental</td></tr>
+<tr><td><code>replaceMapped</code></td><td>experimental</td></tr>
+<tr><td><code>scale</code></td><td>experimental</td></tr>
+<tr><td><code>stack</code></td><td>experimental</td></tr>
+<tr><td><code>summarize</code></td><td>experimental</td></tr>
+<tr><td><code>ticks</code></td><td>experimental</td></tr>
+<tr><td><code>units</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitgraphics"><code>explainerkit/graphics</code></h2>
+<p>The implementation is in <a href="../runtime/src/graphics/index.js">./src/graphics/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>clipCircle</code></td><td>experimental</td></tr>
+<tr><td><code>clipPath</code></td><td>experimental</td></tr>
+<tr><td><code>clipRect</code></td><td>experimental</td></tr>
+<tr><td><code>color</code></td><td>experimental</td></tr>
+<tr><td><code>fillRule</code></td><td>experimental</td></tr>
+<tr><td><code>linearGradient</code></td><td>experimental</td></tr>
+<tr><td><code>paint</code></td><td>experimental</td></tr>
+<tr><td><code>pathCommands</code></td><td>experimental</td></tr>
+<tr><td><code>radialGradient</code></td><td>experimental</td></tr>
+<tr><td><code>strokeDasharray</code></td><td>experimental</td></tr>
+<tr><td><code>texture</code></td><td>experimental</td></tr>
+<tr><td><code>textureTile</code></td><td>experimental</td></tr>
+<tr><td><code>validateClip</code></td><td>experimental</td></tr>
+<tr><td><code>validatePaint</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitphysics"><code>explainerkit/physics</code></h2>
+<p>The implementation is in <a href="../runtime/src/physics/index.js">./src/physics/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>fall</code></td><td>experimental</td></tr>
+<tr><td><code>inertia</code></td><td>experimental</td></tr>
+<tr><td><code>jiggle</code></td><td>experimental</td></tr>
+<tr><td><code>lag</code></td><td>experimental</td></tr>
+<tr><td><code>spring</code></td><td>experimental</td></tr>
+<tr><td><code>springEasing</code></td><td>experimental</td></tr>
+<tr><td><code>squashStretch</code></td><td>experimental</td></tr>
+<tr><td><code>velocityTracker</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitdom"><code>explainerkit/dom</code></h2>
+<p>The implementation is in <a href="../runtime/src/adapters/dom.js">./src/adapters/dom.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>bindDOM</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkittypography"><code>explainerkit/typography</code></h2>
+<p>The implementation is in <a href="../runtime/src/typography/index.js">./src/typography/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>glyphs</code></td><td>experimental</td></tr>
+<tr><td><code>kineticText</code></td><td>experimental</td></tr>
+<tr><td><code>segmentText</code></td><td>experimental</td></tr>
+<tr><td><code>textStagger</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitspatial"><code>explainerkit/spatial</code></h2>
+<p>The implementation is in <a href="../runtime/src/spatial/index.js">./src/spatial/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>boxLines</code></td><td>experimental</td></tr>
+<tr><td><code>compose3D</code></td><td>experimental</td></tr>
+<tr><td><code>direction3D</code></td><td>experimental</td></tr>
+<tr><td><code>dollyCamera</code></td><td>experimental</td></tr>
+<tr><td><code>identity3D</code></td><td>experimental</td></tr>
+<tr><td><code>inverse3D</code></td><td>experimental</td></tr>
+<tr><td><code>lookAt3D</code></td><td>experimental</td></tr>
+<tr><td><code>multiply3D</code></td><td>experimental</td></tr>
+<tr><td><code>multiplyQuaternion</code></td><td>experimental</td></tr>
+<tr><td><code>orbitCamera</code></td><td>experimental</td></tr>
+<tr><td><code>orthographicCamera</code></td><td>experimental</td></tr>
+<tr><td><code>perspectiveCamera</code></td><td>experimental</td></tr>
+<tr><td><code>pickBounds</code></td><td>experimental</td></tr>
+<tr><td><code>projectLines</code></td><td>experimental</td></tr>
+<tr><td><code>projectPoint</code></td><td>experimental</td></tr>
+<tr><td><code>projectPoints</code></td><td>experimental</td></tr>
+<tr><td><code>quaternion</code></td><td>experimental</td></tr>
+<tr><td><code>quaternionFromAxisAngle</code></td><td>experimental</td></tr>
+<tr><td><code>quaternionFromEuler</code></td><td>experimental</td></tr>
+<tr><td><code>quaternionMatrix</code></td><td>experimental</td></tr>
+<tr><td><code>rayBox</code></td><td>experimental</td></tr>
+<tr><td><code>rayPlane</code></td><td>experimental</td></tr>
+<tr><td><code>raySphere</code></td><td>experimental</td></tr>
+<tr><td><code>rotateVector3D</code></td><td>experimental</td></tr>
+<tr><td><code>screenRay</code></td><td>experimental</td></tr>
+<tr><td><code>slerpQuaternion</code></td><td>experimental</td></tr>
+<tr><td><code>sphereLines</code></td><td>experimental</td></tr>
+<tr><td><code>transform3D</code></td><td>experimental</td></tr>
+<tr><td><code>unprojectPoint</code></td><td>experimental</td></tr>
+<tr><td><code>wireframe</code></td><td>experimental</td></tr>
+<tr><td><code>worldMatrix3D</code></td><td>experimental</td></tr>
+<tr><td><code>zoomCamera</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrenderersthree"><code>explainerkit/renderers/three</code></h2>
+<p>The implementation is in <a href="../runtime/src/renderers/three.js">./src/renderers/three.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>createThreeAdapter</code></td><td>experimental</td></tr>
+<tr><td><code>createThreeRenderer</code></td><td>experimental</td></tr>
+<tr><td><code>darkClay</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitrendererswebgl"><code>explainerkit/renderers/webgl</code></h2>
+<p>The implementation is in <a href="../runtime/src/renderers/webgl.js">./src/renderers/webgl.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>capturePointFrame</code></td><td>experimental</td></tr>
+<tr><td><code>createWebGLRenderer</code></td><td>experimental</td></tr>
+<tr><td><code>projectGPUPoint</code></td><td>experimental</td></tr>
+<tr><td><code>screenProjection</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitimportsvg"><code>explainerkit/import/svg</code></h2>
+<p>The implementation is in <a href="../runtime/src/import/svg.js">./src/import/svg.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>importSVG</code></td><td>experimental</td></tr>
+<tr><td><code>importSVGFile</code></td><td>experimental</td></tr>
+<tr><td><code>parseSVGPath</code></td><td>experimental</td></tr>
+<tr><td><code>parseSVGTransform</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitimportfont"><code>explainerkit/import/font</code></h2>
+<p>The implementation is in <a href="../runtime/src/import/font.js">./src/import/font.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>loadFont</code></td><td>experimental</td></tr>
+<tr><td><code>parseFont</code></td><td>experimental</td></tr>
+<tr><td><code>textOutline</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitzoom"><code>explainerkit/zoom</code></h2>
+<p>The implementation is in <a href="../runtime/src/zoom/index.js">./src/zoom/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>bindFrame</code></td><td>experimental</td></tr>
+<tr><td><code>convertFramePoint</code></td><td>experimental</td></tr>
+<tr><td><code>convertFrameVector</code></td><td>experimental</td></tr>
+<tr><td><code>detail</code></td><td>experimental</td></tr>
+<tr><td><code>detailLevels</code></td><td>experimental</td></tr>
+<tr><td><code>frameView</code></td><td>experimental</td></tr>
+<tr><td><code>logZoom</code></td><td>experimental</td></tr>
+<tr><td><code>rebaseCamera</code></td><td>experimental</td></tr>
+<tr><td><code>referenceFrame</code></td><td>experimental</td></tr>
+<tr><td><code>relativeRotation</code></td><td>experimental</td></tr>
+<tr><td><code>relativeUnits</code></td><td>experimental</td></tr>
+<tr><td><code>zoomTransition</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitparticles"><code>explainerkit/particles</code></h2>
+<p>The implementation is in <a href="../runtime/src/particles/index.js">./src/particles/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>emitter</code></td><td>experimental</td></tr>
+<tr><td><code>noise2</code></td><td>experimental</td></tr>
+<tr><td><code>noise3</code></td><td>experimental</td></tr>
+<tr><td><code>noiseField</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmechanisms"><code>explainerkit/mechanisms</code></h2>
+<p>The implementation is in <a href="../runtime/src/mechanisms/index.js">./src/mechanisms/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>beltGeometry</code></td><td>experimental</td></tr>
+<tr><td><code>gearPath</code></td><td>experimental</td></tr>
+<tr><td><code>mechanism</code></td><td>experimental</td></tr>
+<tr><td><code>meshPhase</code></td><td>experimental</td></tr>
+<tr><td><code>sliderCrank</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitimportgltf"><code>explainerkit/import/gltf</code></h2>
+<p>The implementation is in <a href="../runtime/src/import/gltf.js">./src/import/gltf.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>importGLTF</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitshapes"><code>explainerkit/shapes</code></h2>
+<p>The implementation is in <a href="../runtime/src/shapes/index.js">./src/shapes/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>asShape</code></td><td>experimental</td></tr>
+<tr><td><code>booleanPath</code></td><td>experimental</td></tr>
+<tr><td><code>centroid</code></td><td>experimental</td></tr>
+<tr><td><code>fracture</code></td><td>experimental</td></tr>
+<tr><td><code>intersect</code></td><td>experimental</td></tr>
+<tr><td><code>intersectPaths</code></td><td>experimental</td></tr>
+<tr><td><code>pathLoops</code></td><td>experimental</td></tr>
+<tr><td><code>polygon</code></td><td>experimental</td></tr>
+<tr><td><code>polygonArea</code></td><td>experimental</td></tr>
+<tr><td><code>subtract</code></td><td>experimental</td></tr>
+<tr><td><code>subtractPaths</code></td><td>experimental</td></tr>
+<tr><td><code>union</code></td><td>experimental</td></tr>
+<tr><td><code>unionPaths</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitstory"><code>explainerkit/story</code></h2>
+<p>The implementation is in <a href="../runtime/src/story/index.js">./src/story/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>ARRIVALS</code></td><td>experimental</td></tr>
+<tr><td><code>DEFAULT_PACE_BOUNDS</code></td><td>experimental</td></tr>
+<tr><td><code>SCROLL_PACES</code></td><td>experimental</td></tr>
+<tr><td><code>arrivalPlan</code></td><td>experimental</td></tr>
+<tr><td><code>arrivalTime</code></td><td>experimental</td></tr>
+<tr><td><code>attachStory</code></td><td>experimental</td></tr>
+<tr><td><code>holdControls</code></td><td>experimental</td></tr>
+<tr><td><code>scrollPace</code></td><td>experimental</td></tr>
+<tr><td><code>storyTimeline</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitassetspreload"><code>explainerkit/assets/preload</code></h2>
+<p>The implementation is in <a href="../runtime/src/assets/preload.js">./src/assets/preload.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>preload</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitlook"><code>explainerkit/look</code></h2>
+<p>The implementation is in <a href="../runtime/src/look/index.js">./src/look/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>alphaMask</code></td><td>experimental</td></tr>
+<tr><td><code>filmGrain</code></td><td>experimental</td></tr>
+<tr><td><code>glow</code></td><td>experimental</td></tr>
+<tr><td><code>gradeFrame</code></td><td>experimental</td></tr>
+<tr><td><code>shadowOnPlane</code></td><td>experimental</td></tr>
+<tr><td><code>shadowOnWall</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitcharacters"><code>explainerkit/characters</code></h2>
+<p>The implementation is in <a href="../runtime/src/characters/index.js">./src/characters/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>BEAN_PALETTES</code></td><td>experimental</td></tr>
+<tr><td><code>BIPED_POSES</code></td><td>experimental</td></tr>
+<tr><td><code>BIRD_PALETTES</code></td><td>experimental</td></tr>
+<tr><td><code>BUILDERS</code></td><td>experimental</td></tr>
+<tr><td><code>FAMILY_PRESETS</code></td><td>experimental</td></tr>
+<tr><td><code>FISH_PALETTES</code></td><td>experimental</td></tr>
+<tr><td><code>HAIR</code></td><td>experimental</td></tr>
+<tr><td><code>MICROBE_PALETTES</code></td><td>experimental</td></tr>
+<tr><td><code>MOODS</code></td><td>experimental</td></tr>
+<tr><td><code>MOTION_STYLES</code></td><td>experimental</td></tr>
+<tr><td><code>MOUTH_SHAPES</code></td><td>experimental</td></tr>
+<tr><td><code>SKIN</code></td><td>experimental</td></tr>
+<tr><td><code>STARTERS</code></td><td>experimental</td></tr>
+<tr><td><code>STICK_BUILDS</code></td><td>experimental</td></tr>
+<tr><td><code>STICK_STYLES</code></td><td>experimental</td></tr>
+<tr><td><code>add</code></td><td>experimental</td></tr>
+<tr><td><code>appendage</code></td><td>experimental</td></tr>
+<tr><td><code>appendageShapes</code></td><td>experimental</td></tr>
+<tr><td><code>auditCharacter</code></td><td>experimental</td></tr>
+<tr><td><code>bean</code></td><td>experimental</td></tr>
+<tr><td><code>bipedActions</code></td><td>experimental</td></tr>
+<tr><td><code>bipedDefaults</code></td><td>experimental</td></tr>
+<tr><td><code>bipedMotion</code></td><td>experimental</td></tr>
+<tr><td><code>bipedRig</code></td><td>experimental</td></tr>
+<tr><td><code>bird</code></td><td>experimental</td></tr>
+<tr><td><code>blend</code></td><td>experimental</td></tr>
+<tr><td><code>blinkAt</code></td><td>experimental</td></tr>
+<tr><td><code>browPath</code></td><td>experimental</td></tr>
+<tr><td><code>character</code></td><td>experimental</td></tr>
+<tr><td><code>characterFromSVG</code></td><td>experimental</td></tr>
+<tr><td><code>characterPoseFromSkeleton</code></td><td>experimental</td></tr>
+<tr><td><code>compileCharacter</code></td><td>experimental</td></tr>
+<tr><td><code>contactSheet</code></td><td>experimental</td></tr>
+<tr><td><code>contactTiming</code></td><td>experimental</td></tr>
+<tr><td><code>cow</code></td><td>experimental</td></tr>
+<tr><td><code>crowd</code></td><td>experimental</td></tr>
+<tr><td><code>dampedStep</code></td><td>experimental</td></tr>
+<tr><td><code>dragonfly</code></td><td>experimental</td></tr>
+<tr><td><code>egg</code></td><td>experimental</td></tr>
+<tr><td><code>ellipse</code></td><td>experimental</td></tr>
+<tr><td><code>exportCharacterSVG</code></td><td>experimental</td></tr>
+<tr><td><code>eyePath</code></td><td>experimental</td></tr>
+<tr><td><code>faceParts</code></td><td>experimental</td></tr>
+<tr><td><code>fish</code></td><td>experimental</td></tr>
+<tr><td><code>formatAudit</code></td><td>experimental</td></tr>
+<tr><td><code>frameAlong</code></td><td>experimental</td></tr>
+<tr><td><code>frog</code></td><td>experimental</td></tr>
+<tr><td><code>holdAtContact</code></td><td>experimental</td></tr>
+<tr><td><code>hose</code></td><td>experimental</td></tr>
+<tr><td><code>jumper</code></td><td>experimental</td></tr>
+<tr><td><code>keysFromPoseTrack</code></td><td>experimental</td></tr>
+<tr><td><code>lidPath</code></td><td>experimental</td></tr>
+<tr><td><code>loadCharacterPack</code></td><td>experimental</td></tr>
+<tr><td><code>manifestFor</code></td><td>experimental</td></tr>
+<tr><td><code>microbe</code></td><td>experimental</td></tr>
+<tr><td><code>motionStyle</code></td><td>experimental</td></tr>
+<tr><td><code>mouse</code></td><td>experimental</td></tr>
+<tr><td><code>mouthPath</code></td><td>experimental</td></tr>
+<tr><td><code>poseVocabulary</code></td><td>experimental</td></tr>
+<tr><td><code>profile</code></td><td>experimental</td></tr>
+<tr><td><code>profileReaction</code></td><td>experimental</td></tr>
+<tr><td><code>pupilPath</code></td><td>experimental</td></tr>
+<tr><td><code>quadruped</code></td><td>experimental</td></tr>
+<tr><td><code>restBounds</code></td><td>experimental</td></tr>
+<tr><td><code>restHeight</code></td><td>experimental</td></tr>
+<tr><td><code>restyle</code></td><td>experimental</td></tr>
+<tr><td><code>rounded</code></td><td>experimental</td></tr>
+<tr><td><code>saccade</code></td><td>experimental</td></tr>
+<tr><td><code>sceneLength</code></td><td>experimental</td></tr>
+<tr><td><code>skeletonFromPoseTrack</code></td><td>experimental</td></tr>
+<tr><td><code>smoothClosed</code></td><td>experimental</td></tr>
+<tr><td><code>smoothOpen</code></td><td>experimental</td></tr>
+<tr><td><code>solveBones</code></td><td>experimental</td></tr>
+<tr><td><code>speech</code></td><td>experimental</td></tr>
+<tr><td><code>speechFromRhubarb</code></td><td>experimental</td></tr>
+<tr><td><code>standOn</code></td><td>experimental</td></tr>
+<tr><td><code>starter</code></td><td>experimental</td></tr>
+<tr><td><code>stick</code></td><td>experimental</td></tr>
+<tr><td><code>surface</code></td><td>experimental</td></tr>
+<tr><td><code>surfaceFrame</code></td><td>experimental</td></tr>
+<tr><td><code>taper</code></td><td>experimental</td></tr>
+<tr><td><code>tone</code></td><td>experimental</td></tr>
+<tr><td><code>tube</code></td><td>experimental</td></tr>
+<tr><td><code>winged</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitcomposition"><code>explainerkit/composition</code></h2>
+<p>The implementation is in <a href="../runtime/src/composition/layers.js">./src/composition/layers.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>focusBlur</code></td><td>experimental</td></tr>
+<tr><td><code>layerPose</code></td><td>experimental</td></tr>
+<tr><td><code>projectLayer</code></td><td>experimental</td></tr>
+<tr><td><code>shutterTimes</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitplayer"><code>explainerkit/player</code></h2>
+<p>The implementation is in <a href="../runtime/src/player/index.js">./src/player/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>attachSceneLayer</code></td><td>experimental</td></tr>
+<tr><td><code>createProjectionPlayer</code></td><td>experimental</td></tr>
+<tr><td><code>createTimelinePlayer</code></td><td>experimental</td></tr>
+<tr><td><code>mount</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmedia"><code>explainerkit/media</code></h2>
+<p>The implementation is in <a href="../runtime/src/media/index.js">./src/media/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>attachMedia</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkittimeline"><code>explainerkit/timeline</code></h2>
+<p>The implementation is in <a href="../runtime/src/timeline/index.js">./src/timeline/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>createTimeline</code></td><td>experimental</td></tr>
+<tr><td><code>prepareTimelineKeys</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitproject"><code>explainerkit/project</code></h2>
+<p>The implementation is in <a href="../runtime/src/project/index.js">./src/project/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>buildProject</code></td><td>experimental</td></tr>
+<tr><td><code>createProject</code></td><td>experimental</td></tr>
+<tr><td><code>parseProject</code></td><td>experimental</td></tr>
+<tr><td><code>serializeProject</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitlayoutlabels"><code>explainerkit/layout/labels</code></h2>
+<p>The implementation is in <a href="../runtime/src/layout/labels.js">./src/layout/labels.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>canvasTextMeasurer</code></td><td>experimental</td></tr>
+<tr><td><code>placeLabels</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitlayoutannotations"><code>explainerkit/layout/annotations</code></h2>
+<p>The implementation is in <a href="../runtime/src/layout/annotations.js">./src/layout/annotations.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>planAnnotations</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitsound"><code>explainerkit/sound</code></h2>
+<p>The implementation is in <a href="../runtime/src/sound/index.js">./src/sound/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>INSTRUMENT_KINDS</code></td><td>experimental</td></tr>
+<tr><td><code>SOUND_EFFECT_KINDS</code></td><td>experimental</td></tr>
+<tr><td><code>analyzeSound</code></td><td>experimental</td></tr>
+<tr><td><code>attachSoundtrack</code></td><td>experimental</td></tr>
+<tr><td><code>chord</code></td><td>experimental</td></tr>
+<tr><td><code>createSoundtrack</code></td><td>experimental</td></tr>
+<tr><td><code>cueForMotion</code></td><td>experimental</td></tr>
+<tr><td><code>musicPhrase</code></td><td>experimental</td></tr>
+<tr><td><code>note</code></td><td>experimental</td></tr>
+<tr><td><code>pianoNote</code></td><td>experimental</td></tr>
+<tr><td><code>processSound</code></td><td>experimental</td></tr>
+<tr><td><code>sampleInstrument</code></td><td>experimental</td></tr>
+<tr><td><code>soundEffect</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmediaaudio"><code>explainerkit/media/audio</code></h2>
+<p>The implementation is in <a href="../runtime/src/media/audio.js">./src/media/audio.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>createAudioMix</code></td><td>experimental</td></tr>
+<tr><td><code>encodeWav</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitprocedural"><code>explainerkit/procedural</code></h2>
+<p>The implementation is in <a href="../runtime/src/procedural/index.js">./src/procedural/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>attribute</code></td><td>experimental</td></tr>
+<tr><td><code>distribution</code></td><td>experimental</td></tr>
+<tr><td><code>foliageCluster</code></td><td>experimental</td></tr>
+<tr><td><code>glowLight</code></td><td>experimental</td></tr>
+<tr><td><code>grassMass</code></td><td>experimental</td></tr>
+<tr><td><code>instance</code></td><td>experimental</td></tr>
+<tr><td><code>noiseField</code></td><td>experimental</td></tr>
+<tr><td><code>noiseGrid</code></td><td>experimental</td></tr>
+<tr><td><code>points</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitwaapi"><code>explainerkit/waapi</code></h2>
+<p>The implementation is in <a href="../runtime/src/adapters/waapi.js">./src/adapters/waapi.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>animateWAAPI</code></td><td>experimental</td></tr>
+<tr><td><code>waapi</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitdata"><code>explainerkit/data</code></h2>
+<p>The implementation is in <a href="../runtime/src/data/index.js">./src/data/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>areaPath</code></td><td>experimental</td></tr>
+<tr><td><code>axisBlueprint</code></td><td>experimental</td></tr>
+<tr><td><code>bandScale</code></td><td>experimental</td></tr>
+<tr><td><code>bin</code></td><td>experimental</td></tr>
+<tr><td><code>convert</code></td><td>experimental</td></tr>
+<tr><td><code>defineUnit</code></td><td>experimental</td></tr>
+<tr><td><code>divideUnits</code></td><td>experimental</td></tr>
+<tr><td><code>filterRows</code></td><td>experimental</td></tr>
+<tr><td><code>linePath</code></td><td>experimental</td></tr>
+<tr><td><code>mapRows</code></td><td>experimental</td></tr>
+<tr><td><code>multiplyUnits</code></td><td>experimental</td></tr>
+<tr><td><code>ordinalScale</code></td><td>experimental</td></tr>
+<tr><td><code>powerUnit</code></td><td>experimental</td></tr>
+<tr><td><code>replaceMapped</code></td><td>experimental</td></tr>
+<tr><td><code>scale</code></td><td>experimental</td></tr>
+<tr><td><code>stack</code></td><td>experimental</td></tr>
+<tr><td><code>summarize</code></td><td>experimental</td></tr>
+<tr><td><code>ticks</code></td><td>experimental</td></tr>
+<tr><td><code>units</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitgeometry"><code>explainerkit/geometry</code></h2>
+<p>The implementation is in <a href="../runtime/src/geometry/index.js">./src/geometry/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>Line</code></td><td>experimental</td></tr>
+<tr><td><code>bindMotionPath</code></td><td>experimental</td></tr>
+<tr><td><code>ellipsePath</code></td><td>experimental</td></tr>
+<tr><td><code>gridPlacements</code></td><td>experimental</td></tr>
+<tr><td><code>inkStroke</code></td><td>experimental</td></tr>
+<tr><td><code>lattice</code></td><td>experimental</td></tr>
+<tr><td><code>measurePath</code></td><td>experimental</td></tr>
+<tr><td><code>motionPath</code></td><td>experimental</td></tr>
+<tr><td><code>outlineDraw</code></td><td>experimental</td></tr>
+<tr><td><code>pairPoints</code></td><td>experimental</td></tr>
+<tr><td><code>pathPlacements</code></td><td>experimental</td></tr>
+<tr><td><code>polygonPath</code></td><td>experimental</td></tr>
+<tr><td><code>polyhedron</code></td><td>experimental</td></tr>
+<tr><td><code>radialPlacements</code></td><td>experimental</td></tr>
+<tr><td><code>regularPolygon</code></td><td>experimental</td></tr>
+<tr><td><code>roundedRectPath</code></td><td>experimental</td></tr>
+<tr><td><code>samplePath</code></td><td>experimental</td></tr>
+<tr><td><code>split</code></td><td>experimental</td></tr>
+<tr><td><code>starPath</code></td><td>experimental</td></tr>
+<tr><td><code>transformPath</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitgeometryshapes"><code>explainerkit/geometry/shapes</code></h2>
+<p>The implementation is in <a href="../runtime/src/geometry/shapes/index.js">./src/geometry/shapes/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>asShape</code></td><td>experimental</td></tr>
+<tr><td><code>booleanPath</code></td><td>experimental</td></tr>
+<tr><td><code>centroid</code></td><td>experimental</td></tr>
+<tr><td><code>fracture</code></td><td>experimental</td></tr>
+<tr><td><code>intersect</code></td><td>experimental</td></tr>
+<tr><td><code>intersectPaths</code></td><td>experimental</td></tr>
+<tr><td><code>pathLoops</code></td><td>experimental</td></tr>
+<tr><td><code>polygon</code></td><td>experimental</td></tr>
+<tr><td><code>polygonArea</code></td><td>experimental</td></tr>
+<tr><td><code>subtract</code></td><td>experimental</td></tr>
+<tr><td><code>subtractPaths</code></td><td>experimental</td></tr>
+<tr><td><code>union</code></td><td>experimental</td></tr>
+<tr><td><code>unionPaths</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitlayout"><code>explainerkit/layout</code></h2>
+<p>The implementation is in <a href="../runtime/src/layout/index.js">./src/layout/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>analyse</code></td><td>experimental</td></tr>
+<tr><td><code>applyLayout</code></td><td>experimental</td></tr>
+<tr><td><code>attach</code></td><td>experimental</td></tr>
+<tr><td><code>bubble</code></td><td>experimental</td></tr>
+<tr><td><code>callout</code></td><td>experimental</td></tr>
+<tr><td><code>canvasTextMeasurer</code></td><td>experimental</td></tr>
+<tr><td><code>effectBatch</code></td><td>experimental</td></tr>
+<tr><td><code>estimateText</code></td><td>experimental</td></tr>
+<tr><td><code>inkFor</code></td><td>experimental</td></tr>
+<tr><td><code>measureNode</code></td><td>experimental</td></tr>
+<tr><td><code>panel</code></td><td>experimental</td></tr>
+<tr><td><code>paragraph</code></td><td>experimental</td></tr>
+<tr><td><code>pathPoint</code></td><td>experimental</td></tr>
+<tr><td><code>place</code></td><td>experimental</td></tr>
+<tr><td><code>placeLabels</code></td><td>experimental</td></tr>
+<tr><td><code>planAnnotations</code></td><td>experimental</td></tr>
+<tr><td><code>planLayout</code></td><td>experimental</td></tr>
+<tr><td><code>stage</code></td><td>experimental</td></tr>
+<tr><td><code>toAuthored</code></td><td>experimental</td></tr>
+<tr><td><code>wrapText</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitcolor"><code>explainerkit/color</code></h2>
+<p>The implementation is in <a href="../runtime/src/color/index.js">./src/color/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>adjust</code></td><td>experimental</td></tr>
+<tr><td><code>colorInterpolator</code></td><td>experimental</td></tr>
+<tr><td><code>fromRGBA</code></td><td>experimental</td></tr>
+<tr><td><code>hsla</code></td><td>experimental</td></tr>
+<tr><td><code>hslaToRGBA</code></td><td>experimental</td></tr>
+<tr><td><code>mix</code></td><td>experimental</td></tr>
+<tr><td><code>toCSS</code></td><td>experimental</td></tr>
+<tr><td><code>toHSLA</code></td><td>experimental</td></tr>
+<tr><td><code>toHex</code></td><td>experimental</td></tr>
+<tr><td><code>toRGBA</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmotion"><code>explainerkit/motion</code></h2>
+<p>The implementation is in <a href="../runtime/src/motion/index.js">./src/motion/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>MOTION_STYLES</code></td><td>experimental</td></tr>
+<tr><td><code>Timeline</code></td><td>experimental</td></tr>
+<tr><td><code>beats</code></td><td>experimental</td></tr>
+<tr><td><code>bindCommonEffect</code></td><td>experimental</td></tr>
+<tr><td><code>bindMotionPath</code></td><td>experimental</td></tr>
+<tr><td><code>commonEffect</code></td><td>experimental</td></tr>
+<tr><td><code>createTimeline</code></td><td>experimental</td></tr>
+<tr><td><code>cubicBezier</code></td><td>experimental</td></tr>
+<tr><td><code>ease</code></td><td>experimental</td></tr>
+<tr><td><code>easingCurve</code></td><td>experimental</td></tr>
+<tr><td><code>idle</code></td><td>experimental</td></tr>
+<tr><td><code>inertia</code></td><td>experimental</td></tr>
+<tr><td><code>jiggle</code></td><td>experimental</td></tr>
+<tr><td><code>lag</code></td><td>experimental</td></tr>
+<tr><td><code>motionPath</code></td><td>experimental</td></tr>
+<tr><td><code>motionStyle</code></td><td>experimental</td></tr>
+<tr><td><code>readingPace</code></td><td>experimental</td></tr>
+<tr><td><code>spring</code></td><td>experimental</td></tr>
+<tr><td><code>springEasing</code></td><td>experimental</td></tr>
+<tr><td><code>springTiming</code></td><td>experimental</td></tr>
+<tr><td><code>squashStretch</code></td><td>experimental</td></tr>
+<tr><td><code>stagger</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmotioneffects"><code>explainerkit/motion/effects</code></h2>
+<p>The implementation is in <a href="../runtime/src/motion/common-effects.js">./src/motion/common-effects.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>bindCommonEffect</code></td><td>experimental</td></tr>
+<tr><td><code>commonEffect</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitnoise"><code>explainerkit/noise</code></h2>
+<p>The implementation is in <a href="../runtime/src/noise/index.js">./src/noise/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>fbm</code></td><td>experimental</td></tr>
+<tr><td><code>noise2</code></td><td>experimental</td></tr>
+<tr><td><code>noise3</code></td><td>experimental</td></tr>
+<tr><td><code>noiseGrid</code></td><td>experimental</td></tr>
+<tr><td><code>noiseScalarField</code></td><td>experimental</td></tr>
+<tr><td><code>noiseVectorField</code></td><td>experimental</td></tr>
+<tr><td><code>randomAt</code></td><td>experimental</td></tr>
+<tr><td><code>ridged</code></td><td>experimental</td></tr>
+<tr><td><code>warp</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkiteditortimeline"><code>explainerkit/editor/timeline</code></h2>
+<p>The implementation is in <a href="../runtime/src/editor/timeline/index.js">./src/editor/timeline/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>createTimeline</code></td><td>experimental</td></tr>
+<tr><td><code>prepareTimelineKeys</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitadaptersdom"><code>explainerkit/adapters/dom</code></h2>
+<p>The implementation is in <a href="../runtime/src/adapters/dom.js">./src/adapters/dom.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>bindDOM</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitadapterswaapi"><code>explainerkit/adapters/waapi</code></h2>
+<p>The implementation is in <a href="../runtime/src/adapters/waapi.js">./src/adapters/waapi.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>animateWAAPI</code></td><td>experimental</td></tr>
+<tr><td><code>waapi</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitinputs"><code>explainerkit/inputs</code></h2>
+<p>The implementation is in <a href="../runtime/src/inputs/index.js">./src/inputs/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>bindData</code></td><td>experimental</td></tr>
+<tr><td><code>bindInputs</code></td><td>experimental</td></tr>
+<tr><td><code>cameraInput</code></td><td>experimental</td></tr>
+<tr><td><code>deriveInput</code></td><td>experimental</td></tr>
+<tr><td><code>deviceMotionInput</code></td><td>experimental</td></tr>
+<tr><td><code>deviceOrientationInput</code></td><td>experimental</td></tr>
+<tr><td><code>dragInput</code></td><td>experimental</td></tr>
+<tr><td><code>fileInput</code></td><td>experimental</td></tr>
+<tr><td><code>hoverIntent</code></td><td>experimental</td></tr>
+<tr><td><code>inputSource</code></td><td>experimental</td></tr>
+<tr><td><code>mapInput</code></td><td>experimental</td></tr>
+<tr><td><code>microphoneInput</code></td><td>experimental</td></tr>
+<tr><td><code>pointerInput</code></td><td>experimental</td></tr>
+<tr><td><code>readInputFile</code></td><td>experimental</td></tr>
+<tr><td><code>resizeInput</code></td><td>experimental</td></tr>
+<tr><td><code>smoothInput</code></td><td>experimental</td></tr>
+<tr><td><code>thresholdInput</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitsoundmix"><code>explainerkit/sound/mix</code></h2>
+<p>The implementation is in <a href="../runtime/src/sound/mix.js">./src/sound/mix.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>createAudioMix</code></td><td>experimental</td></tr>
+<tr><td><code>encodeWav</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitsoundstudio"><code>explainerkit/sound/studio</code></h2>
+<p>The implementation is in <a href="../runtime/src/sound/studio/index.js">./src/sound/studio/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>EFFECT_TYPES</code></td><td>experimental</td></tr>
+<tr><td><code>FILTER_TYPES</code></td><td>experimental</td></tr>
+<tr><td><code>METER_BANDS</code></td><td>experimental</td></tr>
+<tr><td><code>MODAL_PRESETS</code></td><td>experimental</td></tr>
+<tr><td><code>PERCUSSION_KIT</code></td><td>experimental</td></tr>
+<tr><td><code>PERCUSSION_SOUNDS</code></td><td>experimental</td></tr>
+<tr><td><code>PLUCKED_PRESETS</code></td><td>experimental</td></tr>
+<tr><td><code>REVERB_PRESETS</code></td><td>experimental</td></tr>
+<tr><td><code>SATURATION_CURVES</code></td><td>experimental</td></tr>
+<tr><td><code>STUDIO_LIMITS</code></td><td>experimental</td></tr>
+<tr><td><code>SYNTH_PATCHES</code></td><td>experimental</td></tr>
+<tr><td><code>biquadCoefficients</code></td><td>experimental</td></tr>
+<tr><td><code>dbToGain</code></td><td>experimental</td></tr>
+<tr><td><code>effectTail</code></td><td>experimental</td></tr>
+<tr><td><code>filterResponse</code></td><td>experimental</td></tr>
+<tr><td><code>gainToDb</code></td><td>experimental</td></tr>
+<tr><td><code>layerInstruments</code></td><td>experimental</td></tr>
+<tr><td><code>measureAudio</code></td><td>experimental</td></tr>
+<tr><td><code>modalInstrument</code></td><td>experimental</td></tr>
+<tr><td><code>noteSeconds</code></td><td>experimental</td></tr>
+<tr><td><code>percussionInstrument</code></td><td>experimental</td></tr>
+<tr><td><code>playInstrument</code></td><td>experimental</td></tr>
+<tr><td><code>pluckedInstrument</code></td><td>experimental</td></tr>
+<tr><td><code>processAudio</code></td><td>experimental</td></tr>
+<tr><td><code>sampledInstrument</code></td><td>experimental</td></tr>
+<tr><td><code>synthInstrument</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitmusic"><code>explainerkit/music</code></h2>
+<p>The implementation is in <a href="../runtime/src/music/index.js">./src/music/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>CHORD_QUALITIES</code></td><td>experimental</td></tr>
+<tr><td><code>CHORD_SHAPES</code></td><td>experimental</td></tr>
+<tr><td><code>CHORD_VOCABULARIES</code></td><td>experimental</td></tr>
+<tr><td><code>GRID_UNITS</code></td><td>experimental</td></tr>
+<tr><td><code>MAX_MUSIC_SECONDS</code></td><td>experimental</td></tr>
+<tr><td><code>MUSIC_ANALYSIS_VERSION</code></td><td>experimental</td></tr>
+<tr><td><code>PITCH_NAMES</code></td><td>experimental</td></tr>
+<tr><td><code>PRODUCTION_LIMITS</code></td><td>experimental</td></tr>
+<tr><td><code>SCORE_INSTRUMENTS</code></td><td>experimental</td></tr>
+<tr><td><code>SCORE_LIMITS</code></td><td>experimental</td></tr>
+<tr><td><code>analyzeMusic</code></td><td>experimental</td></tr>
+<tr><td><code>arpeggiate</code></td><td>experimental</td></tr>
+<tr><td><code>arrangeMusic</code></td><td>experimental</td></tr>
+<tr><td><code>beatsFromText</code></td><td>experimental</td></tr>
+<tr><td><code>chordPitches</code></td><td>experimental</td></tr>
+<tr><td><code>createAdaptiveScore</code></td><td>experimental</td></tr>
+<tr><td><code>createMusicScore</code></td><td>experimental</td></tr>
+<tr><td><code>editMusicNotes</code></td><td>experimental</td></tr>
+<tr><td><code>musicGrid</code></td><td>experimental</td></tr>
+<tr><td><code>musicScoreTime</code></td><td>experimental</td></tr>
+<tr><td><code>produceMusic</code></td><td>experimental</td></tr>
+<tr><td><code>readMidi</code></td><td>experimental</td></tr>
+<tr><td><code>renderMusicEdits</code></td><td>experimental</td></tr>
+<tr><td><code>renderMusicScore</code></td><td>experimental</td></tr>
+<tr><td><code>repeatMusicPhrase</code></td><td>experimental</td></tr>
+<tr><td><code>retargetMusic</code></td><td>experimental</td></tr>
+<tr><td><code>voiceLead</code></td><td>experimental</td></tr>
+<tr><td><code>writeMidi</code></td><td>experimental</td></tr>
+</tbody></table></div>
+<h2 id="explainerkitvfx"><code>explainerkit/vfx</code></h2>
+<p>The implementation is in <a href="../runtime/src/vfx/index.js">./src/vfx/index.js</a>.</p>
+<div class="table"><table><thead><tr><th>Export</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>adjustMatte</code></td><td>experimental</td></tr>
+<tr><td><code>analyzeFootage</code></td><td>experimental</td></tr>
+<tr><td><code>analyzeFrame</code></td><td>experimental</td></tr>
+<tr><td><code>applyDepthHoldout</code></td><td>experimental</td></tr>
+<tr><td><code>compileCameraTrack</code></td><td>experimental</td></tr>
+<tr><td><code>compileFlow</code></td><td>experimental</td></tr>
+<tr><td><code>compileTrack</code></td><td>experimental</td></tr>
+<tr><td><code>compositeMatte</code></td><td>experimental</td></tr>
+<tr><td><code>flowStreaks</code></td><td>experimental</td></tr>
+<tr><td><code>foregroundHoldout</code></td><td>experimental</td></tr>
+<tr><td><code>measureFlow</code></td><td>experimental</td></tr>
+<tr><td><code>projectSurface</code></td><td>experimental</td></tr>
+<tr><td><code>sampleFlow</code></td><td>experimental</td></tr>
+<tr><td><code>sampleTrack</code></td><td>experimental</td></tr>
+<tr><td><code>stabilizeCameraTrack</code></td><td>experimental</td></tr>
+<tr><td><code>stabilizeTrack</code></td><td>experimental</td></tr>
+<tr><td><code>surfaceTransform</code></td><td>experimental</td></tr>
+<tr><td><code>traceFlow</code></td><td>experimental</td></tr>
+<tr><td><code>trackPlane</code></td><td>experimental</td></tr>
+<tr><td><code>trackPoint</code></td><td>experimental</td></tr>
+</tbody></table></div></article></main></div></body></html>

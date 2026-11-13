@@ -1,0 +1,114 @@
+/* The film fills the window. Paper, one ink, one accent, lots of air.
+   Only the play button, the seek bar and a "more" toggle stay on screen; everything else waits behind "more". */
+:root{
+  color-scheme:light;
+  --paper:#fbfaf7; --ink:#17181c; --ink2:#5d5f66; --ink3:#9a9ca3; --line:#e7e4dc; --card:#ffffff;
+  --accent:#ff5b2e; --accent-soft:rgba(255,91,46,.14);
+  --blue:#3b6fd4; --green:#2f9a6f; --violet:#7b61c9;
+  --disp:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter Tight','Inter','Segoe UI',sans-serif;
+  --text:-apple-system,BlinkMacSystemFont,'SF Pro Text','Inter','Segoe UI',sans-serif;
+  --mono:'SF Mono',ui-monospace,'JetBrains Mono',Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --band:44px;   /* the seek bar's own strip: the film never draws into it */
+  --caph:64px;   /* one caption line under the stage; 0 when captions are off */
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{display:flex;flex-direction:column;color:var(--ink);font-family:var(--text);font-size:15px;-webkit-font-smoothing:antialiased;font-synthesis:none;
+  background:
+    radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.9),transparent 60%),
+    var(--paper)}
+body.nocc{--caph:0px}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* stage */
+.film{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 16px 0}
+.screen{position:relative;width:100%;flex:1;min-height:0}
+#stage{position:absolute;inset:0;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+#stage .layer{position:absolute;inset:0;transition:opacity .5s ease}
+#stage .layer svg{width:100%!important;height:100%!important;overflow:visible}
+#stage text{font-family:var(--text)}
+#stage text[font-weight="600"]{font-family:var(--disp)}
+#stage text[font-family="monospace"]{font-family:var(--mono);font-variant-numeric:tabular-nums}
+#stage .hot{cursor:pointer}
+#stage .hot:hover{filter:drop-shadow(0 0 6px rgba(255,91,46,.45))}
+.cap{height:var(--caph);max-width:62ch;margin:0;padding:12px 0 0;text-align:center;color:var(--ink2);font-size:clamp(16px,1.45vw,20px);line-height:1.5;letter-spacing:-.005em;text-wrap:balance;transition:opacity .3s}
+.cap.fade{opacity:0}
+body.nocc .cap{display:none}
+.bigplay{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:.7rem;min-height:46px;padding:.8rem 1.3rem;border-radius:999px;background:var(--ink);color:#fff;font:500 15px var(--text);letter-spacing:-.01em;white-space:nowrap;box-shadow:0 14px 34px -14px rgba(23,24,28,.45);transition:transform .25s var(--ease)}
+.bigplay:hover{transform:translateX(-50%) translateY(-2px)}
+.bigplay svg{width:12px;height:12px;fill:#fff}
+
+/* hover tip and pinned card */
+.tip,.pin{position:absolute;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px -24px rgba(23,24,28,.3);font-size:14px;line-height:1.55;color:var(--ink2)}
+.tip{max-width:300px;padding:.65rem .85rem;pointer-events:none;z-index:5}
+.tip b,.pin h3{display:block;margin:0 0 .2rem;color:var(--ink);font-family:var(--disp);font-weight:600;letter-spacing:-.02em}
+.tip b{font-size:15px}
+.pin{top:12px;right:12px;width:min(340px,calc(100% - 24px));max-height:calc(100% - 24px);overflow:auto;padding:.95rem 1.05rem 1.05rem;z-index:6}
+.pin h3{font-size:18px;padding-right:2rem}
+.pin p{margin:.7rem 0 0;padding-left:.85rem;border-left:2px solid var(--accent)}
+.pin button{position:absolute;top:.5rem;right:.5rem;width:30px;height:30px;border-radius:50%;color:var(--ink3);font-size:18px}
+.pin button:hover{background:rgba(23,24,28,.05);color:var(--ink)}
+
+/* the band: play, seek bar, time, more */
+.band{flex:0 0 var(--band);display:flex;align-items:center;gap:10px;padding:0 10px;transition:opacity .5s;position:relative;z-index:10}
+body.playing.idle .band{opacity:.3}
+.band:hover,.band:focus-within{opacity:1!important}
+.band>button{height:32px;min-width:32px;display:grid;place-items:center;border-radius:16px;color:var(--ink2)}
+.band>button:hover,.band>button[aria-expanded=true]{color:var(--ink);background:rgba(23,24,28,.05)}
+.band svg{width:16px;height:16px;fill:currentColor}
+#play{color:var(--ink)}
+.bar{flex:1;position:relative;display:flex;align-items:center;gap:3px;height:28px;cursor:pointer;touch-action:none}
+.bar i{position:relative;height:2px;border-radius:2px;background:rgba(23,24,28,.1);overflow:hidden;transition:height .2s}
+.bar i.ch{margin-left:5px}
+.bar:hover i,.bar:focus-visible i{height:4px}
+.bar i b{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink)}
+.bartip{position:absolute;bottom:30px;transform:translateX(-50%);padding:.3rem .6rem;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink2);font-size:12px;white-space:nowrap;pointer-events:none;box-shadow:0 10px 24px -14px rgba(23,24,28,.3)}
+.bartip i{font-style:normal;font-family:var(--mono);color:var(--ink3);margin-right:.4rem}
+.time{color:var(--ink3);font:12px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* the "more" menu: speed, captions, voice, chapters, script, fullscreen */
+.menu,.sheet{position:fixed;right:12px;bottom:calc(var(--band) + 6px);z-index:12;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px -30px rgba(23,24,28,.35)}
+.menu{width:min(304px,calc(100% - 24px));padding:6px}
+.menu .row{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;min-height:40px;padding:0 10px;border-radius:10px;color:var(--ink2);font-size:14px;text-align:left}
+.menu button.row:hover{background:rgba(23,24,28,.04);color:var(--ink)}
+.menu kbd{font:11px var(--mono);color:var(--ink3)}
+.menu hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+.speeds{display:flex;gap:2px}
+.speeds button{height:26px;padding:0 6px;border-radius:13px;font:12px var(--mono);color:var(--ink3)}
+.speeds button:hover{color:var(--ink)}
+.speeds button[aria-pressed=true]{background:var(--ink);color:#fff}
+.sw{position:relative;width:30px;height:18px;border-radius:9px;background:rgba(23,24,28,.14);transition:background .2s;flex:none}
+.sw::after{content:'';position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .25s var(--ease)}
+[aria-pressed=true] .sw{background:var(--accent)}
+[aria-pressed=true] .sw::after{transform:translateX(12px)}
+.menu .keys{padding:8px 10px 6px;color:var(--ink3);font-size:12px;line-height:1.7}
+
+/* side sheet: chapters or the narration script */
+.sheet{width:min(400px,calc(100% - 24px));max-height:min(72vh,640px);overflow:auto;font-size:15px;line-height:1.5}
+.sheet header{position:sticky;top:0;z-index:1;display:flex;align-items:baseline;gap:10px;padding:14px 16px 10px;background:#fff;border-bottom:1px solid var(--line)}
+.sheet header b{flex:1;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.sheet header button{font-size:22px;line-height:1;color:var(--ink3)}
+.sheet .body{padding:8px 8px 14px}
+.sheet h4{display:flex;justify-content:space-between;margin:12px 8px 4px;font:600 15px var(--disp);letter-spacing:-.015em;color:var(--ink)}
+.sheet h4 span{font:400 12px var(--mono);color:var(--ink3);padding-top:2px}
+.sheet .it{display:flex;gap:.7rem;width:100%;padding:.4rem .5rem;border-radius:8px;color:var(--ink2);text-align:left}
+.sheet .it:hover{background:rgba(23,24,28,.04);color:var(--ink)}
+.sheet .it.now{color:var(--ink);background:var(--accent-soft)}
+.sheet .it i{min-width:2.6rem;padding-top:.12rem;font:normal 12px var(--mono);color:var(--ink3)}
+.sheet .notes{margin:14px 8px 0;padding-top:12px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px;line-height:1.65}
+
+/* playful cursor on the stage: an ink dot and a lazy ring that swells over things you can touch */
+.cursor{position:fixed;left:0;top:0;z-index:30;pointer-events:none;opacity:0;transition:opacity .2s}
+.cursor.on{opacity:1}
+.cursor i,.cursor b{position:absolute;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor i{width:7px;height:7px;background:var(--ink)}
+.cursor b{width:32px;height:32px;border:1.5px solid rgba(23,24,28,.3);transition:width .25s var(--ease),height .25s var(--ease),border-color .25s,background .25s}
+.cursor.hot b{width:54px;height:54px;border-color:var(--accent);background:var(--accent-soft)}
+@media (hover:hover) and (pointer:fine){#stage,#stage *{cursor:none}}
+@media (hover:none),(pointer:coarse){.cursor{display:none}}
+
+@media (max-width:560px){.time{display:none}.band{gap:6px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}.cursor{display:none}#stage,#stage *{cursor:auto!important}}

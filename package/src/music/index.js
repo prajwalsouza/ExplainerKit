@@ -1,0 +1,13 @@
+export { analyzeMusic, beatsFromText, MUSIC_ANALYSIS_VERSION } from './analysis.js';
+export { MAX_MUSIC_SECONDS } from './input.js';
+export { CHORD_QUALITIES, CHORD_VOCABULARIES, PITCH_NAMES } from './harmony.js';
+export { musicGrid, GRID_UNITS } from './grid.js';
+export { createAdaptiveScore } from './adaptive.js';
+export { retargetMusic, renderMusicEdits } from './retarget.js';
+export { createMusicScore, musicScoreTime, SCORE_LIMITS } from './score.js';
+export { editMusicNotes, repeatMusicPhrase } from './score-edit.js';
+export { readMidi, writeMidi } from './midi.js';
+export { renderMusicScore } from './score-render.js';
+export { SCORE_INSTRUMENTS } from './score-voices.js';
+export { produceMusic, PRODUCTION_LIMITS } from './production.js';
+export { arrangeMusic, arpeggiate, chordPitches, voiceLead, CHORD_SHAPES } from './compose.js';
