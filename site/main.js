@@ -277,6 +277,34 @@ const loaded = new Set(), loadedAt = { start: null };
 const chapterReady = (s) => (CHAPTERS.find((c) => s >= c.from && s < c.to) ?? CHAPTERS.at(-1)).needs.every((n) => loaded.has(n));
 let footageLoading = false;
 let roomShot = null, riverShot = null;
+// Any tap starts the recorded footage loading: iOS Safari in Low Power Mode refuses to play, and so to load, a video
+// without one. Taps keep trying until both shots have a frame.
+function unlockFootage() {
+  roomShot?.unlock();riverShot?.unlock();
+  if (roomShot && riverShot && !roomShot.waiting && !riverShot.waiting && roomShot.ready && riverShot.ready) {
+    for (const type of ['pointerup', 'touchend', 'click', 'keydown']) removeEventListener(type, unlockFootage, true);
+  }
+}
+for (const type of ['pointerup', 'touchend', 'click', 'keydown']) addEventListener(type, unlockFootage, { capture: true, passive: true });
+const loadFootage = Object.assign(document.createElement('button'), { type: 'button', className: 'footage-load', textContent: 'Tap to load the footage', hidden: true });
+loadFootage.addEventListener('click', () => { unlockFootage();loadFootage.textContent = 'Loading the footage…'; });
+document.body.append(loadFootage);
+// With ?debug in the address, a panel reports what each recorded shot is doing, for diagnosing devices remotely.
+if (new URLSearchParams(location.search).has('debug')) {
+  const panel = Object.assign(document.createElement('pre'), { className: 'footage-debug' });
+  document.body.append(panel);
+  const errors = [];
+  addEventListener('error', (e) => errors.push(String(e.message).slice(0, 120)));
+  addEventListener('unhandledrejection', (e) => errors.push(String(e.reason?.message ?? e.reason).slice(0, 120)));
+  const probe = document.createElement('video');
+  setInterval(() => {
+    panel.textContent = JSON.stringify({
+      mp4: probe.canPlayType('video/mp4; codecs="avc1.640029"'), webm: probe.canPlayType('video/webm; codecs="vp9"'),
+      gl: !!document.createElement('canvas').getContext('webgl2'), room: roomShot?.video ?? null, river: riverShot?.video ?? null,
+      roomReady: roomShot?.ready ?? null, riverReady: riverShot?.ready ?? null, errors: errors.slice(-4),
+    }, null, 1);
+  }, 1000);
+}
 /** The two recorded shots load as the reader nears the end of the live chapter. */
 function prepareFootage() {
   if (footageLoading) return;
@@ -469,6 +497,9 @@ const player = createProjectionPlayer(drawing, {
     const centre = { x: innerWidth / 2, y: innerHeight / 2 };
     const roomCover = roomShot ? roomShot.project((s - ROOM[0]) / (ROOM[1] - ROOM[0]), time, { ...centre, r: Math.max(40, liveRoom * scale) }) : 0;
     const riverCover = riverShot ? riverShot.project((s - RIVER[0]) / (RIVER[1] - RIVER[0]), time, { wipe: roomShot?.pillar ?? ['hsl(190 36% 40%)', 'hsl(195 46% 27%)'], point: centre }) : 0;
+    // On iOS in Low Power Mode a video loads only after a tap. If a reader reaches the footage before tapping, ask.
+    const waitingShot = (s > ROOM[0] && s < ROOM[1] && roomShot?.waiting) || (s > RIVER[0] && s < RIVER[1] && riverShot?.waiting);
+    if (loadFootage.hidden === !!waitingShot) loadFootage.hidden = !waitingShot;
     const footage = (s > ROOM[0] && s < RIVER[1]) && (roomCover > 0 || riverCover > 0);
     if (labelLayer.style.visibility !== (footage ? 'hidden' : '')) labelLayer.style.visibility = footage ? 'hidden' : '';
     document.documentElement.classList.toggle('on-footage', s > ROOM[0] + .2 && s < RIVER[1] - .2);

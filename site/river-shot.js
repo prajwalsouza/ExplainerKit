@@ -91,6 +91,15 @@ export function createRiverShot(host, credit) {
   return {
     get ready() { return !!field && video.readyState >= 2; },
     get failed() { return failed; },
+    /** The footage is on its way but has no frame yet: iOS in Low Power Mode waits for a tap before loading it. */
+    get waiting() { return !!field && !failed && !!video.src && video.readyState < 2; },
+    /** Start loading from a tap. The river plays as soon as its chapter is showing, so it pauses only when hidden. */
+    unlock() {
+      if (failed || !video.src || video.readyState >= 2) return;
+      const started = video.play();
+      started?.then(() => { if (!active) video.pause(); }).catch(() => {});
+    },
+    get video() { return { src: video.currentSrc.split('/').pop(), readyState: video.readyState, networkState: video.networkState, error: video.error?.code ?? null, paused: video.paused, failed, field: !!field }; },
     /** The trunk on screen now, in CSS pixels: its left and right edges at mid-height, or null when not shown. */
     trunk() { if (!view || !active) return null;const a = view.toScreen(TRUNK.x0, (TRUNK.y0 + TRUNK.y1) / 2), b = view.toScreen(TRUNK.x1, (TRUNK.y0 + TRUNK.y1) / 2);return { x0: a[0], x1: b[0], y: a[1] }; },
     get status() { return { ready: this.ready, playing: !video.paused, riders: riders.length, windows: moving.length, speed: field?.speed }; },

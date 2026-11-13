@@ -417,6 +417,15 @@ export function createRoomShot(host, credit, { grab }) {
     // the last frame through those dips, so it must not hide the shot.
     get ready() { return !!track && shown >= 0; },
     get failed() { return failed; },
+    /** The footage is on its way but has no frame yet: iOS in Low Power Mode waits for a tap before loading it. */
+    get waiting() { return !!track && !failed && !!video.src && video.readyState < 2; },
+    /** Start loading from a tap. iOS lets a tap start a video even when it blocks playback without one. */
+    unlock() {
+      if (failed || !video.src || video.readyState >= 2) return;
+      const started = video.play();
+      started?.then(() => { if (!manual) { video.pause();seek(); } }).catch(() => {});
+    },
+    get video() { return { src: video.currentSrc.split('/').pop(), readyState: video.readyState, networkState: video.networkState, error: video.error?.code ?? null, paused: video.paused, primed, failed, track: !!track }; },
     /** For checks: the frame on screen, the quad the chart fills, and what stands on the table. */
     get status() { return { ready: this.ready, shown, requested, quad: view?.quad, bodies: things.concat(placed).filter((t) => t.born !== null).map((t) => ({ kind: t.kind, x: +t.x.toFixed(3), z: +t.z.toFixed(3), y: +(t.y ?? 0).toFixed(3) })) }; },
     /** For checks: where a point on the table is on screen now, in CSS pixels. */

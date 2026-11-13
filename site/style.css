@@ -127,6 +127,9 @@ a { text-decoration: none; }
 .install[data-done] .glyph { opacity: .62; color: var(--accent); }
 .install .cmd { opacity: .45; }
 .install .pkg { font-weight: 600; letter-spacing: .01em; }
+.footage-load { position: fixed; z-index: 6; left: 50%; bottom: 22vh; transform: translateX(-50%); white-space: nowrap; font: 15px var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 12px 22px; cursor: pointer; }
+.footage-load[hidden] { display: none; }
+.footage-debug { position: fixed; z-index: 9; left: 8px; top: 64px; max-width: calc(100vw - 16px); max-height: 60vh; overflow: auto; margin: 0; padding: 8px; font: 10px/1.3 var(--mono); color: #fff; background: rgb(0 0 0 / .72); border-radius: 8px; pointer-events: none; white-space: pre-wrap; }
 .footage-source { position: fixed; left: 0; top: 0; width: 2px; height: 2px; opacity: .01; pointer-events: none; z-index: -1; }
 .soon { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
 @media (max-width: 480px) {
