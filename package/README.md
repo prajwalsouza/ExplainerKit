@@ -18,7 +18,7 @@ For generated palettes, `explainerkit/color` provides hue, saturation, lightness
 
 ## Use it without a build tool
 
-A plain HTML page can load the same modules without a bundler, from a CDN that mirrors npm or from a copy on your own server. The [getting-started guide](docs/getting-started.md#use-plain-html-without-npm) shows a complete page and explains how its imports are resolved.
+A plain HTML page can load the same modules without a bundler, from the ExplainerKit website, from a CDN that mirrors npm or from a copy on your own server. The [getting-started guide](docs/getting-started.md#use-plain-html-without-npm) shows a complete page and explains how its imports are resolved.
 
 The code uses the [MIT license](LICENSE). Starter character artwork is licensed separately under CC0, and each character folder includes its license file. The character pack is distributed separately from the npm code package, so keep the relevant artwork license with a copied pack.
 

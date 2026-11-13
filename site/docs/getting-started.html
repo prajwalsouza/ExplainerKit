@@ -10,6 +10,7 @@
 <h2 id="install-in-an-npm-project">Install in an npm project</h2>
 <p>Run the following command in your application project. It adds ExplainerKit to the project's dependencies, and your build tool can then resolve imports such as <code>explainerkit</code> and <code>explainerkit/renderers/svg</code>.</p>
 <pre><code>npm install explainerkit</code></pre>
+<p>The package is not on npm yet, so this command fails until its first release reaches the registry. Until then, use the plain HTML route below, which loads the same modules from the ExplainerKit website without npm.</p>
 <p>The package installs as ES modules with TypeScript declarations, so editors can check calls before the code runs. It has no required runtime dependencies. Three.js is an optional peer dependency that you install only when you use the 3D renderer.</p>
 <h2 id="create-a-scene">Create a scene</h2>
 <p>In the application module, create a 320 × 180 scene and add a circle with an initial x position of 40. The call to <code>to()</code> schedules its move to x = 200 at time 1, with a duration of one second, so the circle waits for a second before beginning to move. Sampling at time 1.5 therefore returns x = 120 without playing the earlier frames.</p>
@@ -32,7 +33,7 @@ renderer.render(drawing.sample({time: <span class="n">1.5</span>}));
 <span class="c">// Call renderer.dispose() when you remove this example from the page.</span></code></pre>
 <p>An import such as <code>explainerkit</code> names a package, so a build tool is needed to find the corresponding file in an npm project. A browser loading plain HTML does not perform that package lookup automatically. Use the complete file URLs in the next section when the page has no build tool.</p>
 <h2 id="use-plain-html-without-npm">Use plain HTML without npm</h2>
-<p>A plain HTML page can import ExplainerKit straight from a CDN that serves npm packages, such as jsDelivr. Each import names a complete URL, and the version in that URL pins the page to one release so that a later release cannot change it unexpectedly. Save the following document as <code>first-scene.html</code> and serve its folder over HTTP, for example with <code>python3 -m http.server 8080</code>. Then open the page through that server at <code>http://localhost:8080/first-scene.html</code>.</p>
+<p>A plain HTML page can import ExplainerKit straight from the ExplainerKit website, which serves every module of the current release under <code>https://explainerkit.github.io/runtime/src/</code>. Each import names a complete URL, and the site allows pages on other sites to load these files. Save the following document as <code>first-scene.html</code> and serve its folder over HTTP, for example with <code>python3 -m http.server 8080</code>. Then open the page through that server at <code>http://localhost:8080/first-scene.html</code>.</p>
 <pre><code>&lt;!doctype html&gt;
 &lt;html lang=<span class="s">&quot;en&quot;</span>&gt;
 &lt;meta charset=<span class="s">&quot;utf-8&quot;</span>&gt;
@@ -40,8 +41,8 @@ renderer.render(drawing.sample({time: <span class="n">1.5</span>}));
 &lt;title&gt;My first ExplainerKit <span class="f">scene</span>&lt;/title&gt;
 &lt;div id=<span class="s">&quot;stage&quot;</span>&gt;&lt;/div&gt;
 &lt;script type=<span class="s">&quot;module&quot;</span>&gt;
-  <span class="k">import</span> {<span class="f">scene</span>} <span class="k">from</span> <span class="s">'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js'</span>;
-  <span class="k">import</span> {<span class="f">createSVGRenderer</span>} <span class="k">from</span> <span class="s">'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/renderers/svg.js'</span>;
+  <span class="k">import</span> {<span class="f">scene</span>} <span class="k">from</span> <span class="s">'https://explainerkit.github.io/runtime/src/index.js'</span>;
+  <span class="k">import</span> {<span class="f">createSVGRenderer</span>} <span class="k">from</span> <span class="s">'https://explainerkit.github.io/runtime/src/renderers/svg.js'</span>;
 
   <span class="k">const</span> drawing = <span class="f">scene</span>({width: <span class="n">320</span>, height: <span class="n">180</span>});
   drawing.circle({x: <span class="n">120</span>, y: <span class="n">90</span>, r: <span class="n">16</span>, fill: <span class="s">'#34766b'</span>});
@@ -52,16 +53,17 @@ renderer.render(drawing.sample({time: <span class="n">1.5</span>}));
 &lt;/html&gt;</code></pre>
 <p>A green circle should appear on the page. The example draws it immediately, without motion, so a visible circle confirms that the modules loaded and the renderer ran. If nothing appears, the browser's developer console names the import or call that failed.</p>
 <p>The <code>type=&quot;module&quot;</code> attribute matters because the library is a set of ES modules that import one another, not a single classic-script bundle. Loading it through <code>&lt;script src=&quot;…&quot;&gt;&lt;/script&gt;</code> does not work, and no global <code>ExplainerKit</code> variable is created. Opening the file directly from disk does not work either, because browsers refuse module imports from <code>file://</code> pages.</p>
+<p>The website always serves the latest release, so a page that loads from it moves to each new release automatically. To keep a page on one release, host a copy of the files yourself as described below. Once the package is on npm, a CDN that mirrors npm, such as jsDelivr, can also serve a fixed version from an address like <code>https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js</code>.</p>
 <p>Every module the package exports is a file under <code>src/</code> at the same version. Most package names follow the folder layout, so <code>explainerkit/renderers/canvas</code> is <code>src/renderers/canvas.js</code> and <code>explainerkit/motion</code> is <code>src/motion/index.js</code>, but a few do not. The <code>exports</code> field of the package's <code>package.json</code> lists the file behind every name. An import map can let the page write the shorter package names instead, as long as it maps each name to its complete URL.</p>
 <h3 id="host-the-files-yourself">Host the files yourself</h3>
-<p>A page can also load ExplainerKit from its own server instead of a CDN. After <code>npm install explainerkit</code>, copy the folder <code>node_modules/explainerkit/src/</code> into your site and change the imports to point at that copy, for example <code>./explainerkit/src/index.js</code>. Keep the whole folder together, because each module imports others from beside it. The server must send JavaScript files with a JavaScript content type, which ordinary static servers do.</p>
+<p>A page can also load ExplainerKit from its own server. Copy the <code>src/</code> folder of a release into your site. The <code>package/src/</code> folder of the <a href="https://github.com/prajwalsouza/ExplainerKit">ExplainerKit repository</a> holds it, and so does <code>node_modules/explainerkit/src/</code> after an npm install. Then change the imports to point at your copy, for example <code>./explainerkit/src/index.js</code>. Keep the whole folder together, because each module imports others from beside it. The server must send JavaScript files with a JavaScript content type, which ordinary static servers do.</p>
 <h3 id="add-threejs-for-3d">Add Three.js for 3D</h3>
-<p>The 3D renderer needs a compatible Three.js ES module, while SVG and Canvas remain independent of it. Load Three.js yourself and pass its module namespace as <code>THREE</code>, so ExplainerKit uses the copy your page selected rather than downloading another one. The example loads both libraries from the CDN at pinned versions.</p>
+<p>The 3D renderer needs a compatible Three.js ES module, while SVG and Canvas remain independent of it. Load Three.js yourself and pass its module namespace as <code>THREE</code>, so ExplainerKit uses the copy your page selected rather than downloading another one. The example loads Three.js from jsDelivr at a pinned version and ExplainerKit from its website.</p>
 <pre><code>&lt;div id=<span class="s">&quot;three-stage&quot;</span>&gt;&lt;/div&gt;
 &lt;script type=<span class="s">&quot;module&quot;</span>&gt;
   <span class="k">import</span> * as THREE <span class="k">from</span> <span class="s">'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js'</span>;
-  <span class="k">import</span> {<span class="f">scene</span>} <span class="k">from</span> <span class="s">'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js'</span>;
-  <span class="k">import</span> {<span class="f">createThreeRenderer</span>} <span class="k">from</span> <span class="s">'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/renderers/three.js'</span>;
+  <span class="k">import</span> {<span class="f">scene</span>} <span class="k">from</span> <span class="s">'https://explainerkit.github.io/runtime/src/index.js'</span>;
+  <span class="k">import</span> {<span class="f">createThreeRenderer</span>} <span class="k">from</span> <span class="s">'https://explainerkit.github.io/runtime/src/renderers/three.js'</span>;
 
   <span class="k">const</span> drawing = <span class="f">scene</span>({width: <span class="n">300</span>, height: <span class="n">200</span>});
   drawing.rect({x: <span class="n">100</span>, y: <span class="n">50</span>, width: <span class="n">100</span>, height: <span class="n">100</span>, depth: <span class="n">30</span>, fill: <span class="s">'#34766b'</span>});

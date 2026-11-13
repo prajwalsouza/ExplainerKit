@@ -672,7 +672,9 @@ const PACE = 2.2;
 // Pace (scroll velocity) never changes what a position shows; it chooses how the figure leaves and starts the
 // 3D stage early when the reader heads down fast. A page opened part-way (a reload, back/forward) replays the
 // current chapter in, held at its start until its parts have loaded, instead of snapping into the middle.
-const pace = scrollPace({ viewportHeight: innerHeight }), opened = performance.now();
+// A page can start with no height (a hidden frame or a prerender), so the pace keeps a usable height and follows resizes.
+const viewHeight = () => Math.min(16384, Math.max(1, innerHeight || 800));
+const pace = scrollPace({ viewportHeight: viewHeight() }), opened = performance.now();
 let arrival = null, readerTouched = false;
 for (const name of ['wheel', 'touchstart', 'pointerdown', 'keydown']) addEventListener(name, () => { readerTouched = true;if (arrival) arrival.done = true; }, { passive: true });
 function offerArrival(s) {
@@ -852,7 +854,7 @@ function placeLive() {
   liveLayout.keep = [...(full ? [$('live-caption')] : [caption, document.querySelector('.chip')]), liveBox, document.querySelector('.brand')].map((el) => el?.getBoundingClientRect()).filter((b) => b?.width)
     .map((b) => { const a = fromView({ x: b.left - 16, y: b.top - 16 }), z = fromView({ x: b.right + 16, y: b.bottom + 16 });return { x0: a.x, y0: a.y, x1: z.x, y1: z.y }; });
 }
-addEventListener('resize', () => { fit();placeLive(); });
+addEventListener('resize', () => { fit();placeLive();pace.resize(viewHeight()); });
 function followSignalLink() {
   if (location.hash === '#room') scrollTo(0, (ROOM[0] + .05) * innerHeight * PACE);
   if (location.hash === '#river') scrollTo(0, (RIVER[0] + .2) * innerHeight * PACE);
@@ -896,7 +898,8 @@ async function copyText(button, value) {
   button.classList.remove('pop');void button.offsetWidth;button.classList.add('pop');
   clearTimeout(button._done);button._done = setTimeout(() => { delete button.dataset.done; }, 1800);
 }
-$('install').addEventListener('click', (e) => copyText(e.currentTarget, 'npm i explainerkit'));
+// Until the package is on npm, the install line is an import that loads the library from this site.
+$('install').addEventListener('click', (e) => copyText(e.currentTarget, "import { scene } from 'https://explainerkit.github.io/runtime/src/index.js';"));
 $('copy').addEventListener('click', (e) => copyText(e.currentTarget, code.textContent));
 
 window.landing = { get room() { return roomShot; }, get river() { return riverShot; }, player, drawing, flight, hero, story, clock, air, sprouts, PACE, get three() { return three; }, get continuity() { return continuity; }, pose, loaded, loadedAt, get director() { return { mood, nextMood, walkEnds, pendingThrow }; }, live };

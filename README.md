@@ -6,15 +6,11 @@ The website at https://explainerkit.github.io/ shows the library at work and car
 
 ## Install it
 
-In a project that uses npm and a build tool such as Vite, install the package and import the modules you need.
-
-```sh
-npm install explainerkit
-```
+The package is not on npm yet. Until it is, a plain HTML page can load every module from the website, as the next example shows. Once it is published, a project that uses npm and a build tool such as Vite can install it with `npm install explainerkit` and import the same modules by package name.
 
 ```js
-import {scene} from 'explainerkit';
-import {createSVGRenderer} from 'explainerkit/renderers/svg';
+import {scene} from 'https://explainerkit.github.io/runtime/src/index.js';
+import {createSVGRenderer} from 'https://explainerkit.github.io/runtime/src/renderers/svg.js';
 
 const drawing = scene({width: 320, height: 180, label: 'A moving circle'});
 const circle = drawing.circle({x: 40, y: 90, r: 16, fill: '#34766b'});
@@ -27,7 +23,7 @@ renderer.render(drawing.sample({time: 1.5}));
 
 The circle starts moving at one second and reaches x = 200 at two seconds, so the frame drawn at 1.5 seconds shows it halfway, at x = 120.
 
-A plain HTML page without a build tool can load the same modules from a CDN. The [getting-started guide](package/docs/getting-started.md) shows both routes in full and explains what each line does.
+Run this code in a `<script type="module">` on a page served over HTTP. The [getting-started guide](package/docs/getting-started.md) shows the complete page, the npm route and how to host the files yourself.
 
 ## Find your way around
 

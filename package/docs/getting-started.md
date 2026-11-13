@@ -27,6 +27,8 @@ Run the following command in your application project. It adds ExplainerKit to t
 npm install explainerkit
 ```
 
+The package is not on npm yet, so this command fails until its first release reaches the registry. Until then, use the plain HTML route below, which loads the same modules from the ExplainerKit website without npm.
+
 The package installs as ES modules with TypeScript declarations, so editors can check calls before the code runs. It has no required runtime dependencies. Three.js is an optional peer dependency that you install only when you use the 3D renderer.
 
 ## Create a scene
@@ -62,7 +64,7 @@ An import such as `explainerkit` names a package, so a build tool is needed to f
 
 ## Use plain HTML without npm
 
-A plain HTML page can import ExplainerKit straight from a CDN that serves npm packages, such as jsDelivr. Each import names a complete URL, and the version in that URL pins the page to one release so that a later release cannot change it unexpectedly. Save the following document as `first-scene.html` and serve its folder over HTTP, for example with `python3 -m http.server 8080`. Then open the page through that server at `http://localhost:8080/first-scene.html`.
+A plain HTML page can import ExplainerKit straight from the ExplainerKit website, which serves every module of the current release under `https://explainerkit.github.io/runtime/src/`. Each import names a complete URL, and the site allows pages on other sites to load these files. Save the following document as `first-scene.html` and serve its folder over HTTP, for example with `python3 -m http.server 8080`. Then open the page through that server at `http://localhost:8080/first-scene.html`.
 
 ```html
 <!doctype html>
@@ -72,8 +74,8 @@ A plain HTML page can import ExplainerKit straight from a CDN that serves npm pa
 <title>My first ExplainerKit scene</title>
 <div id="stage"></div>
 <script type="module">
-  import {scene} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js';
-  import {createSVGRenderer} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/renderers/svg.js';
+  import {scene} from 'https://explainerkit.github.io/runtime/src/index.js';
+  import {createSVGRenderer} from 'https://explainerkit.github.io/runtime/src/renderers/svg.js';
 
   const drawing = scene({width: 320, height: 180});
   drawing.circle({x: 120, y: 90, r: 16, fill: '#34766b'});
@@ -88,22 +90,24 @@ A green circle should appear on the page. The example draws it immediately, with
 
 The `type="module"` attribute matters because the library is a set of ES modules that import one another, not a single classic-script bundle. Loading it through `<script src="…"></script>` does not work, and no global `ExplainerKit` variable is created. Opening the file directly from disk does not work either, because browsers refuse module imports from `file://` pages.
 
+The website always serves the latest release, so a page that loads from it moves to each new release automatically. To keep a page on one release, host a copy of the files yourself as described below. Once the package is on npm, a CDN that mirrors npm, such as jsDelivr, can also serve a fixed version from an address like `https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js`.
+
 Every module the package exports is a file under `src/` at the same version. Most package names follow the folder layout, so `explainerkit/renderers/canvas` is `src/renderers/canvas.js` and `explainerkit/motion` is `src/motion/index.js`, but a few do not. The `exports` field of the package's `package.json` lists the file behind every name. An import map can let the page write the shorter package names instead, as long as it maps each name to its complete URL.
 
 ### Host the files yourself
 
-A page can also load ExplainerKit from its own server instead of a CDN. After `npm install explainerkit`, copy the folder `node_modules/explainerkit/src/` into your site and change the imports to point at that copy, for example `./explainerkit/src/index.js`. Keep the whole folder together, because each module imports others from beside it. The server must send JavaScript files with a JavaScript content type, which ordinary static servers do.
+A page can also load ExplainerKit from its own server. Copy the `src/` folder of a release into your site. The `package/src/` folder of the [ExplainerKit repository](https://github.com/prajwalsouza/ExplainerKit) holds it, and so does `node_modules/explainerkit/src/` after an npm install. Then change the imports to point at your copy, for example `./explainerkit/src/index.js`. Keep the whole folder together, because each module imports others from beside it. The server must send JavaScript files with a JavaScript content type, which ordinary static servers do.
 
 ### Add Three.js for 3D
 
-The 3D renderer needs a compatible Three.js ES module, while SVG and Canvas remain independent of it. Load Three.js yourself and pass its module namespace as `THREE`, so ExplainerKit uses the copy your page selected rather than downloading another one. The example loads both libraries from the CDN at pinned versions.
+The 3D renderer needs a compatible Three.js ES module, while SVG and Canvas remain independent of it. Load Three.js yourself and pass its module namespace as `THREE`, so ExplainerKit uses the copy your page selected rather than downloading another one. The example loads Three.js from jsDelivr at a pinned version and ExplainerKit from its website.
 
 ```html
 <div id="three-stage"></div>
 <script type="module">
   import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js';
-  import {scene} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js';
-  import {createThreeRenderer} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/renderers/three.js';
+  import {scene} from 'https://explainerkit.github.io/runtime/src/index.js';
+  import {createThreeRenderer} from 'https://explainerkit.github.io/runtime/src/renderers/three.js';
 
   const drawing = scene({width: 300, height: 200});
   drawing.rect({x: 100, y: 50, width: 100, height: 100, depth: 30, fill: '#34766b'});
