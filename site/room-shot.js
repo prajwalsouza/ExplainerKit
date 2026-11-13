@@ -22,6 +22,9 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, x) => { const v = clamp((x - a) / (b - a));return v * v * (3 - 2 * v); };
 const mix = (a, b, t) => a + (b - a) * t;
 const asset = (extension) => new URL(`./media/room.${extension}`, import.meta.url);
+// Safari, Chrome and Edge play H.264 everywhere, and many iPhones cannot play VP9, so the MP4 is used wherever H.264
+// plays. A browser without H.264, such as some Firefox builds, gets the WebM.
+const FOOTAGE = document.createElement('video').canPlayType('video/mp4; codecs="avc1.640029"') ? 'mp4' : 'webm';
 const POSTER = 1024;
 // The chart's place on the wall, in metres: centre and half size. The wall is the plane z = wall.point[2].
 const CHART = { x: .92, y: 1.3, half: .68 };
@@ -145,12 +148,15 @@ export function createRoomShot(host, credit, { grab }) {
   // The video is never shown itself. Each decoded frame is drawn onto the plate in the same callback that moves the
   // chart and renders the 3D, so the picture and everything placed in it change together and the last good frame
   // stays up while the next one is decoded.
-  const video = Object.assign(document.createElement('video'), { muted: true, playsInline: true, preload: 'auto', hidden: true });
+  // It stays rendered, tiny and nearly transparent, because iOS Safari may not decode frames for a video that is not.
+  const video = Object.assign(document.createElement('video'), { muted: true, playsInline: true, preload: 'auto', className: 'footage-source' });
   const plate = Object.assign(document.createElement('canvas'), { className: 'room-plate' });
   const poster = Object.assign(document.createElement('canvas'), { width: POSTER, height: POSTER, className: 'room-poster' });
   const gl = Object.assign(document.createElement('canvas'), { className: 'room-gl' });
   const shade = document.createElement('div');shade.className = 'footage-shade';
-  frame.append(plate, poster, gl);host.append(frame, shade, video);
+  frame.append(plate, poster, gl);host.append(frame, shade);
+  // The host is hidden until the chapter is ready, so the video lives on the page body, where it stays rendered.
+  document.body.append(video);
   const pen = poster.getContext('2d'), board = plate.getContext('2d', { alpha: false });
   const controls = document.createElement('div');
   controls.className = 'footage-controls';controls.hidden = true;controls.setAttribute('role', 'group');controls.setAttribute('aria-label', 'Room footage');
@@ -160,7 +166,7 @@ export function createRoomShot(host, credit, { grab }) {
 
   let garden = null, pointerRay = null, contact = null, track = null, failed = false, renderer = null, scene = null, camera3 = null, things = [], table = null, light = null;
   // `manual` holds the frame the reader chose with the controls, until the reader scrolls again.
-  let lastU = -1, manual = null, posterPainted = false, requested = 0, shown = -1, progress = -1, active = false, dirty = true, lastPaint = -1, clock = 0, lastTime = null, view = null;
+  let primed = false, lastU = -1, manual = null, posterPainted = false, requested = 0, shown = -1, progress = -1, active = false, dirty = true, lastPaint = -1, clock = 0, lastTime = null, view = null;
   const placed = [];
   let placedCount = 0;
 
@@ -168,7 +174,7 @@ export function createRoomShot(host, credit, { grab }) {
     track = json;
     frame.style.width = `${track.width}px`;frame.style.height = `${track.height}px`;
     plate.width = track.width;plate.height = track.height;scrubber.max = track.frames.length - 1;
-    build();video.src = asset('webm').href;
+    build();video.src = asset(FOOTAGE).href;
   }).catch(() => { failed = true; });
   /** A new frame is on the video: draw it, and move everything placed in it to the same frame. */
   function present(mediaTime) {
@@ -185,7 +191,8 @@ export function createRoomShot(host, credit, { grab }) {
     video.addEventListener('seeked', () => present(video.currentTime));
     video.addEventListener('timeupdate', () => { if (!video.paused) present(video.currentTime); });
   }
-  video.addEventListener('seeked', () => seek());
+  // Safari may not report a frame callback for a paused seek, so a finished seek also draws its frame.
+  video.addEventListener('seeked', () => { present(video.currentTime);seek(); });
   video.addEventListener('loadeddata', () => { present(video.currentTime);seek(); });
   video.addEventListener('error', () => { failed = true; });
   const sync = () => { const label = video.paused ? 'Play footage' : 'Pause footage';button.setAttribute('aria-label', label);button.title = label;button.toggleAttribute('data-playing', !video.paused); };
@@ -422,6 +429,12 @@ export function createRoomShot(host, credit, { grab }) {
      */
     project(u, time, chart) {
       active = u > 0 && u < 1 && !failed;
+      // iOS may not fetch a video until it has played, and this one is otherwise only ever seeked. A muted play,
+      // paused at once, starts the download the first time the chapter opens.
+      if (active && !primed && video.src && video.paused) {
+        primed = true;
+        video.play().then(() => { if (!manual) { video.pause();seek(); } }).catch(() => {});
+      }
       const dt = lastTime === null ? 0 : Math.min(.1, Math.max(0, time - lastTime));lastTime = time;clock += dt;
       if (track && active) {
         settle(dt);

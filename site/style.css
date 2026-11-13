@@ -127,6 +127,7 @@ a { text-decoration: none; }
 .install[data-done] .glyph { opacity: .62; color: var(--accent); }
 .install .cmd { opacity: .45; }
 .install .pkg { font-weight: 600; letter-spacing: .01em; }
+.footage-source { position: fixed; left: 0; top: 0; width: 2px; height: 2px; opacity: .01; pointer-events: none; z-index: -1; }
 .soon { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
 @media (max-width: 480px) {
   .start { padding: 0 16px; }

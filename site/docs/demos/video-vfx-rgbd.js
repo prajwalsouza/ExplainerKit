@@ -1,7 +1,7 @@
 import { hsla, toHex, toRGBA } from '../../runtime/src/color/index.js';
 import { projectPoint } from '../../runtime/src/spatial/index.js';
 import { applyDepthHoldout } from '../../runtime/src/vfx/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 import { cameraFor, drawDepthMesh, prepareGroundBin } from './video-vfx-world.js';
 
@@ -516,7 +516,7 @@ export async function mountDepthDemo(
     },
     options,
   );
-  video.src = asset('webm').href;
+  video.src = clipSource(asset('webm').href);
 
   return () => {
     listeners.abort();

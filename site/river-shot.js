@@ -16,6 +16,8 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, x) => { const v = clamp((x - a) / (b - a));return v * v * (3 - 2 * v); };
 const mix = (a, b, t) => a + (b - a) * t;
 const asset = (extension) => new URL(`./media/river.${extension}`, import.meta.url);
+// H.264 where it plays (Safari, and many iPhones that cannot play VP9), else the WebM.
+const FOOTAGE = document.createElement('video').canPlayType('video/mp4; codecs="avc1.640029"') ? 'mp4' : 'webm';
 // The part of the picture to keep in view on a tall screen, and where the page's boats set off, in field pixels.
 const FOCUS = { x: 300, y: 190 }, SOURCE = { x: 60, y: 40, width: 210, height: 120 };
 // The tree trunk that stands in the stream, in field pixels: the returning paper planes steer round it.
@@ -25,9 +27,12 @@ const HANDOVER = [.54, .64];
 
 export function createRiverShot(host, credit) {
   const sheet = Object.assign(document.createElement('canvas'), { className: 'river-sheet' }), pen = sheet.getContext('2d');
-  const video = Object.assign(document.createElement('video'), { muted: true, playsInline: true, loop: true, preload: 'auto', hidden: true });
+  // Kept rendered, tiny and nearly transparent: iOS Safari may not decode frames for a video that is not.
+  const video = Object.assign(document.createElement('video'), { muted: true, playsInline: true, loop: true, preload: 'auto', className: 'footage-source' });
   const shade = document.createElement('div');shade.className = 'footage-shade';
-  host.append(sheet, video, shade);
+  host.append(sheet, shade);
+  // The host is hidden outside the chapter, so the video lives on the page body, where it stays rendered.
+  document.body.append(video);
   const controls = document.createElement('div');
   controls.className = 'footage-controls';controls.hidden = true;controls.setAttribute('role', 'group');controls.setAttribute('aria-label', 'River footage');
   controls.innerHTML = '<button class="footage-play" type="button" aria-label="Pause footage" title="Pause footage"></button><input type="range" min="0" step="1" value="0" aria-label="Footage position">';
@@ -49,7 +54,7 @@ export function createRiverShot(host, credit) {
     springs = moving.filter((k) => { const p = at(k);return p.x >= SOURCE.x && p.x <= SOURCE.x + SOURCE.width && p.y >= SOURCE.y && p.y <= SOURCE.y + SOURCE.height; });
   }).catch(() => { failed = true; });
   video.addEventListener('error', () => { failed = true; });
-  video.src = asset('webm').href;
+  video.src = asset(FOOTAGE).href;
 
   const cellPoint = (k, n, c) => ({ x: field.grid.x + (k % field.grid.cols) * field.grid.step + (randomAt(83, n, c) - .5) * field.grid.step, y: field.grid.y + Math.floor(k / field.grid.cols) * field.grid.step + (randomAt(83, n, c + 1) - .5) * field.grid.step });
   /** The nearest place on moving water to a point of the picture, or null if none is within `within` pixels. */

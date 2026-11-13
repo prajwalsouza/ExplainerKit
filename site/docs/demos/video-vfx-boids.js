@@ -1,5 +1,5 @@
 import { rayPlane, screenRay } from '../../runtime/src/spatial/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { cameraFor } from './video-vfx-world.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 import { createBoidFlock, sceneObstacles } from './video-vfx-boid-model.js';
@@ -462,5 +462,5 @@ async function mountShot(stage, shot, signal) {
     },
     { once: true },
   );
-  video.src = asset(shot, 'webm').href;
+  video.src = clipSource(asset(shot, 'webm').href);
 }

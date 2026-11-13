@@ -2,7 +2,7 @@ import { scene } from '../../runtime/src/core/index.js';
 import { fromRGBA, hsla, toHex, toRGBA } from '../../runtime/src/color/index.js';
 import { createSVGRenderer } from '../../runtime/src/renderers/svg.js';
 import { perspectiveCamera, projectPoint, projectPoints } from '../../runtime/src/spatial/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 
 const viewport = { width: 640, height: 360 };
@@ -546,7 +546,7 @@ export default async function worldDemo(stage, { createInsert } = {}) {
   );
   for (const option of [inserts, matchLight, showGuide])
     option.addEventListener('change', () => draw(mediaTime), options);
-  video.src = new URL('./video-vfx-wall.webm', import.meta.url).href;
+  video.src = clipSource(new URL('./video-vfx-wall.webm', import.meta.url).href);
 
   return () => {
     listeners.abort();

@@ -3,7 +3,7 @@ import { hsla, toHex, toRGBA } from '../../runtime/src/color/index.js';
 import { createCanvasRenderer } from '../../runtime/src/renderers/canvas.js';
 import { createSVGRenderer } from '../../runtime/src/renderers/svg.js';
 import { compileTrack, sampleTrack, surfaceTransform } from '../../runtime/src/vfx/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 import { phoneCard } from './video-vfx-phone.js';
 
@@ -337,7 +337,7 @@ export default async function anchorsDemo(stage) {
     credit.textContent = SHOTS[next].author;
     credit.href = SHOTS[next].source;
     video.setAttribute('aria-label', SHOTS[next].label);
-    video.src = new URL(SHOTS[next].file, import.meta.url).href;
+    video.src = clipSource(new URL(SHOTS[next].file, import.meta.url).href);
   }
   function seek(value) {
     if (!available) return;

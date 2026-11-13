@@ -3,7 +3,7 @@ import { hsla, toHex } from '../../runtime/src/color/index.js';
 import { createSVGRenderer } from '../../runtime/src/renderers/svg.js';
 import { projectSurface, sampleTrack, surfaceTransform } from '../../runtime/src/vfx/index.js';
 import { autoTrackScreen, trackSurface } from './video-vfx-auto.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 
 const clips = [
@@ -180,7 +180,7 @@ export default async function autoStudy(stage) {
     regions = motion[clip.file] ?? [];
     video.pause();
     url = new URL(clip.file, import.meta.url).href;
-    video.src = url;
+    video.src = clipSource(url);
     video.setAttribute('aria-label', clip.title);
     controls();
     time.value = 0;

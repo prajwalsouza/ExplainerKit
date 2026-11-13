@@ -1,7 +1,7 @@
 import { hsla, toHex } from '../../runtime/src/color/index.js';
 import { perspectiveCamera } from '../../runtime/src/spatial/index.js';
 import { compileCameraTrack } from '../../runtime/src/vfx/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 import { actualDiameter, bodies, calendar, chapters, formatSize, stateAt } from './video-vfx-solar-field-data.js';
 import { makePlanetLayer, pointsOnField } from './video-vfx-solar-field-render.js';
@@ -618,7 +618,7 @@ export default async function solarField(stage, { still = false } = {}) {
     },
     options,
   );
-  video.src = asset('.webm').href;
+  video.src = clipSource(asset('.webm').href);
   const atlas = new Image();
   atlas.src = asset('-maps.webp').href;
   void atlas

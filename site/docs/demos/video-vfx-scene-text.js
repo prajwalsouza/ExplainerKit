@@ -1,6 +1,6 @@
 import { projectPoint } from '../../runtime/src/spatial/index.js';
 import { surfaceTransform } from '../../runtime/src/vfx/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 import { cameraFor } from './video-vfx-world.js';
 
@@ -206,7 +206,7 @@ export default async function sceneText(stage) {
         )
         .join('');
       cueButtons = [...clues.querySelectorAll('button')];
-      video.src = asset(shot, 'webm').href;
+      video.src = clipSource(asset(shot, 'webm').href);
     } catch (error) {
       if (!request.signal.aborted) note(error.message);
     }

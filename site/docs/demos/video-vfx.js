@@ -6,6 +6,7 @@ import { analyzeFrame, compileTrack, sampleTrack, surfaceTransform } from '../..
 import { playState, shotControls } from './video-vfx-controls.js';
 import { createShotComposite, loadMatteImage } from './video-vfx-composite.js';
 import { autoTrackScreen } from './video-vfx-auto.js';
+import { clipSource } from './_kit.js';
 
 const width = 640,
   height = 360;
@@ -107,7 +108,7 @@ export default async function presentationDemo(stage) {
     region = compileTrack(data.region);
   const microphone = compileTrack((await anchorResponse.json()).object);
   const end = plane.samples.at(-1).time;
-  const url = new URL('./video-vfx-presentation.webm', import.meta.url).href;
+  const url = clipSource(new URL('./video-vfx-presentation.webm', import.meta.url).href);
   stage.innerHTML = `
     <div class="vfx-demo">
       <div class="vfx-shot">

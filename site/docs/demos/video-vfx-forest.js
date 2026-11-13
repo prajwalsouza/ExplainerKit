@@ -1,6 +1,6 @@
 import { projectPoints, screenRay } from '../../runtime/src/spatial/index.js';
 import { applyDepthHoldout } from '../../runtime/src/vfx/index.js';
-import { css } from './_kit.js';
+import { css, clipSource } from './_kit.js';
 import { playState, shotControls } from './video-vfx-controls.js';
 import { cameraFor } from './video-vfx-world.js';
 import { coffeeTable, rover, roverLocation, wildlife, woodland } from './video-vfx-forest-models.js';
@@ -383,7 +383,7 @@ export default async function mountForest(stage) {
     },
     options,
   );
-  video.src = asset('webm').href;
+  video.src = clipSource(asset('webm').href);
 
   return () => {
     listeners.abort();

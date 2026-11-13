@@ -1,4 +1,5 @@
 import { analyzeFrame, compileTrack, stabilizeTrack, trackPlane } from '../../runtime/src/vfx/index.js';
+import { clipSource } from './_kit.js';
 
 const scanWidth = 160;
 const scanHeight = 90;
@@ -146,7 +147,7 @@ export async function autoTrackScreen(url, signal, progress = () => {}) {
     y: visible.y === 0 && i < 2 ? 0 : y * 2,
   }));
   try {
-    await decoderReady(video, 'loadeddata', signal, () => (video.src = url));
+    await decoderReady(video, 'loadeddata', signal, () => (video.src = clipSource(url)));
     const setBox = ({ x, y, width, height }) => ({
       x: x * 2, y: y * 2, width: width * 2 - 2, height: height * 2 - 2,
     });
@@ -217,7 +218,7 @@ export async function trackSurface(url, { surface, region = surface }, signal, p
   const context = buffer.getContext('2d', { willReadFrequently: true });
   const frame = () => readFrame(video, context, buffer.width, buffer.height);
   try {
-    await decoderReady(video, 'loadeddata', signal, () => (video.src = url));
+    await decoderReady(video, 'loadeddata', signal, () => (video.src = clipSource(url)));
     const lastTime = Math.min(4.96, video.duration - .04);
     if (!Number.isFinite(lastTime) || lastTime < .04) return { track: null, message: 'The clip is too short to track.' };
     const steps = Math.round(lastTime * 25);

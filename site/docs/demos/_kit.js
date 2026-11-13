@@ -24,3 +24,9 @@ export function colour(ctx, dh = 0, s = 60, l = 50) {
 /** The page's ink and ground as hex, for scene text and backgrounds. */
 export const ink = (ctx) => (ctx.dark() ? '#e5e1dc' : '#2c2a27');
 export const ground = (ctx) => (ctx.dark() ? '#1c1b1a' : '#fbf9f5');
+
+// Safari, Chrome and Edge play H.264 everywhere, and many iPhones cannot play VP9, so each clip also ships as an
+// H.264 MP4 beside its WebM. A browser without H.264, such as some Firefox builds, gets the WebM.
+const h264 = typeof document !== 'undefined' && document.createElement('video').canPlayType('video/mp4; codecs="avc1.640029"') !== '';
+/** The address of a recorded clip in the format this browser should play: the MP4 where H.264 plays, else the WebM. */
+export const clipSource = (url) => (h264 ? String(url).replace(/\.webm(?=$|[?#])/, '.mp4') : String(url));
