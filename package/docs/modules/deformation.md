@@ -2,6 +2,10 @@
 
 Move points on a control grid to bend a path. Nearby parts of the path move together, producing a smooth deformation.
 
+```demo design-noodle-stretch
+This noodle signed up for a stretch class. Drag the marked grid point or focus it and press the arrow keys. Watch the nearby curve bend more than the ends.
+```
+
 ```js
 import { lattice } from 'explainerkit/geometry';
 const warp = lattice(drawing, commands, { columns: 5, rows: 5 });

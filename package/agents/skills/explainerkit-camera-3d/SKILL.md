@@ -1,6 +1,6 @@
 ---
 name: explainerkit-camera-3d
-description: "Use when moving a camera through a large scene, zooming between scales, drawing 3D line art or solid Three.js scenes, parallax, grading the look of a frame, or placing a graphic on tracked footage with the ExplainerKit JavaScript library. Covers explainerkit/camera, explainerkit/spatial, explainerkit/vfx, explainerkit/zoom, explainerkit/parallax, explainerkit/look, explainerkit/renderers/three, explainerkit/renderers/webgl, with tested recipes and the exact option vocabularies."
+description: "Use when moving a camera through a large scene, zooming between scales, drawing 3D line art or solid Three.js scenes, parallax, grading the look of a frame, or placing a graphic on tracked footage with the ExplainerKit JavaScript library. Covers explainerkit/camera, explainerkit/spatial, explainerkit/vfx, explainerkit/zoom, explainerkit/parallax, explainerkit/look, explainerkit/vfx/post, explainerkit/maps, explainerkit/maps/fetch, explainerkit/maps/osm, explainerkit/import/geotiff, explainerkit/renderers/three/cinematic, explainerkit/procedural/city, explainerkit/renderers/three/city, explainerkit/renderers/three, explainerkit/renderers/webgl, with tested recipes and the exact option vocabularies."
 ---
 
 # Camera, 3D and visual look
@@ -21,8 +21,24 @@ This skill is generated from the ExplainerKit package by `scripts/agents/build.m
   Exports: `PARALLAX_RULES`, `auditParallax`, `connectParallax`, `coverage`, `depthFor`, `fitBackdrop`, `formatParallax`, `parallaxRig`, `speedFor`, `storyPins`, `storyRate`.
 - `explainerkit/look`: Visual effects and color adjustments, with resource limits. Read `docs/modules/look.md`.
   Exports: `alphaMask`, `filmGrain`, `glow`, `gradeFrame`, `shadowOnPlane`, `shadowOnWall`.
+- `explainerkit/vfx/post`: Film finishing on pixel buffers: tilt-shift, depth of field, bloom, halation, light rays, motion blur, lens distortion, grade and grain. Read `docs/modules/film-post.md`.
+  Exports: `MAX_PIXELS`, `bloom`, `blur`, `chromaticAberration`, `depthOfField`, `finishFrame`, `fromRGBA8`, `grade`, `grain`, `halation`, `image`, `lensDistortion`, `lightRays`, `motionBlur`, `tiltShift`, `toRGBA8`, `vignette`.
+- `explainerkit/maps`: Regional projection, heightfields, hillshade, water flow, rivers, contours, draping, elevation colour, clouds and river reveals. Read `docs/modules/relief-maps.md`.
+  Exports: `contours`, `drape`, `elevationRamp`, `flow`, `heightfield`, `hillshade`, `localProjection`, `placeClouds`, `riverReveal`, `rivers`.
+- `explainerkit/maps/fetch`: Download elevation, rivers, lakes and OpenStreetMap street data for a region only when it is needed, through your `fetch` and cache, with the licence and attribution of each source. Read `docs/modules/map-data.md`.
+  Exports: `OVERPASS_ENDPOINTS`, `SOURCES`, `elevationTiles`, `loadBakedRegion`, `loadElevation`, `loadNaturalEarth`, `loadOverpass`, `memoryCache`, `overpassClient`, `overpassQuery`.
+- `explainerkit/maps/osm`: Parse OpenStreetMap data from Overpass into projected buildings, roads, water, green areas, trees, street lamps and crossings, with guessed values marked. Read the section "Turn OpenStreetMap data into street features" of `docs/modules/map-data.md`.
+  Exports: `amenityKinds`, `areaKinds`, `buildingKinds`, `osmAttribution`, `osmLimits`, `osmSummary`, `overpassQuery`, `parseColour`, `parseCount`, `parseDirection`, `parseLength`, `parseOverpass`, `parseYear`, `placeCategories`, `roadClasses`, `roofShapes`.
+- `explainerkit/import/geotiff`: Read single-band GeoTIFF elevation tiles, such as the Copernicus DEM. Read the section "Read an elevation tile yourself" of `docs/modules/map-data.md`.
+  Exports: `readGeoTIFF`.
+- `explainerkit/renderers/three/cinematic`: Relief maps with real rivers and lakes, highlights for paths, areas and places, film and interactive finishing, camera shots and lifted source text, drawn with a Three.js module you supply. Read `docs/modules/cinematic-maps.md`.
+  Exports: `HIGHLIGHT_KINDS`, `cameraShots`, `cinematicPost`, `liftChip`, `mapHighlights`, `paintDocument`, `qualityGovernor`, `reliefMap`.
+- `explainerkit/procedural/city`: Streets and neighbourhoods as geometry from parsed map data: buildings with facades and roofs, a street field for the ground, lamps, trees, vehicles, furniture, plants and walkers, regional styles, and weather conditions as plain numbers. Read `docs/modules/cinematic-streets.md`.
+  Exports: `CAR_PAINT`, `CITY_STYLES`, `DEFAULT_SPEEDS`, `PERSON_ACTIVITIES`, `PERSON_GAITS`, `PERSON_PAINT`, `VEHICLE_SHAPES`, `VEHICLE_VARIANTS`, `WATER_LEVEL`, `WEATHER`, `auditCity`, `bayLayout`, `bikeAsset`, `boatAsset`, `buildCity`, `buildingStyle`, `carAsset`, `carBodies`, `cityLimits`, `cityPalettes`, `cityStyles`, `coverAsset`, `coverKinds`, `footKinds`, `furnitureAsset`, `furnitureKinds`, `greenKinds`, `groundStyles`, `interpretationLevels`, `lampAsset`, `lampStyles`, `mixWeather`, `parkingPlan`, `peopleClothing`, `personActivities`, `personAges`, `personAsset`, `personBags`, `personBottoms`, `personBudget` and 44 more.
+- `explainerkit/renderers/three/city`: Draws a city model with a Three.js module you supply: shaded ground and water, sky, sun and lamps, rain, snow and fog, level of detail by distance and a quality ladder up to film frames. Read the section "Draw the street" of `docs/modules/cinematic-streets.md`.
+  Exports: `CITY_QUALITY`, `cityQualities`, `cityScene`, `dioramaLens`, `pavingStyles`, `thinLens`.
 - `explainerkit/renderers/three`: Explicit optional Three.js rendering with reversible owned-material palettes. Read `docs/modules/spatial-three.md`, `docs/modules/three-material-palettes.md`.
-  Exports: `createThreeAdapter`, `createThreeRenderer`, `darkClay`.
+  Exports: `createThreeAdapter`, `createThreeFramePlane`, `createThreeRenderer`, `darkClay`.
 - `explainerkit/renderers/webgl`: Native WebGL point/line buffers. Read `docs/modules/webgl-points.md`.
   Exports: `capturePointFrame`, `createWebGLRenderer`, `projectGPUPoint`, `screenProjection`.
 

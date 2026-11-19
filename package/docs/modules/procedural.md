@@ -16,6 +16,10 @@ const artwork = instance(scene, stars, p => ({type: 'dot', r: p.size, fill: '#ff
 
 ## Points
 
+```demo design-crater-donuts
+Doughnut crowd me. Slide the tray switch from random positions to Poisson spacing. The count stays the same, and the spacing rule keeps the doughnuts apart.
+```
+
 `points({seed=0,count=100,density,in,method='random',minDistance,spacing,jitter=0})` captures up to 100,000 points. Choose a count or a density measured in points per square scene unit. Supply the region through `{rect:[x,y,width,height]}`, `{circle:[x,y,radius]}` or `{polygon:commands}` for one closed contour. Polygon containment flattens curves at 0.1-unit tolerance and does not support holes or multiple contours.
 
 You can also supply a circle, rectangle or path handle. The helper captures its world outline at time zero with parent transforms included, rather than binding to later deformation. Strokes and effects are ignored. Groups, rounded rectangles and unsupported multi-contour paths are rejected.

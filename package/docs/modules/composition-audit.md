@@ -4,6 +4,10 @@ Use `explainerkit/audit` while authoring to find potential layout problems in an
 
 Call the audit from your own page or test with the functions shown below. Each finding includes its rule, severity, node IDs, time span, measured value and a message explaining what to inspect or change.
 
+```demo design-cover-up-audit
+Drag “Everything is fine” over the falling line or move it with the arrow keys. The audit has a rule for this particular cover-up.
+```
+
 ## In code
 
 ```js

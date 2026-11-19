@@ -8,6 +8,7 @@
 // 6 Earth: the city tilts flat into a map, the map into the globe; it parts into rings that close to a point. (projection, stagger)
 // Scroll sets one scene parameter; everything on the stage is sampled from it and from the clock.
 import { scene } from 'explainerkit/core';
+import { SILK_VIEWS } from './live-forms.js';
 import { hsla, toHex } from 'explainerkit/color';
 import { randomAt } from 'explainerkit/noise';
 import { character, starter } from 'explainerkit/characters';
@@ -82,7 +83,7 @@ function pageLabels(visible) {
     if (!l) { if (!span.hidden) span.hidden = true;return; }
     const p = toPage(l.x, l.y), dx = l.align === 'right' ? '-100%' : l.align === 'center' ? '-50%' : '0';
     if (span.textContent !== l.text) span.textContent = l.text;
-    span.hidden = false;span.classList.toggle('inside', !!l.inside);
+    span.hidden = false;span.classList.toggle('inside', !!l.inside);span.classList.toggle('ink-dark', l.ink === 'dark');
     span.style.font = `${l.weight} ${Math.round(l.size * scale)}px var(--sans)`;
     // A label set along a ray wraps inside its band: a fixed width, at most its line count, then an ellipsis.
     span.classList.toggle('ray', !!l.box);
@@ -331,7 +332,7 @@ function grabChart(target, size) {
   for (const l of live.labels) {
     if (l.opacity < .05 || l.box) continue;
     const p = toPage(l.x, l.y);
-    target.save();target.globalAlpha = l.opacity;target.fillStyle = l.inside ? 'hsl(30 30% 98%)' : colour.trim() || '#555';
+    target.save();target.globalAlpha = l.opacity;target.fillStyle = l.ink === 'dark' ? 'hsl(240 10% 18%)' : l.inside ? 'hsl(30 30% 98%)' : colour.trim() || '#555';
     target.font = `${l.weight} ${l.size * scale * into}px ui-sans-serif, -apple-system, sans-serif`;target.textBaseline = 'middle';
     target.textAlign = l.align === 'right' ? 'right' : l.align === 'center' ? 'center' : 'left';
     target.translate((p.x - cx + r) * into, (p.y - cy + r) * into);target.rotate(l.angle);target.fillText(l.text, 0, 0);target.restore();
@@ -824,6 +825,7 @@ theme.onChange(() => { labelTheme();if (chip >= 0) showCode(CHIPS[chip].code, th
 painter.setDark(theme.night);
 labelTheme();
 $('live-views').addEventListener('click', (e) => { const b = e.target.closest('button[data-view]');if (b) { live.showView(b.dataset.view);placeLive(); } });
+$('live-skins').addEventListener('click', (e) => { const b = e.target.closest('button[data-skin]');if (b) { live.setSkin(b.dataset.skin);placeLive(); } });
 $('live-seasons').addEventListener('click', (e) => {
   const b = e.target.closest('button[data-season]');
   if (!b) return;
@@ -867,6 +869,9 @@ function placeLive() {
     }
     views.hidden = about.views.length < 2;
     for (const b of views.children) b.setAttribute('aria-pressed', String(b.dataset.view === about.view));
+    // The skin switch shows with the views that silk draws (membership and flow); the rest keep their painted form.
+    const skins = $('live-skins');skins.hidden = !SILK_VIEWS.has(about.view);
+    for (const b of skins.children) b.setAttribute('aria-pressed', String(b.dataset.skin === live.skin));
     $('live-seasons').hidden = about.season === null;
     paintSeasons(about.season);
     if (about.season !== null) void live.prefetchSeasons(about.season === 'all' ? 1 : about.season);
@@ -929,8 +934,7 @@ async function copyText(button, value) {
   button.classList.remove('pop');void button.offsetWidth;button.classList.add('pop');
   clearTimeout(button._done);button._done = setTimeout(() => { delete button.dataset.done; }, 1800);
 }
-// Until the package is on npm, the install line is an import that loads the library from this site.
-$('install').addEventListener('click', (e) => copyText(e.currentTarget, "import { scene } from 'https://explainerkit.github.io/runtime/src/index.js';"));
+$('install').addEventListener('click', (e) => copyText(e.currentTarget, 'npm install explainerkit'));
 $('copy').addEventListener('click', (e) => copyText(e.currentTarget, code.textContent));
 
 window.landing = { get room() { return roomShot; }, get river() { return riverShot; }, player, drawing, flight, hero, story, clock, air, sprouts, PACE, get three() { return three; }, get continuity() { return continuity; }, pose, loaded, loadedAt, get director() { return { mood, nextMood, walkEnds, pendingThrow }; }, live };

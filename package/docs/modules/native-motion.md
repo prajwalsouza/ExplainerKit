@@ -2,6 +2,10 @@
 
 Use `springTiming` when a move should last until a spring has settled instead of using a duration chosen in advance. The helper samples the analytic spring model and returns a finite duration and easing function that you can pass to a scene track. Its times are seconds, and it owns no scene, DOM element, player or clock.
 
+```demo design-spring-cleaning
+Spring cleaning, literally. Drag the clock across the rail to sample a dust bunny on a spring. It overshoots the rest mark before settling at the end of the duration returned by `springTiming`.
+```
+
 ```js
 import {scene} from 'explainerkit/core';
 import {springTiming} from 'explainerkit/motion';

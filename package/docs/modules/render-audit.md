@@ -6,6 +6,10 @@ A shaded 3D scene can look wrong in ways that are hard to spot until someone poi
 
 `describeThreeScene` reads a three.js scene, its camera and its renderer and returns a plain description of the meshes, the shadow-casting lights and the camera. It reads properties only and never imports three.js. `auditRender3D` checks that description and returns a status of `pass` or `warn`, a list of findings and the measurements it used. Pass the drawing size in CSS pixels as `viewport`, because the shadow checks compare shadow detail with screen pixels.
 
+```demo design-corduroy-audit
+Throw shade on the sculptures. Move the shadow-map dial from coarse to fine and look at the cast shadows on the platform. Orbit the scene to inspect it from another angle. The audit measures how many screen pixels one shadow-map texel covers at the subject.
+```
+
 ```js
 import {auditRender3D, describeThreeScene} from 'explainerkit/audit';
 

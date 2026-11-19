@@ -22,6 +22,10 @@ const sound = attachSoundtrack(player, pcm);
 
 The built-in catalogue generates sounds through ExplainerKit's own digital signal processing. It contains no recorded acoustic-instrument collection, learned differentiable DSP model or commercial sound-library assets. Numerical tests establish reproducibility and signal properties, while sound quality still needs listening. Listen to each sound in its intended scene before relying on it.
 
+```demo design-express-whoosh
+Express delivery, whoosh included. Drag the replay clock to see the parcel’s move and its two cues. Use the listen control to hear the soundtrack from the start.
+```
+
 ## Choose a sound by purpose
 
 | Semantic cue | Typical authored role |

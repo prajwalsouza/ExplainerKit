@@ -4,6 +4,10 @@ Use the Web Animations adapter when an existing HTML or SVG element needs to mov
 
 The adapter changes CSS transform and opacity on elements your application already created. It does not redraw Canvas geometry, which remains the renderer's responsibility. In the example, a caption moves upward while fading in, and the returned controller lets your application seek or play that effect.
 
+```demo design-curtain-pause
+Time for a curtain pause. Drag the gold tassel, or focus it and use the arrow keys, to seek through the curtain's entrance. Its HTML panels hold their pose wherever you stop.
+```
+
 ```js
 import {animateWAAPI} from 'explainerkit/adapters/waapi';
 

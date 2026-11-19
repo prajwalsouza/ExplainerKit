@@ -24,6 +24,10 @@ A private placement group controls spacing, opacity and horizontal reveal scale.
 
 Advances and pair kerning come from the imported face. During insertion/removal, the new/removed glyph's visible horizontal scale and occupied advance grow/shrink together, while neighboring origins interpolate between the measured layouts. Spacing is exact for those interpolated layouts; intermediate glyphs intentionally have partial advance, rather than promising a full-width inserted glyph before space has opened. Easing overshoot is clamped for this occupancy calculation. `sample(time)` exposes character, origin, effective advance, opacity and horizontal scale for all historical glyphs, plus the current target text and interpolated line width. Its results depend only on time and authored events.
 
+```demo design-glyph-opportunity
+An O-pportunity. Drag its admission ticket or move it with the arrow keys. The O takes up more space as it enters, so the right-hand A slides over to make room.
+```
+
 ## Clone, carry and attach
 
 ```js

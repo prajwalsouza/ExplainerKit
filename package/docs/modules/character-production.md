@@ -24,6 +24,10 @@ input leaves the actor's prior speech and scene duration intact. The returned ti
 
 The importer uses externally prepared timing without recognizing speech or checking alignment against the recording. Text-based `say()` is the default. If speech timelines overlap, later layers apply after earlier layers, so choose that order deliberately.
 
+```demo design-silent-mouth-cues
+Drag the silent film reel across the cue track. The actor changes mouth shape at each lettered cue and rests during the gap. That is lip service.
+```
+
 ## Long-film blink and eye-dart schedules
 
 `blinkAt(seed,time)` and `saccade(seed,time)` accept times from 0 through 86,400 seconds. Each seeded

@@ -40,6 +40,10 @@ A missing run of at most `maxGapFrames` frames interpolates the shortest unwrapp
 
 A frame, pose or labeled limb with numeric confidence below `confidence` is unavailable. Missing confidence remains null. Each pose channel retains `measured`, `estimated`, `interpolated` or `held` status, and a recovered `labelled.status:'estimated'` observation stays estimated even when it passes the threshold. Unknown, ambiguous or unavailable labels cannot become measured limbs. Diagnostics separate coverage, invalid observations, unavailable frames, bend-side changes and endpoint errors. Coverage always counts input native frames, even when resampling changes output count.
 
+```demo design-missing-elbow
+Scrub to the middle frame, where a synthetic arm observation is missing. The fit interpolates the arm angles from nearby frames and keeps its bone lengths. An elbow went camera-shy.
+```
+
 ## Calibrate matching limbs and filter measurement errors
 
 Calibration estimates limb lengths from the observations. Enable paired calibration when left and right limbs should share those lengths, or enable `despike` to suppress isolated measurement errors. Omitting these options calibrates each limb independently, uses median observed splits and leaves the fitted output unfiltered. The example combines these choices with a deliberate gap limit.

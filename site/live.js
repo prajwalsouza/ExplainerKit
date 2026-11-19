@@ -26,8 +26,9 @@ import { spring } from 'explainerkit/physics';
 import { stagger } from 'explainerkit/motion';
 import { randomAt } from 'explainerkit/noise';
 import { points } from 'explainerkit/procedural';
-import { analyse, layout, paintForm, anchorOf, tone, SANS, crispText } from './live-forms.js';
-import { surface, brand } from './theme.js';
+import { silkBrush } from 'explainerkit/data';
+import { analyse, layout, paintForm, anchorOf, tone, SANS, crispText, SILK_VIEWS } from './live-forms.js';
+import { surface, brand, theme } from './theme.js';
 import { createLatestLoad, prepareBundledSample, readBundledResponse } from './live-samples.js';
 
 const MAX_ROWS = 3000,
@@ -224,6 +225,12 @@ const SAMPLES = [
   ],
 ];
 
+/** A begun silk brush for a view drawn in silk on a context that can take GPU points, otherwise null. */
+function silkFor(brush, view, ctx, { time, cx, cy, R, light }) {
+  if (!SILK_VIEWS.has(view.view) || !brush.ready(ctx)) return null;
+  return brush.begin({ time, light, centre: [cx, cy], size: R * 2 });
+}
+
 export function createLive({
   stage,
   drawing,
@@ -245,6 +252,23 @@ export function createLive({
     items: param(0, 1e4),
     voice: param(0, 1),
   };
+  // Membership and flow views are drawn as silk light: Silk on the dark page, Pearl (ink fibres) on the light one.
+  // One brush for the view and one for the view folding away during a morph, each sampled once per frame.
+  // The flat painted look stays as the Classic skin; the reader's choice is remembered.
+  const SKIN_KEY = 'explainerkit-landing-skin';
+  let skin = 'silk';
+  try {
+    if (localStorage.getItem(SKIN_KEY) === 'classic') skin = 'classic';
+  } catch {
+    /* A private window keeps the default skin. */
+  }
+  const silkTheme = () => (theme.night ? 'silk' : 'pearl');
+  const silk = silkBrush({ theme: silkTheme() }),
+    silkFrom = silkBrush({ theme: silkTheme(), budget: 60000 });
+  theme.onChange(() => {
+    silk.setTheme(silkTheme());
+    silkFrom.setTheme(silkTheme());
+  });
   const rows = drawing.data([], { key: 'id', maxRows: MAX_ROWS });
   let table = null,
     model = null,
@@ -776,6 +800,20 @@ export function createLive({
     get hovered() {
       return hovered;
     },
+    /** The look of the membership and flow views: 'silk' (light strands) or 'classic' (flat painted forms). */
+    get skin() {
+      return skin;
+    },
+    setSkin(next) {
+      if (next !== 'silk' && next !== 'classic') return skin;
+      skin = next;
+      try {
+        localStorage.setItem(SKIN_KEY, skin);
+      } catch {
+        /* A private window keeps the choice for this visit only. */
+      }
+      return skin;
+    },
     /** Show one of the data's views by name, morphing every element to its place there. */
     showView(name) {
       if (!table || !table.views.includes(name) || table.views[viewIndex] === name) return model?.view ?? null;
@@ -1030,6 +1068,7 @@ export function createLive({
               lift: () => 0,
               alpha: fade * out,
               labelsAlpha: 0,
+              silk: skin === 'silk' ? silkFor(silkFrom, morph.from, ctx, { time, cx, cy, R, light: on ? [px, py] : null }) : null,
             });
           morph.pairs.forEach(([[a0, r0], [a1, r1], it], j) => {
             const e = smooth01((u - 0.05 - (j % 23) * 0.006) / 0.55);
@@ -1061,6 +1100,7 @@ export function createLive({
           alpha: out,
           labelsAlpha: Math.min(1, Math.max(0, age - 0.6)) * out,
           labelSink: pageLabels,
+          silk: skin === 'silk' ? silkFor(silk, model, ctx, { time, cx, cy, R, light: on ? [px, py] : null }) : null,
         });
         ctx.restore();
         let hit = -1;

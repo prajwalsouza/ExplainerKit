@@ -51,6 +51,10 @@ bindCommonEffect(artwork, commonEffect('wipe', {
 const frame = drawing.sample({time: 1.5});
 ```
 
+```demo design-ufo-typewriter
+Pull the paper down to intercept a message. The typewriter effect reveals one complete character at a time. Push the paper back up to rewind the transmission.
+```
+
 A wipe changes a rectangular clip in the handle's local coordinates. Its `x` and `y` default to zero. Supply bounds that enclose the artwork, including any strokes or other ink you want to retain. The direction names the movement of the revealing edge: `right` reveals from left to right, and `up` reveals from bottom to top. The full rectangle remains as the clip after the effect finishes.
 
 The typewriter changes the scene text itself. Its measured width can therefore change while letters appear. It does not preserve an invisible full-width layout, add a caret, or manage HTML announcements. For an HTML semantic copy and individually animated spans, use [DOM typography](dom-typography.md). For a transition between complete rendered scenes, use [layer transitions](layer-transitions-match-pairs.md).

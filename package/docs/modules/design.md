@@ -36,6 +36,8 @@ These are four briefs and what the explainer, fable and series processes wrote f
 
 The card below holds the complete colour science script. The outline is the narration itself, split into lines so that each claim and source can sit beneath the sentence it supports. Choose Narration only to read it straight through as it would be spoken. Choose Checks to run the module's fixed, non-model checks on it, which flag what a person should look at before the script is used.
 
+For more writing, [read two complete examples of each form](#read-complete-examples), including two fables with their afterwords.
+
 ```demo design-outline
 ```
 
@@ -215,7 +217,7 @@ The audit then maps every eureka, small or main. A eureka is the line where some
 
 Several measures check the audit against the text. `insightMeasures` counts the cues whose exact words appear both before the aha and in it, finds where the ending first became guessable, and counts strong surprises and the longest stretch without one. `locateQuote` finds each quoted line in the narration, and `surpriseMoments` places every surprise at its line and scores it against the script's own range, from its flattest moment to its strongest. `eurekaGraph` reads the citations, reporting how many earlier sections feed the main eureka, how long the longest chain of eurekas citing eurekas is, and any citation that points forward or to nothing.
 
-The map below lays these audits over two real scripts. The surprise trace across the top rises at each quoted line, with its height relative to the rest of that script. Diamonds on the section strip mark each eureka at its line, the star marks the main one, and the arcs under the strip run into each eureka from the lines it cites. Coloured arcs above join each cue where it is planted to where it is said again. The narration underneath carries the same marks as coloured text, with the lines where the viewer got lost underlined with dots. Above the timeline, the words a viewer has to hold are listed, and any the script never pictured are coloured. Choose a eureka to read its cascade in script order, with each source line quoted, what it adds and the line where it clicks, and open a source that is itself a eureka to see how that one formed. Switch between the newcomer, familiar and expert viewers to see each one's own audit.
+The map below lays these audits over two real scripts. The surprise trace across the top rises at each quoted line, with its height relative to the rest of that script. Diamonds on the section strip mark each eureka at its line, the star marks the main one, and the arcs under the strip run into each eureka from the lines it cites. Coloured arcs above join each cue where it is planted to where it is said again. The narration underneath carries the same marks as coloured text, with the lines where the viewer got lost highlighted and italicized. Above the timeline, the words a viewer has to hold are listed, and any the script never pictured are coloured. Choose a eureka to read its cascade in script order, with each source line quoted, what it adds and the line where it clicks, and open a source that is itself a eureka to see how that one formed. Switch between the newcomer, familiar and expert viewers to see each one's own audit.
 
 ```demo design-insight
 ```
@@ -359,11 +361,48 @@ A filtering operation reads what every subtopic found and chooses one through-li
 
 For one piece, every chapter is written separately with its own telling, draft, reviews and voice gate, and a bridging operation writes the joins between chapters and the closing. After writing, a measure searches the narration for the names of cut people and stories and reports any that came back. The time budget is a guide rather than a limit, and the outline marks optional sections that can be trimmed later. For a series, each episode is written as a full explainer that knows the series' through-line.
 
-## Watch a run, stage by stage
+## Read complete examples
 
-The film below follows one recorded run from its brief to its finished script, one stage at a time, so you can see what each stage turns the material into. Sources arrive as links you can open, ideas arrive as cards, six candidate stories narrow to one, the chosen telling becomes a row of beats with cues arcing to the reveal, the draft is typed out, and a reviewer's correction strikes through a line. The strip along the top keeps what each finished stage produced, so the brief visibly grows into a script. Choose the explainer, the fable or the series to follow each process.
+Start with the writing. Each link opens a complete recorded story or narration in a reading page, with its sources at the end. The examples preserve the model's prose. Their claims have not been independently rechecked for these pages.
+
+### Fables
+
+In [What Can an Unfinished Life Tell Us?](design-reading-fable-ledger.md), an archivist must answer a king who wants to close an infirmary. It begins with an unfinished entry in a book.
+
+“On the morning the king threatened to close the infirmary, the archivist drew a line beside her mother’s name.
+
+She drew it as far as the day’s date and stopped. Beyond the nib lay a clean stretch of paper. She put a brass weight on the page to keep it from curling, then went to see her mother.”
+
+In [Where Did the Missing Numbers Go?](design-reading-fable-numbers.md), Mara keeps a market's prosperity reading while tiny discarded fractions accumulate. Both fables end with an afterword that explains the connection to the science.
+
+### Explainers
+
+- [Why Matching Colours Can Look Different in Another Light](design-reading-explainer-colour.md) follows a colour match that breaks when the lighting changes.
+- [What Are You Filtering Out?](design-reading-explainer-signal.md) asks when an unwanted hum becomes useful evidence.
+
+These are complete narration scripts. References to pictures and sound describe the planned demonstrations.
+
+### Series
+
+- [What Happens to a Sound Along the Way?](design-reading-series-sound.md) connects pitch, microphones, sampling and noise cancellation through four chapters.
+- [How Can One Fan Sound Quieter to One Person?](design-reading-series-fan.md) follows the same objectives through a fan and a pair of headphones.
+
+These are two treatments of the same sound unit. In both recorded runs, the series process chose to combine the objectives into a single piece.
+
+## Follow a run by scrolling
+
+Choose a fable, explainer or series, then scroll from its brief to its finished writing. The pinned picture changes as you scroll, while each stage explains the output it produced. The numbered beats take you to that point in the same story. You can stop to read or scroll backward to revisit an earlier decision. The fable starts with the archivist's story above.
+
+```demo design-story
+```
+
+The walkthrough uses recorded outputs. The explainer's audience and final audit come from later runs of the same brief, because those steps were added after the original recording. Those stages identify the difference beside their explanations.
+
+The walkthrough uses `attachStory` from `explainerkit/story` to connect scrolling to the presentation's existing beat timeline. The module pins the stage, smooths progress between frames and holds completed outputs while you read. Its `onAct` callback selects the accompanying text, and beat links use the same story's `seekTime` method. The complete text and stage outputs remain available when JavaScript is unavailable.
+
+## Play the timed walkthrough
+
+The same stages are available as a timed presentation. Pause at any beat and choose “Read this stage in the scroll story” to return to its explanation. The presentation uses `beats` from `explainerkit/motion` and the projection player to make seeking and replaying return to the same frame.
 
 ```demo design-film
 ```
-
-The film is built with ExplainerKit itself. Captions time each beat through `beats` from `explainerkit/motion`, ExplainerKit's projection player keeps the clock, and every frame is computed from the time alone, so seeking and replaying land on the same frame. The values on screen are the runs' own outputs. Two parts of the explainer film, the audience and the final audit, come from later runs of the same brief, because those steps were added after the run was recorded, and the film says so where they appear.

@@ -28,6 +28,10 @@ player.dispose();
 
 The binding combines pending state updates in one microtask and validates every mapped value before applying them together. It then notifies the scene once. This continues to work while playback is paused, because live observations are separate from story time and do not rewind when the viewer seeks. Call `flush()` only when you explicitly need to apply a pending update synchronously.
 
+```demo design-live-moth
+The moth has a light dependency. Move the pointer over the night sky, or focus it and move the light with the arrow keys. The lamp and moth share the scene parameters even while the story clock is paused.
+```
+
 ## Sources
 
 | Factory | Observation value and ownership |
@@ -81,7 +85,13 @@ startButton.addEventListener('click', async () => {
 
 `mapInput(source, map, options)` transforms one value and passes the immutable observation as the callback's second argument. Use `deriveInput(sources, map, options)` when a value depends on several sources. It supplies their latest valid observations only while they remain fresh. Starting a processor subscribes to sources but does not start their devices, so your application must start capture explicitly. Stopping or disposing the processor removes subscriptions and freshness timers. If mapping throws, the processor enters an error state rather than presenting an old successful result as current. A null result means unavailable data, and unknown source confidence remains null.
 
-Use `smoothInput` to reduce changes in a numeric value over elapsed source time. Its half-life controls how quickly the filtered value approaches new observations, while its unit and coordinate space remain unchanged. It resets across epochs, missing data and explicit restarts. Use `thresholdInput(source,{above,below,initial})` for a boolean that turns on above one threshold and off below another, a behavior called hysteresis. Check nullable sensor axes before calculating a shake magnitude so an unknown acceleration does not become zero.
+Use `smoothInput` to reduce changes in a numeric value over elapsed source time. Its half-life controls how quickly the filtered value approaches new observations, while its unit and coordinate space remain unchanged. It resets across epochs, missing data and explicit restarts. Check nullable sensor axes before calculating a shake magnitude so an unknown acceleration does not become zero.
+
+Use `thresholdInput(source,{above,below,initial})` for a boolean that turns on at or above the upper threshold and turns off at or below the lower threshold. Between those marks, it keeps its current state. This behavior is called hysteresis.
+
+```demo design-soup-fan
+The soup has a fan. Drag the red bead up to 70 °C to turn it on, then back to 60 °C. The fan stays on at the same temperature where it was off before. Cool the soup to 50 °C to switch it off.
+```
 
 A character that turns toward the cursor or reacts to sound uses these generic
 controls. The response pose is authored by the page. The input engine provides

@@ -43,6 +43,10 @@ The line-art `space` holds `points`, `polyline`, `mesh`, `box`, `sphereLines`, `
 
 `mesh({vertices,faces})` extracts unique polygon edges without filling, shading or tessellating faces. `extrude(points,depth)` adds front, back and connecting contour edges without certifying a watertight solid. Use `surface` for a latitude-longitude grid whose named points interpolate from a flat plane at `wrap:0` to a sphere at `wrap:1`. Intermediate points move in Cartesian coordinates, so the deformation does not preserve area or rule out self-intersections. For small point sets, `points` draws zero-length strokes with round caps.
 
+```demo design-globe-postage
+Flat-rate shipping. Drag the envelope to the right, or focus it and use the arrow keys, to flatten the globe for mailing. Each position samples one scene frame and passes it to both the SVG and Canvas renderers.
+```
+
 Match the spatial camera viewport to the scene's authored dimensions, then use a 2D camera or responsive composition to fit that projection into the display. Each object becomes one scene path with at most 5000 edges. `maxObjects` defaults to 128 and cannot exceed 128. Calling `region.geometry(time)` returns merged world-space wireframe data under the standalone geometry limits. A solid renderer needs the underlying geometry and transforms rather than the projected path, which is already 2D.
 
 ## GPU and optional peer

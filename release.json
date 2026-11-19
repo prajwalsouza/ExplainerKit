@@ -1,7 +1,7 @@
 {
   "name": "explainerkit",
-  "version": "0.1.0-alpha.1",
-  "npmArchive": "explainerkit-0.1.0-alpha.1.tgz",
-  "sha256": "54822047d21c6e8b656f2003fe7ad5b9a92acb71c509efd94a89605d5ec424e8",
-  "integrity": "sha512-IzTQWG4reuN3Zbia+9BVP0pQEtvA4EHfWadZ4Ox3wAjhlMavtptXYagAivIuDFZkURXPqrkrDQSEtsnUyMZCGQ=="
+  "version": "0.1.0-alpha.2",
+  "npmArchive": "explainerkit-0.1.0-alpha.2.tgz",
+  "sha256": "44a9eb3f5fb0ceab480a0f047e416d62d906000a89d54a73cad5c3340b1eb1ff",
+  "integrity": "sha512-WIYIbQYKnuzQTXcueIC6YmPGNQH2p9cKvxpA3FOJO5G+gwqgzcXIzqEnZxs3Dj+58wG2aGp0DJltcTgxsob0bQ=="
 }

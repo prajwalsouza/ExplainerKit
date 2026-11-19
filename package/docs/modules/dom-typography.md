@@ -78,6 +78,10 @@ The fallback is **not a complete Unicode grapheme-break implementation**. Comple
 
 `title.sample(time,{at=0,duration=.6,stagger=.04,order='forward',from,reducedMotion='respect'})` manually samples an entrance without a clock. `from` accepts numeric `{x=0,y=18,rotation=0,scale=1,opacity=0}`. Each token approaches its identity transform and opacity 1 through an ease-out cubic. The return value contains `{time,progress,end}`. It is a pure time-to-pose calculation with explicit DOM application; reverse samples do not accumulate transforms.
 
+```demo design-loitering-words
+No loitering in this sentence. Drag the cord, or focus it and use the arrow keys, to bring the words up to the sign one by one. Drag back to sample an earlier pose. With reduced motion, the whole phrase stays visible on the sign.
+```
+
 Choose `order` as `forward`, `reverse` or `center`, with center-first ties resolved consistently. A token starts at `at + rank*stagger` and the last one finishes at `at + (count-1)*stagger + duration`. Duration accepts .001–3600 seconds, stagger accepts 0–3600 seconds, and the total end cannot exceed 86400.
 
 With reduced motion, all tokens are visible at their final positions even before the authored start. This keeps essential words available in paused or reduced-motion stories. Manual sampling reads the preference each time it is called.

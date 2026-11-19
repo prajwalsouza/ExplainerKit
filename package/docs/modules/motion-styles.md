@@ -53,6 +53,10 @@ idle(label, {
 
 Hold windows include both endpoints and use scene time even when the idle oscillator reads an ambient clock. Sway, turning and breathing contribute no movement inside those windows. The hold does not cancel authored base transforms, live input, speech, root travel or separately authored actions. Those systems keep their own responsibilities, so a still hold is not a global pause.
 
+```demo design-statue-hold
+Drag the statue timer across the hold. The left statue’s style pauses its idle motion, while the right statue keeps fidgeting. Both use the same idle motion outside the hold. The freeze is in the fine print.
+```
+
 ## Original measurable evidence
 
 Run `node benchmarks/motion-wisdom.mjs` to measure 120 authored joint-pose moves per style at different target distances. The snappy test sequence has a .2083 s beat, 22.5% anticipation, 26.7% overshoot and a 25.4% hold share. Its forward-kinematics hand path measures 1.287 times its chord, and 25 sampled held poses remain identical with idle enabled. The `classic` comparison sequence has a .3333 s beat. Both sequences are checked for exact rewind.

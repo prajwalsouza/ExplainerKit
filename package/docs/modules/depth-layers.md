@@ -13,6 +13,10 @@ drawing.focus({depth:2,aperture:.2});
 
 Depth creates a 2.5D effect by moving flat layers at different rates rather than measuring metres or simulating a lens. If `C` is camera center, `O` is viewport center, `Z` is zoom and `d` is layer depth, the layer uses center `O+(C-O)/d` and zoom `Z**(1/d)`. All layers share view rotation. Depth 1 gives the ordinary camera, and zoom stays positive and preserves a value of 1. Local transform and zoom bindings can still move a layer group before this camera relationship is applied.
 
+```demo design-koi-focus
+Choose a fish to focus its layer. The others can play koi.
+```
+
 Focus adds `blur = 12 * aperture * abs(1/d - 1/focalDepth)` to the layer’s authored blur. The multiplier of 12 is an artistic choice in scene pixels rather than a measured depth-of-field model. Aperture accepts [0,8], and combined blur must stay within the 64-unit property limit and renderer work and memory budgets. Focus depth and aperture may come from scene inputs and reproduce the same values during backward seeks.
 
 `bounds` defaults to the authored scene rectangle. It declares the layer's finite, clipped content window and raster extent. Its clip channel is reserved; choose larger explicit bounds for artwork revealed by camera motion. This gives SVG and cached Canvas the same visible boundary. Bounds width/height are positive and at most 8192. A layer cannot contain itself or adopt its ancestor.

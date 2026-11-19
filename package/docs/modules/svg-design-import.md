@@ -14,6 +14,10 @@ Find editable artwork through `parts` rather than guessing component paths. Each
 
 The importer preserves group and shape opacity separately, including overlap isolation. It maps `mix-blend-mode` normal, multiply and screen to `blend`. Other modes refuse with `SVG_UNSUPPORTED`.
 
+```demo design-hare-and-makeup
+This rabbit is off to hare and makeup. Choose its ears, nose or bow tie to change the opacity of that named SVG part.
+```
+
 ## Supported resources
 
 | Source | Imported representation | Boundary |

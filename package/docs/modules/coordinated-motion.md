@@ -33,6 +33,10 @@ figure.keys([
 ], {channels: ['body.r']});
 ```
 
+```demo design-mime-window
+Drag the clock to lean the mime toward the glass. The lean layer selects only body rotation, so the hand keeps its contact from the earlier layer. A window of opportunity.
+```
+
 List the numeric property names actually produced by the key plan. For example, `body.r` names body rotation directly, while `lean` is a higher-level pose instruction and cannot be selected as a numeric output. The mask does not accept nested pose objects or part names.
 
 Supply 1–256 distinct names, each no longer than 128 characters, that exist on the character and appear in this plan’s output. Empty array slots, getters, duplicate names and unknown or unproduced properties are rejected before the layer is installed. The names are copied when you author the layer, so changing the caller’s array afterward cannot change what it controls.

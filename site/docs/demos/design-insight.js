@@ -9,7 +9,7 @@
 // eureka happens in a particular head, so each script is audited once per viewer (a newcomer, someone familiar with the
 // topic, an expert), each reading with what they already know; switch viewers to see where the eureka lands for whom,
 // and where it does not land at all. The scripts and audits are real runs (see design-insight-sample.js).
-import { hsla, toHex } from '../../runtime/src/color/index.js';
+import { hsla, adjust, toHex } from '../../runtime/src/color/index.js';
 import { locateQuote } from '../../runtime/src/design/index.js';
 import { css } from './_kit.js';
 import { icon } from './design-icons.js';
@@ -38,7 +38,7 @@ const CSS = `
 .dim-key .row { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .dim-key span.term { font-weight: 600; cursor: help; }
 .dim-key sup { font: 600 9px var(--sans); color: var(--muted); margin-left: 2px; }
-.dim-key span.cue { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.dim-key span.cue { font-weight: 600; background: var(--code-bg); border-radius: 3px; padding: 1px 3px; }
 .dim-time { position: relative; }
 .dim-time svg { display: block; width: 100%; overflow: visible; }
 .dim-time .seg, .dim-time .eu-mark { cursor: pointer; }
@@ -60,7 +60,7 @@ const CSS = `
 .dim-flow > li.eu::before { border-radius: 2px; transform: rotate(45deg); }
 .dim-flow > li.click::before { background: var(--rail); }
 .dim-flow .where { font: 650 12px var(--sans); color: var(--muted); margin-bottom: 2px; display: flex; gap: 6px; align-items: center; }
-.dim-flow .where button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.dim-flow .where button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; font-weight: 600; border-radius: 3px; padding: 2px 4px; background: var(--code-bg); }
 .dim-flow .adds { font-size: 13.5px; color: var(--muted); margin-top: 3px; max-width: 70ch; }
 .dim-flow details { margin-top: 8px; }
 .dim-flow summary { font: 600 12.5px var(--sans); color: var(--muted); cursor: pointer; }
@@ -325,7 +325,7 @@ export default async function designInsight(stage, ctx) {
         paint(e.span, (k) => { colour[k] = c.aha; bold[k] = true; });
         starAt.set(e.span[0], e);
       }
-      // The chosen eureka's cascade: every line it cites, through the eurekas it rests on, underlined in gold.
+      // The chosen eureka's cascade: every line it cites, through the eurekas it rests on, highlighted in gold.
       const chosen = m.eurekas.find((e) => e.at === selected);
       if (chosen)
         for (const id of ancestryIds(m, chosen))
@@ -339,7 +339,7 @@ export default async function designInsight(stage, ctx) {
         const e = starAt.get(k);
         html += `<span class="star" title="${e === m.main ? 'Eureka' : 'Small eureka'} ${escape(e.id)}">${icon('star', { size: 13, colour: c.aha })}</span>`;
       }
-      const st = [colour[k] && `color:${colour[k]}`, bold[k] && 'font-weight:600', under[k] && `text-decoration:underline ${under[k]} ${under[k].endsWith('dotted') ? '2px' : '1.5px'};text-underline-offset:3px`].filter(Boolean).join(';') || null;
+      const st = [colour[k] && `color:${colour[k]}`, bold[k] && 'font-weight:600', under[k] && `background:${toHex(adjust(under[k].replace(' dotted', ''), {a: .13}))};border-radius:2px${under[k].endsWith('dotted') ? ';font-style:italic' : ''}`].filter(Boolean).join(';') || null;
       if (st !== style || text[k] === '\n') { flush(); style = st; }
       run += text[k];
     }

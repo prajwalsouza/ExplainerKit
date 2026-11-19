@@ -12,6 +12,10 @@ narration.dispose();
 
 Use `attachMedia` when a scene should stay aligned with an existing audio or video element. Create the player and obtain the media element before attaching them. The element controls story time through `storyTime = clamp(media.currentTime-offset,0,player.duration)`, which the picture samples on animation frames and media events. There is no separate clock accumulating time and drifting away from the media. Changing either native playback rate or player speed updates the other. The nonnegative offset identifies the number of seconds into the media where the story starts. Your application still obtains and decodes the media and requests any access permission. Attaching it alone starts no capture or fetch.
 
+```demo design-snail-tape
+Snail Mail Express. Press Play to hear the original tape while the snail passes a postmark on each beep. Scrub the tape to inspect how the picture follows its time.
+```
+
 Only one scroll or media driver can control a player, and `attachMedia` reserves the media element against duplicate bindings. Moving the time slider pauses and seeks both picture and narration. Native play, pause, seek, end and rate events also synchronize the picture. Playback stops at whichever ends first, the story or the media. Under the default reduced-motion policy, automatic playback is blocked and a preference change pauses native media.
 
 The returned adapter provides `play`, `pause`, `seek`, `refresh`, `dispose`, `media` and `disposed`. A rejected playback promise reports `MEDIA_PLAY_REJECTED`, while loading failures report `MEDIA_ERROR`. Errors go to `onError`, which defaults to the player's reporter. If sampling the picture fails, playback stops at the last committed timestamp. Disposal cancels frame requests and listeners, pauses media, restores its original rate and releases ownership. It does not unload or rewind the application-owned source. Disposing the player also detaches the adapter.

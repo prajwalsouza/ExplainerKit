@@ -11,7 +11,7 @@ contracts. It does not turn a front-facing face into a profile by sliding its ey
 
 ```js
 const actor = character(drawing, profile({line: 2.8}), {
-  x: 240, y: 380, height: 220, facing: 1, shade: false,
+  x: 240, y: 380, height: 220, facing: 1,
 });
 actor.walkTo(420, {at: .5});
 actor.act('coverEars', {at: 4, duration: 2, intensity: 1});
@@ -43,6 +43,10 @@ actor.drive([loudness], (level, pose) => profileReaction(pose, level), {
 // An explicit input adapter or an ordinary labeled range control supplies this.
 // For example, a microphone's bounded RMS level can be mapped to 0–1.
 loudness.set(.8);
+```
+
+```demo design-megaphone-profile
+Pull the rim of the megaphone up to turn up the imaginary volume. The figure’s hands move toward its ears as its eyes narrow, even with its head tilted. A quiet word, in all caps.
 ```
 
 Use `mode: 'set'` because `profileReaction` returns final hand and expression values rather than offsets to add. Amount zero leaves the underlying pose unchanged, allowing authored actions to resume as the input quiets. Positive amounts let the inverse-kinematics (IK) solver control the hands and disable competing raw hand targets.

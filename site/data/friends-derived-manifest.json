@@ -30,7 +30,8 @@
     "friends-s10-speakers.csv": "b819db271216a7bb0cb94f5a7a73209f9c620eeab6c7ceb22599d2754ac8f5f9",
     "friends-s10-conversations.csv": "f792bf877dfb8a321088e2f9d4e5fe7e564698bbd0daac52522ec0d4b18bff4f",
     "friends-all-episodes.csv": "3be9617500cefc7efb7e7785148e1257c59a570b2c2d69426516a235915722de",
-    "friends-all-conversations.csv": "7a4c9014165700fddd8660bed7d8712250b26c3b63b445a48786fcda1b7769ca"
+    "friends-all-conversations.csv": "7a4c9014165700fddd8660bed7d8712250b26c3b63b445a48786fcda1b7769ca",
+    "friends-all-episode-turns.csv": "e606c6b5da3a92d830da63456fcfeeab6b401cf12115ba7740be2a9db807ed89"
   },
   "samples": [
     {
@@ -813,7 +814,8 @@
           "source": "Others",
           "display": "Others"
         }
-      ]
+      ],
+      "episode_turns": "friends-all-episode-turns.csv"
     }
   ]
 }

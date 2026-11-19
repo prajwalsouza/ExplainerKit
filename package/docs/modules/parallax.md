@@ -2,6 +2,10 @@
 
 Parallax makes nearby layers move faster than distant ones, giving a flat scene a sense of depth. Use `explainerkit/parallax` to choose speeds from layer distance, size artwork for its travel and check for exposed edges or excessive movement. Start with a drawing and a few named layers at different depths.
 
+```demo design-train-window
+Drag the train left or right, or move it with the arrow keys. The fence posts are late for work. The hills barely move.
+```
+
 ## One call
 
 ```js

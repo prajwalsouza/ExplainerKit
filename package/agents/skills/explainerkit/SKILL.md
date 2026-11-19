@@ -64,7 +64,7 @@ ExplainerKit builds interactive visual explanations as scenes. A scene holds sha
 - `explainerkit/layout/annotations`: Focused annotation policy.
 - `explainerkit/sound`: Sound generation and explicit playback.
 - `explainerkit/procedural`: Points, density fields, network spacing, instances and generated masses.
-- `explainerkit/data`: Scales, units, transformations and plot/axis blueprints.
+- `explainerkit/data`: Scales, units, table transforms, plots and interactive charts.
 - `explainerkit/geometry`: Path construction, placements, measurement, deformation, polyhedra and drawing tools.
 - `explainerkit/geometry/shapes`: Combine, intersect, subtract or split polygons and outlines.
 - `explainerkit/layout`: Placement, text wrapping, callouts, measured labels and responsive planning.
@@ -80,6 +80,19 @@ ExplainerKit builds interactive visual explanations as scenes. A scene holds sha
 - `explainerkit/sound/studio`: Synthesizer, plucked, struck, percussion and sampled instruments, an effect rack with equalisers, dynamics, reverbs and delays, and loudness meters.
 - `explainerkit/music`: Score composition and variations, MIDI exchange, arrangement in bars and beats, produced mixes with buses, returns, loudness targets and stems, song analysis, beat grids, retargeting and adaptive scores.
 - `explainerkit/vfx`: Recorded footage analysis, camera track preparation with default stabilization, point and plane tracking, and compositing.
+- `explainerkit/variation`: Seeded, bounded and correlated differences between repeated things, with an audit for machine-made uniformity.
+- `explainerkit/emphasis`: Draw the eye to a word, term or part while its context recedes, with one colour per topic.
+- `explainerkit/juicy`: Live physical feel for interactive pages: soft chains, wind fields, spring followers, squash, pop, sway, tug, shake and hit-stop.
+- `explainerkit/maps`: Regional projection, heightfields, hillshade, water flow, rivers, contours, draping, elevation colour, clouds and river reveals.
+- `explainerkit/typography/source`: Lay text into document templates, find a phrase, map it onto a 3D page, and schedule its highlight and lift.
+- `explainerkit/vfx/post`: Film finishing on pixel buffers: tilt-shift, depth of field, bloom, halation, light rays, motion blur, lens distortion, grade and grain.
+- `explainerkit/renderers/three/cinematic`: Relief maps with real rivers and lakes, highlights for paths, areas and places, film and interactive finishing, camera shots and lifted source text, drawn with a Three.js module you supply.
+- `explainerkit/maps/fetch`: Download elevation, rivers, lakes and OpenStreetMap street data for a region only when it is needed, through your `fetch` and cache, with the licence and attribution of each source.
+- `explainerkit/import/geotiff`: Read single-band GeoTIFF elevation tiles, such as the Copernicus DEM.
+- `explainerkit/maps/osm`: Parse OpenStreetMap data from Overpass into projected buildings, roads, water, green areas, trees, street lamps and crossings, with guessed values marked.
+- `explainerkit/procedural/city`: Streets and neighbourhoods as geometry from parsed map data: buildings with facades and roofs, a street field for the ground, lamps, trees, vehicles, furniture, plants and walkers, regional styles, and weather conditions as plain numbers.
+- `explainerkit/renderers/three/city`: Draws a city model with a Three.js module you supply: shaded ground and water, sky, sun and lamps, rain, snow and fog, level of detail by distance and a quality ladder up to film frames.
+- `explainerkit/math`: Turn LaTeX and MathML into editable outlines for equations and morphs.
 
 ## Common mistakes
 

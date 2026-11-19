@@ -136,17 +136,24 @@ export function toHSLA(value) {
     return parseHSL(value.trim().toLowerCase());
   return fromRGBA(...toRGBA(value));
 }
-export function toHex(value) {
-  return (
-    '#' +
-    toRGBA(value)
-      .map((v) =>
-        Math.round(v * 255)
-          .toString(16)
-          .padStart(2, '0'),
-      )
-      .join('')
+/**
+ * Hex text for a renderer or file-format boundary. The default keeps the alpha byte
+ * (#rrggbbaa). Use {alpha:'auto'} to drop it for opaque colours, which libraries such as
+ * Three.js need, or {alpha:'never'} to require an opaque colour and always return #rrggbb.
+ */
+export function toHex(value, spec = {}) {
+  options(spec, ['alpha'], 'toHex');
+  const mode = spec.alpha ?? 'always';
+  assert(['always', 'auto', 'never'].includes(mode), 'INVALID_COLOR', "Use alpha 'always', 'auto' or 'never'.");
+  const channels = toRGBA(value).map((v) => Math.round(v * 255));
+  const opaque = channels[3] === 255;
+  assert(
+    mode !== 'never' || opaque,
+    'INVALID_COLOR',
+    "alpha:'never' needs an opaque colour. Use alpha:'auto' to keep transparency.",
   );
+  const kept = mode === 'always' || (mode === 'auto' && !opaque) ? channels : channels.slice(0, 3);
+  return '#' + kept.map((v) => v.toString(16).padStart(2, '0')).join('');
 }
 export function toCSS(value) {
   const { h, s, l, a } = toHSLA(value);

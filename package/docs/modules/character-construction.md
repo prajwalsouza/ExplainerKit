@@ -68,6 +68,10 @@ const dorsal = appendage(appendageShapes.pointedFin(), surfaceFrame(spinePoints,
 - `appendage` places a shape whose root is at the origin and grows along +x onto that local frame. Its `overlap` sinks the root into the body so the parts stay joined.
 - `appendageShapes` supplies `forkedFin`, `roundFin`, `pointedFin` and `leaf` shapes.
 
+```demo design-fish-tail-joint
+Drag the tail joint to change how far the fin starts inside the fish. At zero overlap the fin starts at the edge of the capped body. Something’s fishy about that joint.
+```
+
 ## What went wrong before, and the rule it broke
 
 | Defect | Construction rule |

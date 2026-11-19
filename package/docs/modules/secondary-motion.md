@@ -2,6 +2,10 @@
 
 Use secondary motion when an object should trail a driver, wobble after it changes, or compress as it moves. `explainerkit/physics` exports `lag`, `jiggle` and `squashStretch` for those tasks. Start with a numeric scene input or a pure function of time as the driver. The helpers return ordinary scene inputs or scale values so SVG and Canvas draw the same sampled geometry.
 
+```demo design-taxi-baggage
+Drag the taxi meter forward and back. The suitcase trails the cab without overshooting, while the antenna wobbles after the cab parks. Emotional baggage takes a second to catch up.
+```
+
 ```js
 import { lag, jiggle, squashStretch } from 'explainerkit/physics';
 const driver = drawing.derive([], context => 100 * Math.sin(context.time * 2));

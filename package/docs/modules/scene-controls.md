@@ -23,6 +23,10 @@ The interpolation is piecewise cubic Hermite using the local harmonic slopes of 
 
 Presence transitions accept `ease` and `pivot`, as in `.enter(1, {style:'pop', pivot:'center', ease:'launch'})`. Choose `style:'reveal'` to scale height around the center. A pop keeps its original origin unless you supply a pivot. Opacity remains in 0–1 even when easing overshoots. Coordinate pivots work with `animate`, `to` and `keys`. Convert keyword pivot endpoints to coordinates before animating them.
 
+```demo design-slippery-data
+Making good time on slippery data. Move the clock to compare two movements. The middle of the measured example goes past the finish line because the input samples contained an overshoot.
+```
+
 ## Motion blur
 
 ```js

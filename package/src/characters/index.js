@@ -26,3 +26,4 @@ export { characterPoseFromSkeleton } from './joint-pose.js';
 export { profile, profileReaction } from './builds/profile.js';
 export { bipedMotion } from './biped-motion.js';
 export { bipedRig } from './biped-rig.js';
+export { quadrupedGait, QUADRUPED_GAITS, twoBoneJoint } from './quadruped-gait.js';

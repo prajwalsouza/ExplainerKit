@@ -17,6 +17,10 @@ The core's existing scene shapes can carry z, X/Y rotations, Z scale and extrusi
 
 ## Camera, projection and rays
 
+```demo design-pizza-perspective
+These pizzas are the same size. Drag the distance marker to see what happens when one moves farther back. Perspective makes the far pizza look smaller, and the orthographic view holds its apparent size.
+```
+
 ```js
 import {
   perspectiveCamera, orthographicCamera,

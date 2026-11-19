@@ -6,6 +6,10 @@ The [physics module](stroke-springs-paths.md) provides springs and release motio
 
 ## Emit particles without a hidden simulation
 
+```demo design-popcorn-particles
+Pop goes the particle. Drag the timer forward until the popcorn pops, then run it backward. The same seed and time give the same kernels their same positions.
+```
+
 ```js
 import {emitter} from 'explainerkit/particles';
 
@@ -62,11 +66,22 @@ const displacement = field.sample({x: 100, y: 40, z: 0}, 2.5);
 
 The scalar helpers provide value noise, which assigns seeded values to a lattice and interpolates smoothly between them. The implementation uses its own integer hash and a fifth-degree interpolation polynomial. Results lie in [-1,1] for coordinates within ±10,000,000. It does not import a Perlin package or reproduce Perlin's reference values. [Perlin's Improving Noise paper](https://www.cs.cmu.edu/~jkh/462_s07/paper445.pdf) discusses the continuity principle, while the hash, lattice values and field construction are this implementation's choices.
 
+Value noise has its peaks and troughs on the lattice points, so a field that is thresholded or sharpened shows a grid of squares. When that matters, use gradient noise from `explainerkit/noise` instead. `gradientNoise2(x, y, {seed})` and `gradientNoise3(x, y, z, {seed})` give a random slope at each lattice point rather than a random height, so the value there is always zero and the extremes fall between points. The result also lies in [-1, 1], and the same seed and coordinates always give the same value.
+
+```js
+import {gradientNoise2} from 'explainerkit/noise';
+const ink = gradientNoise2(x / 120, y / 120, {seed: 4}) > 0.2; // blotches without a visible grid
+```
+
 `noiseField({seed=0,frequency=1,amplitude=1,octaves=1,lacunarity=2,gain=.5,speed=1})` returns a vector through `.sample(point,time)`. It combines 1–8 successive noise layers called octaves. Lacunarity multiplies frequency between layers within 1–8, and gain multiplies amplitude within 0–1. Normalized weights keep each component within ±amplitude.
 
 Time shifts the third lattice coordinate by `speed × time`, and three independent seeds produce x, y and z displacement. The result is smoothly varying displacement rather than divergence-free flow or four-dimensional noise. Coordinates exceeding supported scaled precision are rejected rather than wrapped into an unintended field.
 
 ## One input can run a machine
+
+```demo design-gear-teeth
+These gears are going through a rough patch. Drag the crank and follow their marked teeth. The larger gear turns the other way and travels two-thirds as far in angle.
+```
 
 ```js
 import {mechanism} from 'explainerkit/mechanisms';

@@ -19,3 +19,4 @@ export { Timeline, createTimeline } from './timeline.js';
 /** @typedef {import('./timeline.js').TimelineValuesSnapshot} TimelineValuesSnapshot */
 /** @typedef {import('./timeline.js').PreparedTimeline} PreparedTimeline */
 /** @typedef {import('./timeline.js').TimelineEvent} TimelineEvent */
+export { smoothWindow, remap, envelope, keyed } from './ranges.js';

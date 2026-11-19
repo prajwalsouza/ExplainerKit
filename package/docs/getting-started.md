@@ -1,9 +1,9 @@
 # Your first ExplainerKit scene
 
-A scene stores the shapes and values in your explanation together with the changes you want to happen over time. Sampling the scene calculates one moment as data, and a renderer turns that data into a picture on the page. Try the interactive example to see that relationship, then use either the npm or plain HTML instructions to build the same kind of view in your project.
+Can a tiny robot clear the gap? Play the jump, then drag the time slider back to 1.50 seconds to catch it in the air. The scene stores the robot and its motion. Sampling the scene gives you its pose at the time you choose, and the SVG renderer draws that pose.
 
 ```demo first-scene
-One scene, any moment. Play the animation or seek backwards to see how the scene becomes a frame.
+The position beside the jump comes from the same frame the renderer draws.
 ```
 
 ## Choose how to use ExplainerKit
@@ -27,36 +27,44 @@ Run the following command in your application project. It adds ExplainerKit to t
 npm install explainerkit
 ```
 
-The package is not on npm yet, so this command fails until its first release reaches the registry. Until then, use the plain HTML route below, which loads the same modules from the ExplainerKit website without npm.
-
 The package installs as ES modules with TypeScript declarations, so editors can check calls before the code runs. It has no required runtime dependencies. Three.js is an optional peer dependency that you install only when you use the 3D renderer.
 
 ## Create a scene
 
-In the application module, create a 320 × 180 scene and add a circle with an initial x position of 40. The call to `to()` schedules its move to x = 200 at time 1, with a duration of one second, so the circle waits for a second before beginning to move. Sampling at time 1.5 therefore returns x = 120 without playing the earlier frames.
+Draw the robot as a group so its body and eyes travel together. The platform rectangles belong to the scene directly, so they stay in place. The robot starts at x = 126 and travels to x = 354. A second track raises it and lowers it during that trip. At 1.50 seconds the robot is over the middle of the gap, at x = 240 and y = 75.
 
 ```js
 import {scene} from 'explainerkit';
 
-const drawing = scene({width: 320, height: 180, label: 'A moving circle'});
-const circle = drawing.circle({x: 40, y: 90, r: 16, fill: '#34766b'});
-circle.to(1, {x: 200}, {duration: 1, ease: 'linear'});
+const drawing = scene({width: 480, height: 228, label: 'A robot jumps across a gap'});
+drawing.rect({x: 0, y: 172, width: 184, height: 56, fill: '#39796e'});
+drawing.rect({x: 296, y: 172, width: 184, height: 56, fill: '#39796e'});
 
-// Calculate this exact moment, without playing the earlier frames.
-const halfway = drawing.sample({time: 1.5});
-console.log(halfway.children[0].props.x); // 120
+const robot = drawing.group({x: 126, y: 141});
+robot.rect({x: -24, y: -20, width: 48, height: 49, rx: 11, fill: '#f9b348'});
+robot.rect({x: -17, y: -13, width: 34, height: 23, rx: 8, fill: '#193b37'});
+robot.circle({x: -6, y: -2, r: 3, fill: '#f4fba3'});
+robot.circle({x: 7, y: -2, r: 3, fill: '#f4fba3'});
+
+robot.to(0.65, {x: 354}, {duration: 1.7, ease: 'linear'});
+robot.to(0.65, {y: 75}, {duration: 0.85, ease: 'easeOut'});
+robot.to(1.5, {y: 141}, {duration: 0.85, ease: 'smooth'});
+
+const frame = drawing.sample({time: 1.5});
+const {x, y} = frame.children.find(child => child.id === robot.id).props;
+console.log(x, y); // 240, 75
 ```
 
 ## Render a frame
 
-The sample above calculates the circle position but does not draw anything by itself. Add `<div id="stage"></div>` to your HTML, then place the following code after the scene example in the same JavaScript module. The SVG renderer uses that element as its container and draws the frame calculated for time 1.5, matching the value inspected above.
+The sample above contains the robot’s pose as data. Add `<div id="stage"></div>` to your HTML, then put the following code after the scene example in the same JavaScript module. The SVG renderer draws the sampled frame inside that element.
 
 ```js
 import {createSVGRenderer} from 'explainerkit/renderers/svg';
 
 const mount = document.querySelector('#stage');
 const renderer = createSVGRenderer(mount, {label: drawing.label});
-renderer.render(drawing.sample({time: 1.5}));
+renderer.render(frame);
 // Call renderer.dispose() when you remove this example from the page.
 ```
 
@@ -64,35 +72,63 @@ An import such as `explainerkit` names a package, so a build tool is needed to f
 
 ## Use plain HTML without npm
 
-A plain HTML page can import ExplainerKit straight from the ExplainerKit website, which serves every module of the current release under `https://explainerkit.github.io/runtime/src/`. Each import names a complete URL, and the site allows pages on other sites to load these files. Save the following document as `first-scene.html` and serve its folder over HTTP, for example with `python3 -m http.server 8080`. Then open the page through that server at `http://localhost:8080/first-scene.html`.
+The browser can load ExplainerKit from jsDelivr, which serves files from the npm package. Both imports below pin version `0.1.0-alpha.1`, so they keep loading the same release as new versions come out. Save the document as `first-scene.html` and run `python3 -m http.server 8080` in its folder. Open `http://localhost:8080/first-scene.html`.
 
 ```html
 <!doctype html>
 <html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My first ExplainerKit scene</title>
-<div id="stage"></div>
-<script type="module">
-  import {scene} from 'https://explainerkit.github.io/runtime/src/index.js';
-  import {createSVGRenderer} from 'https://explainerkit.github.io/runtime/src/renderers/svg.js';
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My first ExplainerKit scene</title>
+  </head>
+  <body>
+    <div id="stage"></div>
+    <script type="module">
+      import {scene} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js';
+      import {createSVGRenderer} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/renderers/svg.js';
 
-  const drawing = scene({width: 320, height: 180});
-  drawing.circle({x: 120, y: 90, r: 16, fill: '#34766b'});
-  const renderer = createSVGRenderer(document.querySelector('#stage'));
-  renderer.render(drawing.sample({time: 0}));
-  // Call renderer.dispose() when this view is removed.
-</script>
+      const drawing = scene({width: 480, height: 228, label: 'A robot jumps across a gap'});
+      drawing.rect({x: 0, y: 172, width: 184, height: 56, fill: '#39796e'});
+      drawing.rect({x: 296, y: 172, width: 184, height: 56, fill: '#39796e'});
+
+      const robot = drawing.group({x: 126, y: 141});
+      robot.rect({x: -24, y: -20, width: 48, height: 49, rx: 11, fill: '#f9b348'});
+      robot.rect({x: -17, y: -13, width: 34, height: 23, rx: 8, fill: '#193b37'});
+      robot.circle({x: -6, y: -2, r: 3, fill: '#f4fba3'});
+      robot.circle({x: 7, y: -2, r: 3, fill: '#f4fba3'});
+
+      robot.to(0.65, {x: 354}, {duration: 1.7, ease: 'linear'});
+      robot.to(0.65, {y: 75}, {duration: 0.85, ease: 'easeOut'});
+      robot.to(1.5, {y: 141}, {duration: 0.85, ease: 'smooth'});
+
+      const renderer = createSVGRenderer(document.querySelector('#stage'));
+      renderer.render(drawing.sample({time: 1.5}));
+      // Call renderer.dispose() when this view is removed.
+    </script>
+  </body>
 </html>
 ```
 
-A green circle should appear on the page. The example draws it immediately, without motion, so a visible circle confirms that the modules loaded and the renderer ran. If nothing appears, the browser's developer console names the import or call that failed.
+The robot should appear in midair between the platforms. Change `time` to `0` to see it on the left platform, or to `2.35` to see it on the right. Reload the page after each edit. If nothing appears, open the browser console to see which import or call failed.
 
-The `type="module"` attribute matters because the library is a set of ES modules that import one another, not a single classic-script bundle. Loading it through `<script src="…"></script>` does not work, and no global `ExplainerKit` variable is created. Opening the file directly from disk does not work either, because browsers refuse module imports from `file://` pages.
-
-The website always serves the latest release, so a page that loads from it moves to each new release automatically. To keep a page on one release, host a copy of the files yourself as described below. Once the package is on npm, a CDN that mirrors npm, such as jsDelivr, can also serve a fixed version from an address like `https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js`.
+The `type="module"` attribute lets the script use JavaScript's `import` syntax. The imported names are available inside the script, and the browser loads the files they depend on from the same version on the CDN.
 
 Every module the package exports is a file under `src/` at the same version. Most package names follow the folder layout, so `explainerkit/renderers/canvas` is `src/renderers/canvas.js` and `explainerkit/motion` is `src/motion/index.js`, but a few do not. The `exports` field of the package's `package.json` lists the file behind every name. An import map can let the page write the shorter package names instead, as long as it maps each name to its complete URL.
+
+### Load one file instead of many
+
+Importing from `src/` makes the browser fetch each module file separately. A page can instead load one of two prebuilt bundles, which put many modules into a single minified file. Each bundle exports the same names as the modules it contains, so the robot page above works with one import line in place of the two.
+
+```js
+import {scene, createSVGRenderer} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.2/dist/explainerkit-lite.js';
+```
+
+The lite bundle is about 250 KB after compression. It holds the scene, the SVG and Canvas renderers, data and charts, geometry, color, typography, equations, motion and its effects, live inputs, layout and labels, the camera, deep zoom, parallax, emphasis, scrolling stories, media sync and the film player, together with the smaller motion helpers for morphing, physics, juicy feel, noise and variation. It leaves out the larger modules for characters, rigs, mechanisms, particles, procedural generation, maps and cities, the Three.js and WebGL renderers, 3D and elevation importers, video effects, sound and music, the timeline editor and the design pipeline.
+
+The full bundle holds every public module and is about 760 KB after compression. Three names are defined differently by two modules, so the full bundle keeps one version of each. `units` is the unit registry from `explainerkit/data`, `createTimeline` comes from `explainerkit/motion`, and `noiseField` is left out because `explainerkit/noise` exports both versions as `noiseScalarField` and `noiseVectorField`. Neither bundle includes Three.js, so load it separately as the section on 3D below shows, and link `src/film/film.css` yourself when a page uses the film player's interface.
+
+The bundles are part of the package from version `0.1.0-alpha.2` onward, in its `dist/` folder. The ExplainerKit website also serves the current release at `https://explainerkit.github.io/explainerkit-lite.js` and `https://explainerkit.github.io/explainerkit-full.js`. The files at those addresses are replaced with each new release, so a page that must keep working unchanged should import a pinned version from the CDN instead.
 
 ### Host the files yourself
 
@@ -100,14 +136,14 @@ A page can also load ExplainerKit from its own server. Copy the `src/` folder of
 
 ### Add Three.js for 3D
 
-The 3D renderer needs a compatible Three.js ES module, while SVG and Canvas remain independent of it. Load Three.js yourself and pass its module namespace as `THREE`, so ExplainerKit uses the copy your page selected rather than downloading another one. The example loads Three.js from jsDelivr at a pinned version and ExplainerKit from its website.
+The 3D renderer needs a compatible Three.js ES module. Load it and pass its module namespace as `THREE` when you create the renderer. This example loads pinned versions of both libraries from jsDelivr.
 
 ```html
 <div id="three-stage"></div>
 <script type="module">
   import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js';
-  import {scene} from 'https://explainerkit.github.io/runtime/src/index.js';
-  import {createThreeRenderer} from 'https://explainerkit.github.io/runtime/src/renderers/three.js';
+  import {scene} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/index.js';
+  import {createThreeRenderer} from 'https://cdn.jsdelivr.net/npm/explainerkit@0.1.0-alpha.1/src/renderers/three.js';
 
   const drawing = scene({width: 300, height: 200});
   drawing.rect({x: 100, y: 50, width: 100, height: 100, depth: 30, fill: '#34766b'});

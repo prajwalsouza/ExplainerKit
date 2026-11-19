@@ -14,6 +14,10 @@ hip when a posed foot needs more vertical reach.
 
 Classic, xkcd and heavy outlined heads have transparent interiors by default. Set `paper` explicitly when a painted face disc is intended. Solid and skin styles retain their paint, and small eye and lid details keep their light-stage treatment. Recorded character-build measurements compare SVG and Canvas output, including edge differences, without claiming pixel-identical results for every background.
 
+```demo design-outline-heads
+Slide the paint stripe behind both heads. It shows through the outline on the left, while the head with `paper` keeps its fill. Some heads are more open to suggestions.
+```
+
 `auditCharacter(definition,{background:'#000000'})` reports `contrast` and a
 `warnings` array. An opaque contrasting head disc produces
 `HEAD_FILL_CONTRAST` when its luminance contrast ratio is at least 3 against both

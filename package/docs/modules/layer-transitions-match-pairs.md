@@ -62,6 +62,10 @@ To export the combined layers, set `window.explainerkitExport.element` to their 
 
 ## Several pairs in one match cut
 
+```demo design-hat-mountains
+The party hats have peaked. Drag the film tab or use the arrow keys to watch both pairs pass through the same center before the mountains move apart.
+```
+
 ```js
 import {matchCut} from 'explainerkit/morph';
 const cut = matchCut({

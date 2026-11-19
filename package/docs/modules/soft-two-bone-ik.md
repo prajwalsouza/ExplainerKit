@@ -2,6 +2,10 @@
 
 Use soft reach when a two-link limb should ease toward full extension instead of straightening abruptly. `solveTwoBone` and two-link `skeleton().solveGoals()` share the same planar inverse-kinematics solver, which finds joint angles for a target endpoint in 2D. Import articulation tools from `explainerkit/rigs`, then supply the root, two lengths and target in one coordinate system.
 
+```demo design-cookie-reach
+Drag the cookie toward the edge of the robots’ reach. The upper robot straightens its arm at the limit. The lower robot keeps a bend and leaves a gap. That is a soft reach for a hard cookie.
+```
+
 ```js
 import {solveTwoBone} from 'explainerkit/rigs';
 const result = solveTwoBone({

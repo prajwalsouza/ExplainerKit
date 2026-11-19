@@ -1,6 +1,6 @@
 ---
 name: explainerkit-motion
-description: "Use when animating with easing, timelines, keyframes, ready-made entrances (fly in, typewriter, wipe, pulse), springs, morphing shapes or timing shapes to narration with the ExplainerKit JavaScript library. Covers explainerkit/motion, explainerkit/motion/effects, explainerkit/transitions, explainerkit/morph, explainerkit/physics, explainerkit/noise, with tested recipes and the exact option vocabularies."
+description: "Use when animating with easing, timelines, keyframes, ready-made entrances (fly in, typewriter, wipe, pulse), springs, morphing shapes or timing shapes to narration with the ExplainerKit JavaScript library. Covers explainerkit/motion, explainerkit/motion/effects, explainerkit/transitions, explainerkit/morph, explainerkit/math, explainerkit/physics, explainerkit/noise, explainerkit/juicy, explainerkit/variation, explainerkit/emphasis, with tested recipes and the exact option vocabularies."
 ---
 
 # Motion and effects
@@ -10,17 +10,25 @@ This skill is generated from the ExplainerKit package by `scripts/agents/build.m
 ## Modules
 
 - `explainerkit/motion`: Pure timelines, easing, staggering, motion paths, springs and secondary motion. Read `docs/modules/timelines.md`, `docs/modules/motion-curves.md`, `docs/modules/native-motion.md`.
-  Exports: `MOTION_STYLES`, `Timeline`, `beats`, `bindCommonEffect`, `bindMotionPath`, `commonEffect`, `createTimeline`, `cubicBezier`, `ease`, `easingCurve`, `idle`, `inertia`, `jiggle`, `lag`, `motionPath`, `motionStyle`, `readingPace`, `spring`, `springEasing`, `springTiming`, `squashStretch`, `stagger`.
+  Exports: `MOTION_STYLES`, `Timeline`, `beats`, `bindCommonEffect`, `bindMotionPath`, `commonEffect`, `createTimeline`, `cubicBezier`, `ease`, `easingCurve`, `envelope`, `idle`, `inertia`, `jiggle`, `keyed`, `lag`, `motionPath`, `motionStyle`, `readingPace`, `remap`, `smoothWindow`, `spring`, `springEasing`, `springTiming`, `squashStretch`, `stagger`.
 - `explainerkit/motion/effects`: Seekable typewriter, object wipe, fly-in, pulse, teeter and colour flash presets. Read `docs/modules/common-effects.md`.
   Exports: `bindCommonEffect`, `commonEffect`.
 - `explainerkit/transitions`: Capture and interpolate supported scene states. Read `docs/runtime-api.md`.
   Exports: `captureState`, `createTransition`, `interpolateStates`.
 - `explainerkit/morph`: Match points and outlines, change shapes, and animate splits or merges. Read `docs/modules/morph-safety.md`.
-  Exports: `colorInterpolator`, `createCompoundMorph`, `createMergeMorph`, `createMorph`, `createSafeMorph`, `createSceneTransition`, `createShapeKeys`, `createSplitMorph`, `flattenPath`, `matchCut`.
+  Exports: `colorInterpolator`, `createCompoundMorph`, `createMergeMorph`, `createMorph`, `createObjectMorph`, `createSafeMorph`, `createSceneTransition`, `createShapeKeys`, `createSplitMorph`, `flattenPath`, `matchCut`.
+- `explainerkit/math`: Turn LaTeX and MathML into editable outlines for equations and morphs. Read `docs/modules/math.md`.
+  Exports: `addEquation`, `createEquationMorph`, `equationFromSVG`, `typesetEquation`.
 - `explainerkit/physics`: Analytic oscillator and trajectory models; no universal physics simulation. Read `docs/modules/secondary-motion.md`.
   Exports: `fall`, `inertia`, `jiggle`, `lag`, `spring`, `springEasing`, `squashStretch`, `velocityTracker`.
 - `explainerkit/noise`: Scalar/vector fields, fractal/ridged noise, domain warp and deterministic grids. Read `docs/modules/procedural.md`, `docs/modules/procedural-fields-networks.md`.
-  Exports: `fbm`, `noise2`, `noise3`, `noiseGrid`, `noiseScalarField`, `noiseVectorField`, `randomAt`, `ridged`, `warp`.
+  Exports: `fbm`, `gradientNoise2`, `gradientNoise3`, `noise2`, `noise3`, `noiseGrid`, `noiseScalarField`, `noiseVectorField`, `randomAt`, `ridged`, `warp`.
+- `explainerkit/juicy`: Live physical feel for interactive pages: soft chains, wind fields, spring followers, squash, pop, sway, tug, shake and hit-stop. Read `docs/modules/juicy.md`.
+  Exports: `chaser`, `hitstop`, `pop`, `softChain`, `squash`, `sway`, `trauma`, `tug`, `windField`.
+- `explainerkit/variation`: Seeded, bounded and correlated differences between repeated things, with an audit for machine-made uniformity. Read `docs/modules/variation.md`.
+  Exports: `auditVariation`, `variation`, `variationPresets`.
+- `explainerkit/emphasis`: Draw the eye to a word, term or part while its context recedes, with one colour per topic. Read `docs/modules/emphasis.md`.
+  Exports: `emphasis`, `emphasizeDOM`, `emphasizeScene`, `tagTokens`, `topics`.
 
 ## Recipes
 

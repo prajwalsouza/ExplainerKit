@@ -1401,3 +1401,5 @@ export function createThreeRenderer(container, spec = {}) {
     dispose,
   });
 }
+
+export { createThreeFramePlane } from './three-frame-plane.js';

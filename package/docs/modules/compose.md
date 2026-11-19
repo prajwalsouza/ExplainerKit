@@ -52,6 +52,10 @@ fill: inkFor(night.sky, '#3b6fd4', { size: 40, weight: 700 })
 
 A text node draws one line. `wrapText(text,{width,fontSize})` divides a string into lines by fitting as many words as possible at each step, using the audit’s width estimate or your `measure` callback. `paragraph(scene,{text,x,y,width,fontSize,lineHeight,align,fill})` creates one node for each line and returns `{group,lines,width,height}`. In both functions, `\n` explicitly starts a new line.
 
+```demo design-burrito-wrap
+This wrap is stuffed. Drag the menu’s right edge to narrow the column. The placement routine moves whole words onto the next line when they run out of room.
+```
+
 ## A card sized from its words: `panel`
 
 ```js

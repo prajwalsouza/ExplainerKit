@@ -23,6 +23,10 @@ Pass both clocks when you need a reproducible frame. With unchanged authored dat
 
 Ambient inputs belong in a binding's `inputs`, and `idle` accepts one through `clock`. Its `during` windows still use story time, allowing an ambient gait to stay within one shot. A binding-only scene still needs an explicit duration, such as `scene({duration: 90})`, because an ambient input does not represent a clip.
 
+```demo design-plant-pause
+This plant refuses to take a paws. Move the ambient clock while the story stays at two seconds. The stem changes pose because its binding reads ambient time.
+```
+
 ## Bounded work and nested groups
 
 ```js

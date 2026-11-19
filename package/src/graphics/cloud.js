@@ -17,13 +17,19 @@ function floats(value, label, length, min, max) {
   );
   assert(value.length === length, 'INVALID_CLOUD', `${label} needs ${length} values.`);
   const out = new Float32Array(length);
+  const fail = () => assert(false, 'INVALID_CLOUD', `${label} values must be finite and between ${min} and ${max}.`);
+  if (typed) {
+    // A typed array holds only numbers; NaN fails both comparisons. Check the source values, then copy them.
+    for (let i = 0; i < length; i++) {
+      const v = value[i];
+      if (!(v >= min && v <= max)) fail();
+    }
+    out.set(value);
+    return out;
+  }
   for (let i = 0; i < length; i++) {
-    const v = typed ? value[i] : Object.getOwnPropertyDescriptor(value, i)?.value;
-    assert(
-      typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max,
-      'INVALID_CLOUD',
-      `${label} values must be finite and between ${min} and ${max}.`,
-    );
+    const v = Object.getOwnPropertyDescriptor(value, i)?.value;
+    if (!(typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max)) fail();
     out[i] = v;
   }
   return out;

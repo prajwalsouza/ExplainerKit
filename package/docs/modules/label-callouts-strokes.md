@@ -21,6 +21,10 @@ The shoulder route starts on the actual ring edge, reaches the nearer underline 
 
 Every drawable accepts `strokeDasharray:[8,4]` and `strokeDashoffset:0`. Arrays are captured/frozen, contain at most 128 nonnegative lengths and have a total cycle length at most one million local units. Empty and all-zero patterns are solid. Odd-length patterns use the native repeated-cycle convention in both renderers.
 
+```demo design-stitch-happens
+Stitch happens. Drag the bobbin or use the arrow keys to move the stitches along a fixed seam.
+```
+
 ```js
 const wire = s.line({x1:30,y1:60,x2:330,y2:60,
   stroke:'#315d62',strokeWidth:4,strokeDasharray:[10,5]});

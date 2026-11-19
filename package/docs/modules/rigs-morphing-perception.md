@@ -137,6 +137,10 @@ Inspect a proposed transition with `morph.inspect(progress)`, which reports area
 
 ## Suggest a perceptual group
 
+```demo design-birds-of-a-cluster
+Birds of a feather cluster together. Move the middle bird to join a group. Bring both flocks within reach of a chain of nearby birds and see the grouping rule connect them.
+```
+
 ```js
 import {perceptualGroups, groupStagger} from 'explainerkit/perception';
 const plan = perceptualGroups([

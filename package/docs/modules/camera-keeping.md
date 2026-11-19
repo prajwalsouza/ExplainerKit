@@ -2,6 +2,10 @@
 
 Use `camera.keep` when several moving objects must remain visible together. Supply handles from an existing scene, and the camera recalculates their combined bounds at each sampled time. The example follows an actor and cliff with padding rather than moving either object.
 
+```demo design-wedding-keeping
+Pose the giraffe and tortoise for a wedding photo. Drag either guest on the strip below the picture or use the arrow keys. The camera takes “squeeze in” very seriously.
+```
+
 ```js
 const camera = scene.camera();
 camera.keep([actor.handle, cliff], {

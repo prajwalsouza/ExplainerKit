@@ -13,6 +13,10 @@ const ramp = mix(base, pale, 0.5);
 drawing.circle({x: 100, y: 100, r: 30, fill: base});
 ```
 
+```demo design-gelato-mixer
+Hue wants gelato? Drag the scoop along the mixing rail. Both cones use the same starting colors and proportions. The left cone mixes along the shorter hue arc, and the right mixes in sRGB.
+```
+
 RGB-derived achromatic colors have hue zero. HSL inputs retain their declared hue
 and saturation even at black/white or zero saturation, so later adjustments can
 recover the intended color family.
@@ -25,7 +29,7 @@ recover the intended color family.
 | `toRGBA(color)` | Return a frozen `[r,g,b,a]` array with every channel in 0–1. |
 | `fromRGBA(r,g,b,a)` | Convert normalized channels into a frozen HSLA record. |
 | `hslaToRGBA({h,s,l,a})` | Convert to normalized RGBA without asking the browser to parse a color. |
-| `toHex(color)` | Return eight-digit `#rrggbbaa`, rounded to 8 bits per channel. |
+| `toHex(color, {alpha})` | Return eight-digit `#rrggbbaa`, rounded to 8 bits per channel. With `alpha:'auto'` an opaque colour returns six-digit `#rrggbb`, which Three.js `Color` needs, while a transparent one keeps its alpha byte. `alpha:'never'` always returns `#rrggbb` and rejects a transparent colour with `INVALID_COLOR`. |
 | `toCSS(color)` | Return a numeric HSLA string. |
 | `mix(a,b,t,{space,hue})` | Calculate a color at progress 0–1. The default uses HSLA and the shortest hue arc. |
 | `colorInterpolator(a,b,{space})` | Return a color-sampling function that defaults to premultiplied-alpha sRGB. |

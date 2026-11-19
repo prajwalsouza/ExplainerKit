@@ -32,6 +32,10 @@ A surface stores its geometry immutably. Call `yAt(x)` for the ground height at 
 - **Feet stay planted.** Each foot meets the ground under its own world x, so a planted foot keeps one ground point on a slope too (the existing no-slide guarantee, tested on flat and sloped ground). The biped rigs then lower the hips just enough for the downhill leg to reach (compass-gait drop, the same rule walks already use).
 - Fish and microbes have their root at the body centre, so for them the surface is the line the body centre follows.
 
+```demo design-slope-stroll
+Drag the trail marker to walk the hill. A dot marks a foot when its socket meets the ground below it. Watch a planted dot stay put while the walker’s body moves on. Ground rules apply.
+```
+
 ## Size over time: `actor.scaleTo(k, {at, duration, ease, anchor})`
 
 `actor.scaleTo(k,{at,duration,ease,anchor})` changes size to a multiplier of the authored size over `[at,at+duration]`. Defaults are `at:0`, `duration:1` and `ease:'easeInOut'`, and another named easing or progress function can be supplied. Successive calls start from the previous value. Thus `scaleTo(2).scaleTo(.5,{at:3})` follows 1 → 2 → 0.5. Scaling clips cannot overlap.

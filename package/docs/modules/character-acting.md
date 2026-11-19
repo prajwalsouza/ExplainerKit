@@ -50,6 +50,10 @@ missed target or a truncated reach returns `status:'unknown'` and `at:null`.
 It does not infer physical collision from a speed dip alone. Use a tight reach
 window for each gesture; multiple gestures need separate windows.
 
+```demo design-biscuit-timing
+Drag the biscuit away from the hand’s path. The timing helper finds contact when the hand slows inside the target circle. Move the biscuit too far and the contact time disappears. A snack with a touch of timing.
+```
+
 The analysis defaults to 120 samples per second and accepts rates from 12 to 240 with 4–4096 intervals. `sampleStep` reports the time resolution, while `peakTime`, `peakSpeed`, `speed`, `speedRatio` and `travel` report the measured motion. The result describes the gesture at the time of analysis, so run it again after editing. It installs no playback callbacks or external events that could fire during a seek.
 
 `holdAtContact` checks the prop's authored anchor through its actual parent

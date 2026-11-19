@@ -58,6 +58,10 @@ the existing key system. Returned `followOptions` uses `feet:'none',lean:0`, so
 automatic feet and lean cannot overwrite measured targets. Review long gaps and
 partial estimates before using them in a film.
 
+```demo design-unpan-the-stick
+Drag the frame reel across the synthetic measurements. The pink image points include the camera shift. The stick figure uses the recovered keys in world coordinates. It is a pan with an exit strategy.
+```
+
 The original oracle renders known native stick poses through a known changing
 affine camera, then fits only their measured protocol data. Native and browser
 checks report maximum root error against a 2-unit gate and endpoint error against

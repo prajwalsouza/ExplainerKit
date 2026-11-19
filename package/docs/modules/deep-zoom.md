@@ -4,6 +4,10 @@ Import from `explainerkit/zoom` to use nested 2D coordinate systems and choose d
 
 A city and a cell can each use convenient local numbers even when the camera moves between their vastly different scales. Define a coordinate system for each level and describe how its units relate to its parent. The view can then convert between nearby systems before drawing, which avoids needlessly large world coordinates.
 
+```demo design-flea-market-zoom
+This café has a flea market on a crumb. Drag the magnifier or move it with the arrow keys to zoom in. See which details appear as the crumb grows on screen.
+```
+
 ## Give each level its own units
 
 ```js

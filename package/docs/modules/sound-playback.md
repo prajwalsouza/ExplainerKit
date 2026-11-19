@@ -14,6 +14,10 @@ playButton.addEventListener('click', () => {
 
 Supply decoded mono or stereo audio as `{sampleRate,channels}`, with optional duration and metadata. These numeric channel samples are pulse-code-modulated audio, or PCM. The adapter copies them, encodes an owned 16-bit PCM WAV, creates an audio element and Blob URL, then delegates timing to [`attachMedia`](media-clock.md). It does not create Web Audio voices, a separate interval scheduler or another picture clock. Cues already occupy sample positions in the rendered mix, so seeking backward cannot stack old one-shot voices over new ones. Live effects and MIDI playback are outside this adapter.
 
+```demo design-meowtinee
+Welcome to the meowtinee. Press Play to hear the three synthesized chirps. Rewind and play again to hear the same cues from the rendered soundtrack.
+```
+
 Construction leaves audio paused. Call `play()` from a click or key action that the browser recognizes as user activation. A refused request throws `MEDIA_PLAY_REJECTED`, reports it through `onError` and exposes it as `error`. The reporter defaults to the player's reporter, and a later user action can retry playback. This does not bypass autoplay rules or guarantee that a device is audible. Read the adapter's `playing` for native audio state, since `player.playing` may remain false when reduced motion keeps the picture still.
 
 Set `volume` in 0–1, `muted` as a boolean, a nonnegative source `offset` in seconds, and `onError` as needed. Volume defaults to 1 and muted defaults to false. The `reducedMotion` choice is `'audio-only'` or `'respect'`. Audio-only is the default for soundtracks and lets explicitly requested sound continue while the picture holds its current sample. Manual pause or seeking still stops audio. Choose respect to pause both, matching `attachMedia`'s default. Use the sound adapter's play control for audio-only playback because the ordinary player continues enforcing its own motion restriction.

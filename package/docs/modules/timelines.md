@@ -29,6 +29,10 @@ Here, the `move` label places the horizontal movement at a quarter of a second. 
 
 You can sample a later time and return to an earlier one without replaying the intervening frames. Values are calculated from the timeline's authored state, meaning the instructions you supplied when building it. Changes to external parameters are not cached. A scene can use `scene.derive([ambient, progress], ...)` to sample a timeline and bind its values to shape properties, while a timeline player can advance time for browser playback.
 
+```demo design-toast-timeline
+Good toast takes good timing. Drag the timer to find the pop cue. The toast and lever start together because the lever shares the bread track’s start time.
+```
+
 ## Positions and channel ownership
 
 Most authoring methods accept a position that says when their work begins. This can be an absolute time in seconds or a previously declared label. The marker `<` means the previous group's end, while `<<` means its start. Add `+=.25` or `-=.25` to a label or marker to move a quarter-second from that position. Used alone, `+=.25` refers to the current authored end. Omitting the position appends at that end.

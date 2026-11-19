@@ -69,6 +69,10 @@ drawing.path({ fill: 'none', stroke: '#f2a541' })
 
 ## Cut any outline
 
+```demo design-pretzel-logic
+Twist the plot. Move the right pretzel ring into the left. Joining their outlines recomputes the boundary and the holes, so the stroke can follow the new outline.
+```
+
 ```js
 import { booleanPath } from 'explainerkit/geometry/shapes';
 const chipped = booleanPath('subtract', flintCommands, flakeCommands);

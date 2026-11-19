@@ -1,19 +1,25 @@
 # Changelog
 
-## Unreleased — library structure and release boundaries
-
-- Canonical data, geometry, layout, motion, noise, color, editor and adapter imports.
-- Implementation ownership reorganized; old paths forward the same exported values.
-- HSLA procedural color generation, adjustment, mixing and safe conversions; existing
-  RGB interpolation remains compatible.
-- Bounded importer work and localhost development-server hardening.
-- Separate, verified runtime/package/public-documentation build; no publishing step.
-- Architecture, migration, color policy and compatibility tests. About pages unchanged.
-
-
 All notable changes are documented here. This project follows [Semantic Versioning](https://semver.org/) and the structure of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
+
+- Add Paper, Midnight and Signal chart themes, a seekable radial chart and a live comparison in the data guide.
+- Redraw `mountDataChart` as light: rows become hair bundles and links become silk strands with a sheen that
+  follows the pointer. Radial, chord, sunburst, arc and bar views morph into one another, and a circle unrolls
+  into a line. Add the Silk theme, row groups and heat, `update()`, episode-style `frames` with playback,
+  drag-to-turn and keyboard focus. The data guide's demo plays through every Friends episode.
+- Add `mountFlowChart`, `parseMermaidFlow` and `flowLayout`: Mermaid flowcharts drawn as silk light, with a replay
+  of the messages that pass through them and each step's input and output.
+- Add the Pearl theme (silk for light pages), `silkBrush` for pages that paint their own canvas, and
+  `placeRadialLabels` for names around a circle. The landing page's onion, chord and sunburst views now draw in
+  silk by default, with the earlier painted look kept as the Classic skin.
+- Show the npm install command on the landing page.
+- Add two single-file bundles for direct browser import in `dist/`, also served from the website. `explainerkit-lite.js`
+  holds the core 2D modules without characters, 3D, maps, video effects or audio, and `explainerkit-full.js` holds
+  every public module. `npm run bundle` builds them, and the build fails if the lite bundle grows past its budget or
+  pulls in an excluded module.
+- The README links point to the documentation website, so they work on npm as well as on GitHub.
 
 - The package installs the film exporter as the `explainerkit-export-film` command, so
   the export guide's frame capture works from an installed package.
@@ -154,6 +160,14 @@ All notable changes are documented here. This project follows [Semantic Versioni
 
 ### Changed
 
+- Data, geometry, layout, motion, noise, color, editor and adapter code now have canonical
+  imports. The older import paths still work and forward the same exported values.
+- `explainerkit/color` generates, adjusts and mixes procedural colours in HSLA and converts
+  them safely. Existing RGB interpolation is unchanged, so earlier animations look the same.
+- Importers bound the work they do, and the local development server is hardened.
+- A separate, verified build produces the runtime, the npm package and the public
+  documentation. It never publishes anything.
+- Architecture, migration, colour policy and compatibility tests guard these boundaries.
 - Character sampling with large casts is about three times faster: validated paths and clips are not re-validated, and blink/eye-dart schedules extend lazily with a larger cache (identical seeded values).
 - Package bundling metadata treats JavaScript imports as side-effect-free while preserving the explicitly imported film stylesheet as a side-effectful asset.
 
@@ -180,6 +194,6 @@ All notable changes are documented here. This project follows [Semantic Versioni
 
 ### Known limits
 
-- This is an unpublished alpha, not a 1.0 release. Cross-browser/device/accessibility and sustained production-film gates remain separate from local correctness checks.
+- This is an alpha release. Cross-browser/device/accessibility and sustained production-film gates remain separate from local correctness checks.
 - Public naming is experimental. No export rename or removal is introduced by the release-engineering changes; therefore no migration alias is required yet.
 - See [foundation status](docs/foundation-status.md), [API inventory](docs/api-inventory.md) and [type scope](docs/types.md) for supported boundaries.

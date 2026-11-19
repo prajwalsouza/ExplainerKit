@@ -74,6 +74,10 @@ The interval controls placement measurements rather than visibility, so author w
 
 ## Falls and ink-aware grouping
 
+```demo design-spill-the-bean
+Spill the bean. Drag the film tab or use the arrow keys to sample its fall. The bean approaches its terminal speed and stops when it lands.
+```
+
 ```js
 import {fall} from 'explainerkit/physics';
 const drop = fall({from: 0, to: 800, terminal: 300, ramp: .4, at: 1});

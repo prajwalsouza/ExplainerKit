@@ -2,6 +2,10 @@
 
 Use the optional SVG importer to bring a bounded local illustration into an ExplainerKit scene as editable groups and paths. Its output is a component blueprint, which describes scene geometry rather than embedding an SVG image. The importer does not insert source markup into the page, adopt source DOM nodes, or fetch external resources. Once import succeeds, create an instance and use the part list to animate a named element as shown below.
 
+```demo design-tea-rex
+Meet Tea Rex. Select its handle, pot, lid or spout to isolate a named part. The importer exposes the parts as editable scene handles.
+```
+
 ```js
 import {importSVG, importSVGFile} from 'explainerkit/import/svg';
 

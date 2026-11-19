@@ -17,3 +17,4 @@ export { motionPath, bindMotionPath } from "../geometry/motion-path.js";
 export { easingCurve, stagger } from "./curves.js";
 export { commonEffect, bindCommonEffect } from "./common-effects.js";
 export { Timeline, createTimeline } from "./timeline.js";
+export { smoothWindow, remap, envelope, keyed } from "./ranges.js";

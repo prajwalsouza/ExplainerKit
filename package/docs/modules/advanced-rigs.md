@@ -6,6 +6,10 @@ Choose a skeleton when parts should turn at joints while keeping their lengths. 
 
 ## Reach with two hands
 
+```demo design-double-espresso
+The robot ordered a double espresso. Drag either cup or move it with the arrow keys. See how close the same rig pose gets to both cups.
+```
+
 ```js
 import {skeleton} from 'explainerkit/rigs';
 

@@ -20,6 +20,10 @@ The planner moves text into clear nearby positions, places essential explanation
 
 ## Priority, space and time
 
+```demo design-crab-inspection
+Read the fine claws. Drag the clock from motion into inspection. The essential claw label stays eligible throughout, and the other names can appear once the inspection has settled.
+```
+
 - Labels default to optional. Declare text needed for the current explanatory claim `essential:true`; it is considered before every optional label, then by numeric priority and stable ID. An impossible essential label produces `status:'needsAttention'` with an explicit diagnostic and incomplete essential coverage. The host must reflow, allocate an inspection interval, offer an allowed larger view, or report the problem. Accessible hidden text alone does not satisfy visual-required coverage.
 - Optional `when:'auto'`/`'inspect'` labels defer during `phase:'motion'` and for the first `settleDelay` seconds of inspection. `when:'always'` is an explicit override. Essential auto labels remain eligible during motion. Declare only currently active cues as required; the planner does not invent a narration schedule.
 - Supply `inspectionDuration` for a bounded authored hold. If its usable duration after settling is less than `minDwell` (default1s), eligible labels defer with `shortInspection`, so an entire too-short hold cannot produce a brief annotation flash. Without a supplied duration, dwell is explicitly unverified (`metrics.dwellWindowVerified:false`). This is a schedule-eligibility check, not a claim that a particular viewer read the text or observed a full dwell after seeking into the middle.

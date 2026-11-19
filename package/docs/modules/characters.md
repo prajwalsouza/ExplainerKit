@@ -4,6 +4,10 @@ Use `explainerkit/characters` to add a rigged character, give it actions and exp
 
 ## Put a character in a scene
 
+```demo design-bean-there
+The bean scientist has bean thinking. Drag the clock through the wave, expression and silent speech shapes. Scrub back to return to any earlier pose.
+```
+
 ```js
 import { scene } from 'explainerkit';
 import { character, starter } from 'explainerkit/characters';

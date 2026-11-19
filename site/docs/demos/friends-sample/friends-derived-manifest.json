@@ -1,0 +1,821 @@
+{
+  "source_repository": "https://github.com/emorynlp/character-mining",
+  "source_revision": "700f6fdadf4133765494d363522d581101e18b6e",
+  "retrieved_date": "2026-10-27",
+  "derivation": "Membership names preserved; undirected consecutive turns summed for those names; other endpoints mapped to Others; within-Others transitions omitted; no positive pair threshold.",
+  "inputs_sha256": {
+    "friends-scene-speakers.csv": "45ec9a3c0996d7b56ba32703180c34ea11f4e83e800126280061026aabe7cdfb",
+    "friends-interactions.csv": "91dec73ecbca00d6305b44006dc517765d9d4ca287004ac46baa471c98b428aa",
+    "manifest.json": "3ec4d964c1b98ab697164f87178ece3c2d09e45ec22776ffb518ab372ddc5547"
+  },
+  "outputs_sha256": {
+    "friends-s1-speakers.csv": "0be918d2ac516487dc8dd9d7ddad47a5bd3b268e0e1db56cd63a4fc6fc8dc7bb",
+    "friends-s1-conversations.csv": "5b41d904cdac10afee1acdf803dc962d0ad3896448cddf4e51056974c5c9c42f",
+    "friends-s2-speakers.csv": "c8a53fd14a57dc465c1b008fcd87e790853d8f936f21f2ad80678342bbcb9c78",
+    "friends-s2-conversations.csv": "25f1b984a96b06e59bd65d40fc4c9a17a451ca5bf073bb6fd9a3f5647daa8987",
+    "friends-s3-speakers.csv": "8f11f67dc915e72c34fbddc401259a4fd9329490af2124453b7768765548b946",
+    "friends-s3-conversations.csv": "58d8275a17a1b9abee6954586beef8112131da6ca5df1ca784bf150f0c6b4b4a",
+    "friends-s4-speakers.csv": "393386cf44b242aa87e62aac4060fa56418f2e69f60930f1aaf9e3913ff858d0",
+    "friends-s4-conversations.csv": "b2520215b9780ce8c56cff10cfe82e95f1b19f901a1015cf17e8348c904c89a6",
+    "friends-s5-speakers.csv": "ac9807bb91f791800f25bd7b9139ac1a1ce7d6b2c6bc86805f197a452fd926b6",
+    "friends-s5-conversations.csv": "583c879a48afb97fbcb716841b7e3a813bb1b3395be7d0899e4591256ba5e8c7",
+    "friends-s6-speakers.csv": "570dc2127d72bdb7a99617cf4a32b3fc8a520c5b9a249f933a609f8f60506f6b",
+    "friends-s6-conversations.csv": "dbe49ca0783085923efcbb96e99413e204d5403808518988d7841a9247a3d9ec",
+    "friends-s7-speakers.csv": "271ecbea49187795b886c79c837b35f6b14da8b17188a86ce54a0eb128316970",
+    "friends-s7-conversations.csv": "02dd1f6bb65e585043666854f92f9ce5398f60fcc83e5b66a1e8b3bb3dce2148",
+    "friends-s8-speakers.csv": "9fed48a9cc1a7d0aaaf48242d324bd2a5ab61acc2e8707e9cb88080093192860",
+    "friends-s8-conversations.csv": "fe9eccc8ecfddd8f033c1151f73d8224675c5ef4207d41643f08bee085974991",
+    "friends-s9-speakers.csv": "ae25e8e418a9664edb6920787bf12b552dfa0bd1498aab5f524193cdf1eaab40",
+    "friends-s9-conversations.csv": "e32fcb0faed17656c9128afe8ed0a2a33c43d5e6dae0b60ea13e95bae7e5923c",
+    "friends-s10-speakers.csv": "b819db271216a7bb0cb94f5a7a73209f9c620eeab6c7ceb22599d2754ac8f5f9",
+    "friends-s10-conversations.csv": "f792bf877dfb8a321088e2f9d4e5fe7e564698bbd0daac52522ec0d4b18bff4f",
+    "friends-all-episodes.csv": "3be9617500cefc7efb7e7785148e1257c59a570b2c2d69426516a235915722de",
+    "friends-all-conversations.csv": "7a4c9014165700fddd8660bed7d8712250b26c3b63b445a48786fcda1b7769ca",
+    "friends-all-episode-turns.csv": "e606c6b5da3a92d830da63456fcfeeab6b401cf12115ba7740be2a9db807ed89"
+  },
+  "samples": [
+    {
+      "season": 1,
+      "membership": "friends-s1-speakers.csv",
+      "conversations": "friends-s1-conversations.csv",
+      "source_turns": 5246,
+      "displayed_turns": 5176,
+      "within_others_turns_omitted": 70,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Carol Willick",
+          "display": "Carol"
+        },
+        {
+          "source": "Susan Bunch",
+          "display": "Susan"
+        },
+        {
+          "source": "Barry Farber",
+          "display": "Barry"
+        },
+        {
+          "source": "Janice Litman Goralnik",
+          "display": "Janice"
+        },
+        {
+          "source": "Mr. Heckles",
+          "display": "Mr. Heckles"
+        },
+        {
+          "source": "Paolo",
+          "display": "Paolo"
+        },
+        {
+          "source": "Nurse Sizemore",
+          "display": "Nurse Sizemore"
+        },
+        {
+          "source": "Bernice",
+          "display": "Bernice"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "membership": "friends-s2-speakers.csv",
+      "conversations": "friends-s2-conversations.csv",
+      "source_turns": 5233,
+      "displayed_turns": 5167,
+      "within_others_turns_omitted": 66,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Julie",
+          "display": "Julie"
+        },
+        {
+          "source": "Richard Burke",
+          "display": "Richard"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Carol Willick",
+          "display": "Carol"
+        },
+        {
+          "source": "Susan Bunch",
+          "display": "Susan"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Eddie Menuek",
+          "display": "Eddie"
+        },
+        {
+          "source": "Frank Buffay Jr.",
+          "display": "Frank"
+        },
+        {
+          "source": "Janice Litman Goralnik",
+          "display": "Janice"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 3,
+      "membership": "friends-s3-speakers.csv",
+      "conversations": "friends-s3-conversations.csv",
+      "source_turns": 5889,
+      "displayed_turns": 5823,
+      "within_others_turns_omitted": 66,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Janice Litman Goralnik",
+          "display": "Janice"
+        },
+        {
+          "source": "Mark Robinson",
+          "display": "Mark"
+        },
+        {
+          "source": "Peter Becker",
+          "display": "Peter"
+        },
+        {
+          "source": "Kate Miller",
+          "display": "Kate"
+        },
+        {
+          "source": "Richard Burke",
+          "display": "Richard"
+        },
+        {
+          "source": "Carol Willick",
+          "display": "Carol"
+        },
+        {
+          "source": "Frank Buffay Jr.",
+          "display": "Frank"
+        },
+        {
+          "source": "Jasmine",
+          "display": "Jasmine"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 4,
+      "membership": "friends-s4-speakers.csv",
+      "conversations": "friends-s4-conversations.csv",
+      "source_turns": 5743,
+      "displayed_turns": 5717,
+      "within_others_turns_omitted": 26,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Emily Waltham",
+          "display": "Emily"
+        },
+        {
+          "source": "Joshua Burgin",
+          "display": "Joshua"
+        },
+        {
+          "source": "Kathy",
+          "display": "Kathy"
+        },
+        {
+          "source": "Alice Knight",
+          "display": "Alice"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Frank Buffay Jr.",
+          "display": "Frank"
+        },
+        {
+          "source": "Stephen Waltham",
+          "display": "Stephen"
+        },
+        {
+          "source": "Phoebe Abbott",
+          "display": "Phoebe Abbott"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 5,
+      "membership": "friends-s5-speakers.csv",
+      "conversations": "friends-s5-conversations.csv",
+      "source_turns": 5677,
+      "displayed_turns": 5626,
+      "within_others_turns_omitted": 51,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Emily Waltham",
+          "display": "Emily"
+        },
+        {
+          "source": "Gary",
+          "display": "Gary"
+        },
+        {
+          "source": "Danny",
+          "display": "Danny"
+        },
+        {
+          "source": "Jack Geller",
+          "display": "Jack"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Dr. Ledbetter",
+          "display": "Dr. Ledbetter"
+        },
+        {
+          "source": "Ben Geller",
+          "display": "Ben"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 6,
+      "membership": "friends-s6-speakers.csv",
+      "conversations": "friends-s6-conversations.csv",
+      "source_turns": 5945,
+      "displayed_turns": 5909,
+      "within_others_turns_omitted": 36,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Janine Lecroix",
+          "display": "Janine"
+        },
+        {
+          "source": "Elizabeth Stevens",
+          "display": "Elizabeth"
+        },
+        {
+          "source": "Paul Stevens",
+          "display": "Paul"
+        },
+        {
+          "source": "Russell",
+          "display": "Russell"
+        },
+        {
+          "source": "Estelle Leonard",
+          "display": "Estelle"
+        },
+        {
+          "source": "Jill Green",
+          "display": "Jill"
+        },
+        {
+          "source": "Carol Willick",
+          "display": "Carol"
+        },
+        {
+          "source": "Janice Litman Goralnik",
+          "display": "Janice"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 7,
+      "membership": "friends-s7-speakers.csv",
+      "conversations": "friends-s7-conversations.csv",
+      "source_turns": 5864,
+      "displayed_turns": 5820,
+      "within_others_turns_omitted": 44,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Jack Geller",
+          "display": "Jack"
+        },
+        {
+          "source": "Tag Jones",
+          "display": "Tag"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Ben Geller",
+          "display": "Ben"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Melissa Warburton",
+          "display": "Melissa"
+        },
+        {
+          "source": "Jake",
+          "display": "Jake"
+        },
+        {
+          "source": "Charles Bing",
+          "display": "Charles"
+        },
+        {
+          "source": "Nora Tyler Bing",
+          "display": "Nora"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 8,
+      "membership": "friends-s8-speakers.csv",
+      "conversations": "friends-s8-conversations.csv",
+      "source_turns": 5855,
+      "displayed_turns": 5812,
+      "within_others_turns_omitted": 43,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Mona",
+          "display": "Mona"
+        },
+        {
+          "source": "Dr. Long",
+          "display": "Dr. Long"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Jack Geller",
+          "display": "Jack"
+        },
+        {
+          "source": "Eric",
+          "display": "Eric"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 9,
+      "membership": "friends-s9-speakers.csv",
+      "conversations": "friends-s9-conversations.csv",
+      "source_turns": 5835,
+      "displayed_turns": 5815,
+      "within_others_turns_omitted": 20,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Mike Hannigan",
+          "display": "Mike"
+        },
+        {
+          "source": "Charlie Wheeler",
+          "display": "Charlie"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "David",
+          "display": "David"
+        },
+        {
+          "source": "Gavin Mitchell",
+          "display": "Gavin"
+        },
+        {
+          "source": "Claudia",
+          "display": "Claudia"
+        },
+        {
+          "source": "Ken",
+          "display": "Ken"
+        },
+        {
+          "source": "Dr. Drake Ramoray",
+          "display": "Dr. Drake Ramoray"
+        },
+        {
+          "source": "Molly",
+          "display": "Molly"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": 10,
+      "membership": "friends-s10-speakers.csv",
+      "conversations": "friends-s10-conversations.csv",
+      "source_turns": 4827,
+      "displayed_turns": 4781,
+      "within_others_turns_omitted": 46,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Mike Hannigan",
+          "display": "Mike"
+        },
+        {
+          "source": "Charlie Wheeler",
+          "display": "Charlie"
+        },
+        {
+          "source": "Erica",
+          "display": "Erica"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Mr. Zelner",
+          "display": "Mr. Zelner"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ]
+    },
+    {
+      "season": "all",
+      "membership": "friends-all-episodes.csv",
+      "conversations": "friends-all-conversations.csv",
+      "source_turns": 56114,
+      "displayed_turns": 55432,
+      "within_others_turns_omitted": 682,
+      "cast": [
+        {
+          "source": "Rachel Green",
+          "display": "Rachel"
+        },
+        {
+          "source": "Monica Geller",
+          "display": "Monica"
+        },
+        {
+          "source": "Phoebe Buffay",
+          "display": "Phoebe"
+        },
+        {
+          "source": "Joey Tribbiani",
+          "display": "Joey"
+        },
+        {
+          "source": "Chandler Bing",
+          "display": "Chandler"
+        },
+        {
+          "source": "Ross Geller",
+          "display": "Ross"
+        },
+        {
+          "source": "Gunther",
+          "display": "Gunther"
+        },
+        {
+          "source": "Judy Geller",
+          "display": "Judy"
+        },
+        {
+          "source": "Janice Litman Goralnik",
+          "display": "Janice"
+        },
+        {
+          "source": "Mike Hannigan",
+          "display": "Mike"
+        },
+        {
+          "source": "Carol Willick",
+          "display": "Carol"
+        },
+        {
+          "source": "Jack Geller",
+          "display": "Jack"
+        },
+        {
+          "source": "Emily Waltham",
+          "display": "Emily"
+        },
+        {
+          "source": "Susan Bunch",
+          "display": "Susan"
+        },
+        {
+          "source": "Richard Burke",
+          "display": "Richard"
+        },
+        {
+          "source": "Others",
+          "display": "Others"
+        }
+      ],
+      "episode_turns": "friends-all-episode-turns.csv"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "explainerkit",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "license": "MIT",
   "type": "module",
   "description": "An independent JavaScript foundation for interactive visual explanations",
@@ -333,6 +333,71 @@
       "types": "./src/vfx/index.d.ts",
       "import": "./src/vfx/index.js",
       "default": "./src/vfx/index.js"
+    },
+    "./variation": {
+      "types": "./src/variation/index.d.ts",
+      "import": "./src/variation/index.js",
+      "default": "./src/variation/index.js"
+    },
+    "./emphasis": {
+      "types": "./src/emphasis/index.d.ts",
+      "import": "./src/emphasis/index.js",
+      "default": "./src/emphasis/index.js"
+    },
+    "./juicy": {
+      "types": "./src/juicy/index.d.ts",
+      "import": "./src/juicy/index.js",
+      "default": "./src/juicy/index.js"
+    },
+    "./maps": {
+      "types": "./src/maps/index.d.ts",
+      "import": "./src/maps/index.js",
+      "default": "./src/maps/index.js"
+    },
+    "./typography/source": {
+      "types": "./src/typography/source/index.d.ts",
+      "import": "./src/typography/source/index.js",
+      "default": "./src/typography/source/index.js"
+    },
+    "./vfx/post": {
+      "types": "./src/vfx/post/index.d.ts",
+      "import": "./src/vfx/post/index.js",
+      "default": "./src/vfx/post/index.js"
+    },
+    "./renderers/three/cinematic": {
+      "types": "./src/renderers/three-cinematic.d.ts",
+      "import": "./src/renderers/three-cinematic.js",
+      "default": "./src/renderers/three-cinematic.js"
+    },
+    "./maps/fetch": {
+      "types": "./src/maps/fetch.d.ts",
+      "import": "./src/maps/fetch.js",
+      "default": "./src/maps/fetch.js"
+    },
+    "./import/geotiff": {
+      "types": "./src/import/geotiff.d.ts",
+      "import": "./src/import/geotiff.js",
+      "default": "./src/import/geotiff.js"
+    },
+    "./maps/osm": {
+      "types": "./src/maps/osm.d.ts",
+      "import": "./src/maps/osm.js",
+      "default": "./src/maps/osm.js"
+    },
+    "./procedural/city": {
+      "types": "./src/procedural/city/index.d.ts",
+      "import": "./src/procedural/city/index.js",
+      "default": "./src/procedural/city/index.js"
+    },
+    "./renderers/three/city": {
+      "types": "./src/renderers/three-city.d.ts",
+      "import": "./src/renderers/three-city.js",
+      "default": "./src/renderers/three-city.js"
+    },
+    "./math": {
+      "types": "./src/math/index.d.ts",
+      "import": "./src/math/index.js",
+      "default": "./src/math/index.js"
     }
   },
   "scripts": {
@@ -372,7 +437,8 @@
     "check:architecture": "node scripts/check-architecture.mjs",
     "docs:public": "node scripts/docs-site.mjs --public",
     "check:release": "node scripts/check-release.mjs",
-    "check": "npm run check:architecture && npm run lint && npm run format:check && npm test && npm run test:types && npm run docs:check && npm run check:package && npm run test:package-consumer",
+    "bundle": "node scripts/build-bundles.mjs",
+    "check": "npm run check:architecture && npm run lint && npm run format:check && npm test && npm run test:types && npm run docs:check && npm run bundle && npm run check:package && npm run test:package-consumer",
     "prebuild": "npm run check",
     "build": "node scripts/build-release.mjs",
     "agents:build": "node scripts/agents/build.mjs",
@@ -405,6 +471,7 @@
   },
   "files": [
     "src/",
+    "dist/",
     "agents/",
     "!agents/eval/",
     "llms.txt",
@@ -428,7 +495,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prajwalsouza/ExplainerKit.git"
+    "url": "git+https://github.com/prajwalsouza/ExplainerKit.git",
+    "directory": "package"
   },
   "bugs": {
     "url": "https://github.com/prajwalsouza/ExplainerKit/issues"

@@ -26,3 +26,4 @@ export { contactTiming, holdAtContact } from "./contact-timing.js";
 export { BIPED_POSES, poseVocabulary } from "./pose-vocabulary.js";
 export { motionStyle, MOTION_STYLES } from "./motion-style.js";
 export { profile, profileReaction } from "./builds/profile.js";
+export { quadrupedGait, QUADRUPED_GAITS, twoBoneJoint } from "./quadruped-gait.js";

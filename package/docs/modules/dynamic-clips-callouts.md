@@ -2,6 +2,10 @@
 
 A live clip uses another scene object’s outline to hide part of a drawing. A callout follows a target with a ring, line and panel. The examples assume `s` is an existing scene and show how these relationships keep working as objects move.
 
+```demo design-new-ewe
+Drag the sheep across the swatches, or use the arrow keys, for a whole new ewe. The pattern stays put while the sheep’s outline moves the clip.
+```
+
 ```js
 const subject = s.circle({x:250,y:250,r:80});
 const pattern = s.rect({width:800,height:500,fill:'#ef6655',clip:subject});

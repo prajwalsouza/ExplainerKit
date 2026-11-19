@@ -17,6 +17,10 @@ Use `idle` to add small repeated movement without replacing a group’s existing
 
 Default periods for sway, turn and breathe are 6, 8 and 5 seconds. Weight may be a number or an input from this scene and must remain in [0,1]. Invalid values are rejected instead of clamped. The absolute breathe amplitude cannot exceed 0.9, preventing this effect from reversing a scale on its own.
 
+```demo design-penguin-portrait
+Move the exposure marker across the highlighted window. The penguin sways, turns and breathes during the window, then returns to its pose as the effect fades. Please hold still-ish.
+```
+
 These pure effects run after authored bindings, tracks and collection placement,
 before presence is applied. Multiple effects compose in installation order, with at most 8 on
 one handle. Amplitude zero is exact identity. There is no random state or

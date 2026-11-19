@@ -18,6 +18,10 @@ const ink = inkStroke(path, {width: u => 2 + 3*Math.sin(Math.PI*u), taper: .1,
 
 `trim(start,end)` returns move and line commands for the selected intervals without joining gaps. Equal endpoints return no commands, so hide or omit the node when there is no visible ink. `outlineDraw` is a convenience for `trim(0,progress)`, while `mode:'each'` reveals each contour by its own fraction. A complete reveal closes closed contours with a final line. Keep compound fills separate from these strokes so holes retain their fill rule.
 
+```demo design-snail-signature
+Drag the ink nib or use the arrow keys to trace a snail’s two-stroke signature. When the ink takes a pen lift, the snail takes a leap.
+```
+
 Curves are measured by approximating them with shorter straight segments. The default `tolerance` is .25 local units, and `maxPoints` defaults to 8192 per contour with a maximum of 32768. The whole path can contain 1–1024 contours with nonzero length and no more than 32768 prepared points. Generated output must also fit the 10000-command path limit. These are limits on an approximation rather than exact symbolic curve lengths.
 
 Use `samplePath(path,n,options)` to obtain 1–8192 immutable `{x,y}` positions spaced by distance over the total drawn length. A single closed contour omits its duplicated endpoint, and requesting one point returns the start. This gives the point samples that `pairPoints` can match to another path.

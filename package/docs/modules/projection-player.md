@@ -22,6 +22,10 @@ player.play();
 
 Construction renders time zero through your callback and starts paused. Use `play`, `pause`, `seek`, `refresh` and `on` to control or observe the player. Times use seconds and geometry rotations use radians. A scene change schedules one refresh rather than creating a second loop. The optional `host` provides browser frame scheduling and defaults to the current global environment. An unsupported host is rejected explicitly.
 
+```demo design-elevator-projection
+Lift and let lift. Drag the brass floor selector, or focus it and use the arrow keys. The projection callback reads the height from the sampled scene and moves the existing HTML cabin.
+```
+
 This player has one playback timeline, so ambient inputs read the same elapsed seconds as authored tracks. Pausing freezes both and seeking changes both. To keep a scroll-controlled shape moving through elapsed time, bind scroll to a separate parameter and leave this player playing. Mounted SVG and Canvas players instead support independent ambient time. Choose the player whose timing behavior fits the explanation, because neither scene nor renderer schedules browser frames.
 
 Seeking preserves live parameter overrides by default. Pass `{reset:true}` to restore authored values before sampling. If sampling or projection fails, player time and frame remain at the last committed values. A failed reset also restores its parameter checkpoint. Your projection callback must apply renderer changes together or restore them on failure, because the player cannot undo arbitrary writes inside that callback.

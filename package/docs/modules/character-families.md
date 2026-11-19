@@ -24,6 +24,10 @@ and validated; unknown fields, getters, illegal topology and non-colors refuse.
 Preset overrides merge nested part settings, preserving unspecified preset
 fields. No topology or anatomy is inferred from a name or imported picture.
 
+```demo design-family-pond
+Pull the lily-pad marker to sample a dragonfly flapping and a frog leaping. Their bodies and actions differ, and both use the same character runtime. Take a leap of frog.
+```
+
 ## Parameters and actions
 
 Every body accepts `width` (or its alias `length`, never both) 20–160, `height`

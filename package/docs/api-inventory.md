@@ -216,6 +216,7 @@ The implementation is in [./src/morph/index.js](../src/morph/index.js).
 | `createCompoundMorph` | experimental |
 | `createMergeMorph` | experimental |
 | `createMorph` | experimental |
+| `createObjectMorph` | experimental |
 | `createSafeMorph` | experimental |
 | `createSceneTransition` | experimental |
 | `createShapeKeys` | experimental |
@@ -587,17 +588,24 @@ The implementation is in [./src/model/index.js](../src/model/index.js).
 | `axisBlueprint` | experimental |
 | `bandScale` | experimental |
 | `bin` | experimental |
+| `chartTheme` | experimental |
 | `convert` | experimental |
 | `defineUnit` | experimental |
 | `divideUnits` | experimental |
 | `filterRows` | experimental |
+| `flowLayout` | experimental |
 | `linePath` | experimental |
 | `mapRows` | experimental |
+| `mountDataChart` | experimental |
+| `mountFlowChart` | experimental |
 | `multiplyUnits` | experimental |
 | `ordinalScale` | experimental |
+| `parseMermaidFlow` | experimental |
 | `powerUnit` | experimental |
+| `radialChart` | experimental |
 | `replaceMapped` | experimental |
 | `scale` | experimental |
+| `silkBrush` | experimental |
 | `stack` | experimental |
 | `summarize` | experimental |
 | `ticks` | experimental |
@@ -704,6 +712,7 @@ The implementation is in [./src/renderers/three.js](../src/renderers/three.js).
 | Export | Status |
 | --- | --- |
 | `createThreeAdapter` | experimental |
+| `createThreeFramePlane` | experimental |
 | `createThreeRenderer` | experimental |
 | `darkClay` | experimental |
 
@@ -863,6 +872,7 @@ The implementation is in [./src/characters/index.js](../src/characters/index.js)
 | `MOODS` | experimental |
 | `MOTION_STYLES` | experimental |
 | `MOUTH_SHAPES` | experimental |
+| `QUADRUPED_GAITS` | experimental |
 | `SKIN` | experimental |
 | `STARTERS` | experimental |
 | `STICK_BUILDS` | experimental |
@@ -915,6 +925,7 @@ The implementation is in [./src/characters/index.js](../src/characters/index.js)
 | `profileReaction` | experimental |
 | `pupilPath` | experimental |
 | `quadruped` | experimental |
+| `quadrupedGait` | experimental |
 | `restBounds` | experimental |
 | `restHeight` | experimental |
 | `restyle` | experimental |
@@ -935,6 +946,7 @@ The implementation is in [./src/characters/index.js](../src/characters/index.js)
 | `taper` | experimental |
 | `tone` | experimental |
 | `tube` | experimental |
+| `twoBoneJoint` | experimental |
 | `winged` | experimental |
 
 ## `explainerkit/composition`
@@ -995,6 +1007,7 @@ The implementation is in [./src/layout/labels.js](../src/layout/labels.js).
 | --- | --- |
 | `canvasTextMeasurer` | experimental |
 | `placeLabels` | experimental |
+| `placeRadialLabels` | experimental |
 
 ## `explainerkit/layout/annotations`
 
@@ -1068,17 +1081,24 @@ The implementation is in [./src/data/index.js](../src/data/index.js).
 | `axisBlueprint` | experimental |
 | `bandScale` | experimental |
 | `bin` | experimental |
+| `chartTheme` | experimental |
 | `convert` | experimental |
 | `defineUnit` | experimental |
 | `divideUnits` | experimental |
 | `filterRows` | experimental |
+| `flowLayout` | experimental |
 | `linePath` | experimental |
 | `mapRows` | experimental |
+| `mountDataChart` | experimental |
+| `mountFlowChart` | experimental |
 | `multiplyUnits` | experimental |
 | `ordinalScale` | experimental |
+| `parseMermaidFlow` | experimental |
 | `powerUnit` | experimental |
+| `radialChart` | experimental |
 | `replaceMapped` | experimental |
 | `scale` | experimental |
+| `silkBrush` | experimental |
 | `stack` | experimental |
 | `summarize` | experimental |
 | `ticks` | experimental |
@@ -1152,6 +1172,7 @@ The implementation is in [./src/layout/index.js](../src/layout/index.js).
 | `pathPoint` | experimental |
 | `place` | experimental |
 | `placeLabels` | experimental |
+| `placeRadialLabels` | experimental |
 | `planAnnotations` | experimental |
 | `planLayout` | experimental |
 | `stage` | experimental |
@@ -1191,13 +1212,17 @@ The implementation is in [./src/motion/index.js](../src/motion/index.js).
 | `cubicBezier` | experimental |
 | `ease` | experimental |
 | `easingCurve` | experimental |
+| `envelope` | experimental |
 | `idle` | experimental |
 | `inertia` | experimental |
 | `jiggle` | experimental |
+| `keyed` | experimental |
 | `lag` | experimental |
 | `motionPath` | experimental |
 | `motionStyle` | experimental |
 | `readingPace` | experimental |
+| `remap` | experimental |
+| `smoothWindow` | experimental |
 | `spring` | experimental |
 | `springEasing` | experimental |
 | `springTiming` | experimental |
@@ -1220,6 +1245,8 @@ The implementation is in [./src/noise/index.js](../src/noise/index.js).
 | Export | Status |
 | --- | --- |
 | `fbm` | experimental |
+| `gradientNoise2` | experimental |
+| `gradientNoise3` | experimental |
 | `noise2` | experimental |
 | `noise3` | experimental |
 | `noiseGrid` | experimental |
@@ -1382,4 +1409,274 @@ The implementation is in [./src/vfx/index.js](../src/vfx/index.js).
 | `traceFlow` | experimental |
 | `trackPlane` | experimental |
 | `trackPoint` | experimental |
+
+## `explainerkit/variation`
+
+The implementation is in [./src/variation/index.js](../src/variation/index.js).
+
+| Export | Status |
+| --- | --- |
+| `auditVariation` | experimental |
+| `variation` | experimental |
+| `variationPresets` | experimental |
+
+## `explainerkit/emphasis`
+
+The implementation is in [./src/emphasis/index.js](../src/emphasis/index.js).
+
+| Export | Status |
+| --- | --- |
+| `emphasis` | experimental |
+| `emphasizeDOM` | experimental |
+| `emphasizeScene` | experimental |
+| `tagTokens` | experimental |
+| `topics` | experimental |
+
+## `explainerkit/juicy`
+
+The implementation is in [./src/juicy/index.js](../src/juicy/index.js).
+
+| Export | Status |
+| --- | --- |
+| `chaser` | experimental |
+| `hitstop` | experimental |
+| `pop` | experimental |
+| `softChain` | experimental |
+| `squash` | experimental |
+| `sway` | experimental |
+| `trauma` | experimental |
+| `tug` | experimental |
+| `windField` | experimental |
+
+## `explainerkit/maps`
+
+The implementation is in [./src/maps/index.js](../src/maps/index.js).
+
+| Export | Status |
+| --- | --- |
+| `contours` | experimental |
+| `drape` | experimental |
+| `elevationRamp` | experimental |
+| `flow` | experimental |
+| `heightfield` | experimental |
+| `hillshade` | experimental |
+| `localProjection` | experimental |
+| `placeClouds` | experimental |
+| `riverReveal` | experimental |
+| `rivers` | experimental |
+
+## `explainerkit/typography/source`
+
+The implementation is in [./src/typography/source/index.js](../src/typography/source/index.js).
+
+| Export | Status |
+| --- | --- |
+| `findPhrase` | experimental |
+| `highlightSchedule` | experimental |
+| `layoutDocument` | experimental |
+| `liftSchedule` | experimental |
+| `sourceEase` | experimental |
+| `surfaceMapper` | experimental |
+
+## `explainerkit/vfx/post`
+
+The implementation is in [./src/vfx/post/index.js](../src/vfx/post/index.js).
+
+| Export | Status |
+| --- | --- |
+| `MAX_PIXELS` | experimental |
+| `bloom` | experimental |
+| `blur` | experimental |
+| `chromaticAberration` | experimental |
+| `depthOfField` | experimental |
+| `finishFrame` | experimental |
+| `fromRGBA8` | experimental |
+| `grade` | experimental |
+| `grain` | experimental |
+| `halation` | experimental |
+| `image` | experimental |
+| `lensDistortion` | experimental |
+| `lightRays` | experimental |
+| `motionBlur` | experimental |
+| `tiltShift` | experimental |
+| `toRGBA8` | experimental |
+| `vignette` | experimental |
+
+## `explainerkit/renderers/three/cinematic`
+
+The implementation is in [./src/renderers/three-cinematic.js](../src/renderers/three-cinematic.js).
+
+| Export | Status |
+| --- | --- |
+| `HIGHLIGHT_KINDS` | experimental |
+| `cameraShots` | experimental |
+| `cinematicPost` | experimental |
+| `liftChip` | experimental |
+| `mapHighlights` | experimental |
+| `paintDocument` | experimental |
+| `qualityGovernor` | experimental |
+| `reliefMap` | experimental |
+
+## `explainerkit/maps/fetch`
+
+The implementation is in [./src/maps/fetch.js](../src/maps/fetch.js).
+
+| Export | Status |
+| --- | --- |
+| `OVERPASS_ENDPOINTS` | experimental |
+| `SOURCES` | experimental |
+| `elevationTiles` | experimental |
+| `loadBakedRegion` | experimental |
+| `loadElevation` | experimental |
+| `loadNaturalEarth` | experimental |
+| `loadOverpass` | experimental |
+| `memoryCache` | experimental |
+| `overpassClient` | experimental |
+| `overpassQuery` | experimental |
+
+## `explainerkit/import/geotiff`
+
+The implementation is in [./src/import/geotiff.js](../src/import/geotiff.js).
+
+| Export | Status |
+| --- | --- |
+| `readGeoTIFF` | experimental |
+
+## `explainerkit/maps/osm`
+
+The implementation is in [./src/maps/osm.js](../src/maps/osm.js).
+
+| Export | Status |
+| --- | --- |
+| `amenityKinds` | experimental |
+| `areaKinds` | experimental |
+| `buildingKinds` | experimental |
+| `osmAttribution` | experimental |
+| `osmLimits` | experimental |
+| `osmSummary` | experimental |
+| `overpassQuery` | experimental |
+| `parseColour` | experimental |
+| `parseCount` | experimental |
+| `parseDirection` | experimental |
+| `parseLength` | experimental |
+| `parseOverpass` | experimental |
+| `parseYear` | experimental |
+| `placeCategories` | experimental |
+| `roadClasses` | experimental |
+| `roofShapes` | experimental |
+
+## `explainerkit/procedural/city`
+
+The implementation is in [./src/procedural/city/index.js](../src/procedural/city/index.js).
+
+| Export | Status |
+| --- | --- |
+| `CAR_PAINT` | experimental |
+| `CITY_STYLES` | experimental |
+| `DEFAULT_SPEEDS` | experimental |
+| `PERSON_ACTIVITIES` | experimental |
+| `PERSON_GAITS` | experimental |
+| `PERSON_PAINT` | experimental |
+| `VEHICLE_SHAPES` | experimental |
+| `VEHICLE_VARIANTS` | experimental |
+| `WATER_LEVEL` | experimental |
+| `WEATHER` | experimental |
+| `auditCity` | experimental |
+| `bayLayout` | experimental |
+| `bikeAsset` | experimental |
+| `boatAsset` | experimental |
+| `buildCity` | experimental |
+| `buildingStyle` | experimental |
+| `carAsset` | experimental |
+| `carBodies` | experimental |
+| `cityLimits` | experimental |
+| `cityPalettes` | experimental |
+| `cityStyles` | experimental |
+| `coverAsset` | experimental |
+| `coverKinds` | experimental |
+| `footKinds` | experimental |
+| `furnitureAsset` | experimental |
+| `furnitureKinds` | experimental |
+| `greenKinds` | experimental |
+| `groundStyles` | experimental |
+| `interpretationLevels` | experimental |
+| `lampAsset` | experimental |
+| `lampStyles` | experimental |
+| `mixWeather` | experimental |
+| `parkingPlan` | experimental |
+| `peopleClothing` | experimental |
+| `personActivities` | experimental |
+| `personAges` | experimental |
+| `personAsset` | experimental |
+| `personBags` | experimental |
+| `personBottoms` | experimental |
+| `personBudget` | experimental |
+| `personClimate` | experimental |
+| `personColors` | experimental |
+| `personGait` | experimental |
+| `personGaitStyle` | experimental |
+| `personGaits` | experimental |
+| `personHair` | experimental |
+| `personHats` | experimental |
+| `personHoods` | experimental |
+| `personJoints` | experimental |
+| `personLook` | experimental |
+| `personMotion` | experimental |
+| `personPose` | experimental |
+| `personRanges` | experimental |
+| `personRig` | experimental |
+| `personShoes` | experimental |
+| `personTops` | experimental |
+| `personWardrobe` | experimental |
+| `planFlyby` | experimental |
+| `planTraffic` | experimental |
+| `posePerson` | experimental |
+| `propRange` | experimental |
+| `regionStyle` | experimental |
+| `resolveWeather` | experimental |
+| `roofMaterials` | experimental |
+| `seasons` | experimental |
+| `shrubAsset` | experimental |
+| `standingGesture` | experimental |
+| `surfaceKinds` | experimental |
+| `trafficLimits` | experimental |
+| `trafficState` | experimental |
+| `treeAsset` | experimental |
+| `treeForms` | experimental |
+| `vehicleAsset` | experimental |
+| `vehicleEras` | experimental |
+| `vehicleFamilies` | experimental |
+| `vehicleKinds` | experimental |
+| `vehicleLook` | experimental |
+| `vehiclePose` | experimental |
+| `vehicleShape` | experimental |
+| `walkerPose` | experimental |
+| `wallMaterials` | experimental |
+| `weatherNames` | experimental |
+| `weatherSchedule` | experimental |
+| `windowStyles` | experimental |
+
+## `explainerkit/renderers/three/city`
+
+The implementation is in [./src/renderers/three-city.js](../src/renderers/three-city.js).
+
+| Export | Status |
+| --- | --- |
+| `CITY_QUALITY` | experimental |
+| `cityQualities` | experimental |
+| `cityScene` | experimental |
+| `dioramaLens` | experimental |
+| `pavingStyles` | experimental |
+| `thinLens` | experimental |
+
+## `explainerkit/math`
+
+The implementation is in [./src/math/index.js](../src/math/index.js).
+
+| Export | Status |
+| --- | --- |
+| `addEquation` | experimental |
+| `createEquationMorph` | experimental |
+| `equationFromSVG` | experimental |
+| `typesetEquation` | experimental |
 

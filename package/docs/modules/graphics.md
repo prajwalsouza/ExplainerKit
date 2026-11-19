@@ -24,6 +24,10 @@ A `clip` is a declarative region, not a second scene node. It hides everything o
 
 The clipping helpers validate and copy all nested values, then return descriptions you can use in shape and component properties, `set` calls or bindings. Choose the helper according to the region you need to keep visible.
 
+```demo design-crop-circle
+This crop circle belongs in a vegetable patch. Drag the round window or move it with the arrow keys. The crops show through only where the two clips overlap.
+```
+
 | Helper | Parameters | Result |
 | --- | --- | --- |
 | `clipRect` | `{x=0,y=0,width,height,rx=0}` | Axis-aligned local rectangle; radius clamps to half width/height at rendering |
@@ -70,6 +74,10 @@ const ring = drawing.path({
 });
 ```
 
+```demo design-bagel-hole
+Find the bagel loophole. Press the bagel to switch its fill rule. The same two contours leave a hole with `evenodd` and fill the center with `nonzero`.
+```
+
 A `clipPath` has a fill rule independent of its artwork’s rule. Changing either selects a different rule immediately rather than interpolating an undefined intermediate winding. Strokes follow contour boundaries without filling holes. Use [compound morphs](advanced-constructions.md) with explicitly named contours when a holed shape must change outline because the single-contour morph API rejects holes.
 
 ## Local gradient paint
@@ -91,6 +99,10 @@ Supply 2–64 `{offset,color}` stops with nondecreasing offsets in [0,1]. Suppor
 SVG uses local `userSpaceOnUse` resources, and Canvas constructs native gradients under the same local-to-view transform. The chosen interpolation space is native sRGB. Very small samples near anti-aliased boundaries may differ across rendering engines; the browser fixtures compare interior pixels with explicit tolerances. For linear gradients relative to shape bounds, use `units:'bounds'`; see [camera choreography](camera-choreography.md#bounds-relative-linear-gradients). Repeating/reflecting spread, arbitrary focal circles, image/pattern fills and external paint resources are unsupported by these gradient helpers.
 
 Gradients are paint values rather than standalone scene entities. Shape keys and components retain identity when a gradient changes. Bind a trusted pure mapping to `fill`/`stroke` to drive gradient coordinates/stops parametrically. Cross-gradient interpolation is not implicitly supplied by this module; whole-object updates follow the core transition's categorical policy unless a separate transition option explicitly supports the paint.
+
+```demo design-disco-gradients
+The disco ball has a point. Drag the light across its mirrored tiles. The center of the gradient moves in the ball’s local coordinates, and the clip stays in place.
+```
 
 ## Resource ownership and failure behavior
 

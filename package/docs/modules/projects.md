@@ -2,6 +2,12 @@
 
 Use `explainerkit/project` to save a supported scene recipe as JSON and rebuild it later. Import `createProject`, `buildProject`, `parseProject` and `serializeProject`. A recipe describes values and operations that the format understands rather than capturing an arbitrary running JavaScript application.
 
+```demo design-project-potato
+Go incognitater. Pick a nose for the potato in witness protection. Undo and redo the disguise, then file it to rebuild the portrait from its saved JSON.
+```
+
+Each choice edits the nose in the current recipe. The two portraits can differ because the filed portrait keeps its own copy of the recipe until you file another one.
+
 ```js
 const project = createProject({
   format: 'explainerkit-project', version: 1,

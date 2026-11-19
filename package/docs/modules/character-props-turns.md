@@ -28,6 +28,10 @@ offset in world axes. The helper inverts the prop's actual parent matrix, so
 independently moving, reflected, skewed or scaled prop parents are supported.
 Its own scale/skew/pivot and non-transform style remain authored.
 
+```demo design-balanced-trays
+Drag the serving clock to lift both trays. The left tray rotates with the wrist. The right tray rises with the hand and stays level. That is one balanced meal.
+```
+
 `from` defaults to zero. Omitted `to` uses the existing scene duration only when
 that leaves a positive window; otherwise `INVALID_HOLD` requests an explicit end.
 No implicit day-long scene is authored. The scene extends through the short

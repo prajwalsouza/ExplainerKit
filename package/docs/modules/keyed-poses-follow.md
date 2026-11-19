@@ -17,6 +17,10 @@ fig.follow([[0,200],[1,1600],[1.4,1600],[2.4,400]], {
 });
 ```
 
+```demo design-wave-and-go
+Drag the clock across the stop sign. The root track puts the brakes on the walk while the pose keys keep the wave going. Wave and go.
+```
+
 ## Poses
 
 Use `fig.keys` to schedule poses and `fig.follow` to move the character along a path. A key’s time is the **arrival** in scene seconds. Its `duration` describes the transition leading into that pose and defaults to at most .3 seconds of available time. `hold` keeps the arrived pose still, and a later transition cannot interrupt that hold.

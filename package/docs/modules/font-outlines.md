@@ -11,6 +11,10 @@ const title = drawing.path({commands: letters.commands, fillRule: 'nonzero'});
 
 Use `parseFont(bytes)` when bytes are already available and synchronous parsing is needed. `loadFont(bytesOrFileOrBlob)` also reads supplied input asynchronously and decodes WOFF 1.0. Neither function fetches a URL or searches installed fonts. Source data is copied and limited to 16 MB.
 
+```demo design-counter-service
+Counter service. Drag the pink sprinkle onto the O or into its hole, or focus it and use the arrow keys. The demo reads an original two-letter font from embedded bytes. The hole, called a counter, has an outline but contains no ink.
+```
+
 Supported outlines use the TrueType `glyf` table inside an SFNT font or WOFF 1.0 container. WOFF2, CFF/OTF outlines and font collections are unsupported. A filename ending in `.otf` does not prove which outline format it contains. Color and bitmap rendering are not supported, although unknown color tables may be ignored when monochrome `glyf` outlines are available. Depending on the container and required tables, invalid input reports `FONT_FORMAT_UNSUPPORTED` or `FONT_INVALID`.
 
 Kerning table construction and each `textOutline` query have separate four

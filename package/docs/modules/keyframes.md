@@ -18,6 +18,10 @@ The solver uses eight bracketed Newton steps with a bisection fallback, followed
 
 `handle.keys(property,keys)` and `parameter.keys(keys)` schedule a numeric animation through several values. A key’s `ease` controls the segment **leaving** that key. The last key’s easing is validated even though there is no following segment. Omitted easing uses `smooth`.
 
+```demo design-pigeon-waypoints
+Move the middle breadcrumb up or down, then scrub the route clock. The pigeon reaches that breadcrumb at one second. The easing shapes its flight between crumbs. Try it as the crow curves.
+```
+
 Supply 2–10000 keys in strictly increasing time order with at least one microsecond between them, within 0–86400 seconds. The authored baseline applies before the first key and the final value holds after the last. Property limits and exclusive control by a track or binding still apply.
 
 All keys and proposed segments are checked before a channel changes or scene duration extends. If validation fails, the previous animation remains intact. An overlap with any existing segment refuses with `CHANNEL_OWNED`; insertion that would invalidate a later chronological `to()` continuation refuses with `AMBIGUOUS_CONTINUATION`. Bindings and collection ownership also prevent taking over the channel. Clear animation explicitly to replace it. Keys are captured so later changes to their source array or records cannot change the animation.

@@ -85,7 +85,7 @@ addEventListener('DOMContentLoaded', () => {
       figure.classList.add('ready');
     } catch {
       figure.classList.add('failed');
-      stage.textContent = 'The interactive example is unavailable. Reload the page to try again.';
+      if (!stage.querySelector('.ds')) stage.textContent = 'The interactive example is unavailable. Reload the page to try again.';
     } finally {
       stage.removeAttribute('aria-busy');
       figure.classList.remove('loading');
@@ -94,7 +94,11 @@ addEventListener('DOMContentLoaded', () => {
   const near = new IntersectionObserver((entries) => {
     for (const entry of entries) if (entry.isIntersecting) { near.unobserve(entry.target);void mount(entry.target); }
   }, {rootMargin: '200px 0px'});
-  document.querySelectorAll('figure.demo').forEach((figure) => near.observe(figure));
+  document.querySelectorAll('figure.demo').forEach((figure) => {
+    // Incoming beat links may target a form inside closed fallback details.
+    if (figure.dataset.demo === 'design-story') void mount(figure);
+    else near.observe(figure);
+  });
   addEventListener('pagehide', (event) => {
     if (event.persisted) return;
     disposed = true;near.disconnect();navResize.disconnect();clearTimeout(statusTimer);mobile.removeEventListener('change', fitNavigation);

@@ -14,6 +14,7 @@
 // belongs to and `rel` tags it connects to (for click-to-focus), and a read-out label.
 import { hsla } from 'explainerkit/color';
 import { randomAt } from 'explainerkit/noise';
+import { placeRadialLabels } from 'explainerkit/layout/labels';
 import { assert, number, options, safeCopy, text } from './validate.js';
 
 /** Every computed colour goes through here: hue wrapped, saturation, lightness and alpha kept in range. */
@@ -379,9 +380,7 @@ const LAYOUTS = {
         ],
       });
       // Wide arcs carry a level name; narrow ones (a guest in a few episodes) read along the radius, clear of each other.
-      labels.push(
-        span > 0.32 ? { a: a + span / 2, r: 0.63, text: e } : { a: a + span / 2, r: 0.6, text: e, rotate: true },
-      );
+      labels.push({ a: a + span / 2, r: 0.6, text: e, span, wide: 0.32, priority: span });
       a += span + pad;
     });
     // A hover card per item: who is in it and who is not, each in their own colour.
@@ -573,8 +572,7 @@ const LAYOUTS = {
     const items = [],
       labels = [],
       cursor = [];
-    let a = TOP,
-      lastSpoke = -Infinity;
+    let a = TOP;
     nodes.forEach((n, i) => {
       const span = (sizes[i] / total) * free,
         hue = groupHue(i, nodes.length);
@@ -602,12 +600,9 @@ const LAYOUTS = {
       });
       // Wide arcs keep an upright name at the rim. Narrow ones get a name along the radius, like a spoke, so neighbours
       // stack side by side instead of on top of each other; a spoke too close to the previous one is left to hover.
-      const middle = a + span / 2;
-      if (span >= WIDE_ARC) labels.push({ a: middle, r: 1.0, text: n });
-      else if (middle - lastSpoke >= SPOKE_GAP) {
-        labels.push({ a: middle, r: 0.955, text: n, rotate: true });
-        lastSpoke = middle;
-      }
+      // The library's radial placer applies the rule (upright when wide, a spoke when narrow, spokes kept apart)
+      // and nudges or hides names that would collide, larger arcs first.
+      labels.push({ a: a + span / 2, r: 1.0, text: n, span, wide: WIDE_ARC, priority: span });
       cursor.push({ out: a, in: a + (outFlow[i] / total) * free, hue });
       a += span + pad;
     });
@@ -702,7 +697,7 @@ const LAYOUTS = {
       });
       // Names run along their ray, centred in the band, wrapping to two lines (then an ellipsis) to stay inside it.
       if (span > 0.12)
-        labels.push({ a: a + span / 2, r: 0.34, text: parent, inside: true, ray: { r0: 0.2, r1: 0.48, span } });
+        labels.push({ a: a + span / 2, r: 0.34, text: parent, inside: true, ray: { r0: 0.2, r1: 0.48, span }, hue });
       // A long series of grouped items (`3x12`) rings each parent by group (season) rather than by hairline item.
       const season = (v) => /^(\d+)x\d+$/.exec(String(v))?.[1] ?? null,
         grouped = membership && unique(t.rows.map((r) => r[outer])).length > 60 && mine.every((r) => season(r[outer])),
@@ -960,11 +955,17 @@ export function anchorOf(it) {
 export function paintForm(
   ctx,
   model,
-  { cx, cy, R, grow, lift, hover = -1, focus = null, alpha = 1, labelsAlpha = 1, labelSink = null },
+  { cx, cy, R, grow, lift, hover = -1, focus = null, alpha = 1, labelsAlpha = 1, labelSink = null, silk = null },
 ) {
   const paths = new Array(model.items.length),
     P = (a, r) => [cx + Math.cos(a) * r * R, cy + Math.sin(a) * r * R];
   const lit = (it) => !focus || it.tag === focus || it.rel?.includes(focus);
+  // Many crossing strands add up to white: share the light among the curves so dense views stay silky.
+  // In silk, hovering acts like a light focus: the hovered element's connections stay lit and warm, the rest dim.
+  const hoverTag = silk && hover >= 0 ? (model.items[hover]?.tag ?? null) : null,
+    near = (it) => !hoverTag || it.tag === hoverTag || it.rel?.includes(hoverTag);
+  const curves = silk ? model.items.filter((it) => it.kind === 'curve').length : 0,
+    share = Math.min(1, Math.sqrt(50 / Math.max(1, curves)));
   model.items.forEach((it, i) => {
     const e = grow(it, i);
     if (e <= 0.002) return;
@@ -1054,6 +1055,24 @@ export function paintForm(
     }
     const line = it.kind === 'curve',
       ribbon = it.kind === 'ribbon';
+    if (silk && SILK_KINDS.has(it.kind)) {
+      // Silk: the same element as fibres of light. The path above stays for hit-testing.
+      const close = near(it);
+      silkElement(silk, it, i, {
+        e,
+        up,
+        hot,
+        dim: alpha * (lit(it) ? 1 : 0.12) * (close ? 1 : 0.16),
+        lit: (!!focus && lit(it)) || (!!hoverTag && close),
+        cx,
+        cy,
+        R,
+        P,
+        share: hoverTag && close ? 1 : share,
+      });
+      paths[i] = path;
+      return;
+    }
     const a = clamp(
       alpha * dim * (ribbon ? 0.5 + (hot ? 0.35 : 0) : line ? 0.5 + (hot ? 0.45 : 0) : 0.9) * Math.min(1, e * 1.6),
     );
@@ -1095,47 +1114,178 @@ export function paintForm(
     }
     paths[i] = path;
   });
-  // Quiet labels, never boxed: rim steps, group names, item names along the rim.
+  if (silk) silk.draw(ctx);
+  // Quiet labels, never boxed: rim steps, group names, item names along the rim. Names that belong to a mark (a rim
+  // name with its arc's `span`, or a name set inside its band) are placed by the library's radial placer, which
+  // keeps the page's rules and resolves collisions; numbers and group titles keep their authored places.
   const shown = clamp(labelsAlpha);
   if (shown > 0.02) {
-    for (const l of model.labels) {
-      const [x, y] = P(l.a, l.r),
-        lifted = !focus || l.text === focus,
-        size = Math.max(10.5, R * (l.small ? 0.032 : 0.042)),
+    const sizeOf = (l) => Math.max(10.5, R * (l.small ? 0.032 : 0.042));
+    const placed = new Map();
+    const rings = new Map();
+    model.labels.forEach((l, k) => {
+      if (l.small || (l.span === undefined && !l.inside)) return;
+      const key = l.inside ? 'inside' : `${l.r}|${l.wide ?? WIDE_ARC}`;
+      if (!rings.has(key)) rings.set(key, []);
+      rings.get(key).push([l, k]);
+    });
+    for (const list of rings.values()) {
+      const [first] = list[0],
+        size = sizeOf(first);
+      ctx.font = `560 ${size}px ${SANS}`;
+      const result = placeRadialLabels(
+        list.map(([l, k]) => ({
+          id: String(k),
+          text: l.text,
+          angle: l.a,
+          span: l.inside ? l.ray.span : l.span,
+          priority: l.priority ?? 0,
+          r: l.r * R,
+          ...(l.inside
+            ? {
+                band: { r0: l.ray.r0 * R, r1: l.ray.r1 * R },
+                // What the name sits on: the painted band, or silk hairs over the page (dark or light).
+                fill: silk
+                  ? silk.additive
+                    ? tone(l.hue ?? 240, 40, 30)
+                    : tone(l.hue ?? 240, 30, 82)
+                  : tone(l.hue ?? 240, 46, 54),
+              }
+            : {}),
+        })),
+        {
+          cx,
+          cy,
+          r: first.r * R,
+          measure: (value) => ({ width: ctx.measureText(value).width, height: size * 1.15 }),
+          wideArc: first.wide ?? WIDE_ARC,
+          spokeGap: SPOKE_GAP,
+          keep: focus ? (list.find(([l]) => l.text === focus)?.[1]?.toString() ?? null) : null,
+        },
+      );
+      for (const p of result) placed.set(Number(p.id), p);
+    }
+    model.labels.forEach((l, k) => {
+      const p = placed.get(k);
+      if (p && !p.visible) return;
+      const lifted = !focus || l.text === focus,
+        size = sizeOf(l),
         weight = l.small ? 400 : 560,
+        opacity = (l.inside ? 0.9 : lifted ? 0.88 : 0.3) * alpha * shown;
+      let x, y, align, angle, box, ink;
+      if (p) {
+        // Rim spokes start just inside the rim, as the page always set them.
+        const inset = p.orientation === 'ray' ? 0.045 * R : 0;
+        x = p.x - Math.cos(p.angle) * inset;
+        y = p.y - Math.sin(p.angle) * inset;
+        align = p.align === 'start' ? 'left' : p.align === 'end' ? 'right' : 'center';
+        angle = p.rotation;
+        box = p.box ? { width: p.box.width, lines: p.box.lines } : null;
+        ink = p.ink;
+      } else {
+        [x, y] = P(l.a, l.r);
         // Numbers round the rim read upright; only names along a narrow arc follow its radius.
-        upright = !l.ray && (l.small || !l.rotate),
-        flip = Math.cos(l.a) < 0,
+        const upright = !l.ray && (l.small || !l.rotate),
+          flip = Math.cos(l.a) < 0;
         align = l.ray
           ? 'center'
           : upright
             ? (l.align ?? (Math.cos(l.a) > 0.2 ? 'left' : Math.cos(l.a) < -0.2 ? 'right' : 'center'))
             : flip
               ? 'right'
-              : 'left',
-        // Along a ray: the band's length is the line width; its arc width at the middle decides one or two lines.
-        box = l.ray
-          ? {
-              width: (l.ray.r1 - l.ray.r0) * R * 0.86,
-              lines: l.ray.span * l.r * R > 2.6 * Math.max(10.5, R * 0.032) ? 2 : 1,
-            }
-          : null,
-        angle = upright ? 0 : l.a + (flip ? Math.PI : 0),
-        opacity = (l.inside ? 0.9 : lifted ? 0.88 : 0.3) * alpha * shown;
+              : 'left';
+        angle = upright ? 0 : l.a + (flip ? Math.PI : 0);
+        box = null;
+        ink = null;
+      }
       // Labels go to the page as text when it can take them (crisp at any pixel ratio); else into the canvas.
       if (labelSink) {
-        labelSink.push({ x, y, text: l.text, size, weight, align, angle, opacity, inside: !!l.inside, box });
-        continue;
+        labelSink.push({ x, y, text: l.text, size, weight, align, angle, opacity, inside: !!l.inside, box, ink });
+        return;
       }
       ctx.textBaseline = 'middle';
       ctx.textAlign = align;
-      ctx.fillStyle = l.inside ? tone(30, 30, 98, opacity) : tone(240, 10, 34, opacity);
+      ctx.fillStyle =
+        ink === 'dark' ? tone(240, 10, 18, opacity) : l.inside ? tone(30, 30, 98, opacity) : tone(240, 10, 34, opacity);
       crispText(ctx, x, y, size, weight, () => ctx.fillText(l.text, 0, 0), angle);
-    }
+    });
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
   }
   return paths;
+}
+
+/** Element kinds the silk brush draws; any other kind keeps its painted form. */
+const SILK_KINDS = new Set(['arc', 'curve', 'ribbon', 'dot']);
+/** Views drawn in silk when the page offers a brush. */
+export const SILK_VIEWS = new Set(['onion', 'chord', 'sunburst']);
+
+/**
+ * One element as silk: arcs become radial hairs, curves and ribbons become strand bundles, dots become glows.
+ * Hover heats an element; a focused element's relatives warm a little.
+ */
+function silkElement(silk, it, i, { e, up, hot, dim, lit, cx, cy, R, P, share }) {
+  const color = tone(it.h, it.s, it.l),
+    heat = hot ? 0.75 : lit ? 0.32 : it.warm ? 0.18 : 0,
+    alpha = dim * (hot ? 1.5 : 1) * Math.min(1, e * 1.6);
+  if (it.kind === 'arc') {
+    if (!(it.a1 > it.a0)) return;
+    const r0 = it.r0 * e,
+      r1 = it.r0 + (it.r1 - it.r0 + up) * e;
+    silk.hairs({
+      cx,
+      cy,
+      a0: it.a0,
+      a1: it.a0 + (it.a1 - it.a0) * Math.min(1, e * 1.2),
+      r0: r0 * R,
+      r1: r1 * R,
+      color,
+      alpha,
+      heat,
+      ragged: 0.4,
+      seed: i,
+    });
+  } else if (it.kind === 'dot') {
+    const [x, y] = P(it.a, it.r * e);
+    silk.glow({ x, y, r: Math.max(0.2, it.size * R), color, alpha, heat });
+  } else if (it.kind === 'curve') {
+    const [a0, r0] = it.from,
+      [a1, r1] = it.to;
+    silk.strands({
+      from: P(a0, r0),
+      c1: P(a0, r0 * (1 - it.bend)),
+      c2: P(a1, r1 * (1 - it.bend * 0.5)),
+      to: P(a1, r1 + up * 0.3),
+      count: Math.max(2, Math.min(9, Math.round(it.width * 2.4 * share + 1))),
+      spread: 2 + it.width * 2.2 * Math.max(1, R / 240),
+      trim: e,
+      color,
+      alpha: alpha * (hot ? 1.4 : 1.4 * share),
+      heat,
+      seed: i,
+    });
+  } else if (it.kind === 'ribbon') {
+    const r = it.r * (0.6 + 0.4 * e),
+      bend = 0.18 + 0.3 * (1 - e),
+      ma = (it.a0 + it.a1) / 2,
+      mb = (it.b0 + it.b1) / 2,
+      span = Math.max(it.a1 - it.a0, it.b1 - it.b0) * r * R;
+    // Strand ends are spaced along each ribbon's own arc, so the bundle stays attached to the rim.
+    silk.strands({
+      from: P(ma, r),
+      c1: P(ma, r * bend),
+      c2: P(mb, r * bend),
+      to: P(mb, r),
+      fromArc: { cx, cy, r: r * R, a0: it.a0, a1: it.a1 },
+      toArc: { cx, cy, r: r * R, a0: it.b0, a1: it.b1 },
+      count: Math.max(3, Math.min(48, Math.round(span / 1.4))),
+      spread: span * 0.5,
+      color,
+      alpha: alpha * 1.6,
+      heat,
+      seed: i,
+    });
+  }
 }
 
 /** Catmull-Rom through closed points, appended to a path (moveTo when `start`, else a line to the first). */

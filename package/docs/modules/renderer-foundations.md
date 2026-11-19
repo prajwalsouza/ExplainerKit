@@ -17,6 +17,10 @@ The transform applies the object's position, moves to its pivot, applies rotatio
 
 Keyword pivots use geometry bounds, meaning the enclosing rectangle before strokes and effects extend the drawing. Path bounds include the furthest points of quadratic and cubic curves rather than only their endpoints. Group bounds include the current transforms of their children, so a group's pivot can follow animated geometry. Registered outline fonts supply measured advance widths, while ordinary browser fonts use estimated bounds. Bounds for point clouds also include their point radii.
 
+```demo design-door-pivot
+The blue door has a hinge. The red one is going through a revolving phase. Drag the handle and compare where each door stays pinned while it rotates.
+```
+
 ## Skew and scale a shape
 
 `skewX` and `skewY` slant geometry along its axes. Their values are angles in radians between -1.4 and 1.4, and both default to zero. An object without filters may also have zero scale, which collapses one or both dimensions. Following the orientation of a collapsed target is rejected because that orientation is no longer defined.

@@ -33,6 +33,10 @@ skeleton sampling, preserving their authored quadratic or two/three-link shape.
 Their existing named numeric limb channels expose stretch/compression/softness
 and pole controls; the four-limb `joints` descriptor applies to declared bipeds.
 
+```demo design-joint-chord
+Drag the gesture clock. Both hands reach the same two poses in their own lanes. The left hand arcs between joint angles. The right hand travels straight between targets. One of them strikes a chord.
+```
+
 Use an effector target when a hand or foot must reach a point rather than simply turn through a joint angle. A key can set `effectors.handF`, `handB`, `footF` or `footB` with the fields below.
 
 | Field | Meaning |

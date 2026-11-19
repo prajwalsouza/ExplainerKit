@@ -42,6 +42,10 @@ Clustering groups nearby colors in OKLab, a color space intended to make numeric
 
 Color distances follow [Ottosson's OKLab definition](https://bottosson.github.io/posts/oklab/), while contrast uses the sRGB relative-luminance ratio defined by [WCAG](https://www.w3.org/TR/WCAG22/#dfn-contrast-ratio). A cluster's contrast describes its representative color and is not the worst-case contrast for text over the whole image. Use `auditTextOverPixels` when the backdrop varies under text.
 
+```demo design-paint-coverage
+Give the wall a fair coat. Drag the paint roller to cover more or less of the wall. The audit counts sampled pixels and compares the result with the same wall painted half and half.
+```
+
 ## Policy is explicit
 
 `policy.balanceTarget` defaults to `[.6, .3, .1]`, a selectable composition

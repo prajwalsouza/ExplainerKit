@@ -1,176 +1,277 @@
-// Labels that keep clear, felt. A summer sky: the stars of the Summer Triangle and the Swan, each named. Drag a star
-// (or the Moon) and placeLabels from explainerkit/layout/labels re-plans every name on every move, measured with
-// canvasTextMeasurer. The eight places it tries around the dragged star are drawn in the order it tries them; the
-// one it chose is lit. Crowd a star until no place is clear and the planner refuses (LABEL_LAYOUT_OVERFLOW): the
-// last good layout stays, because the caller adopts a plan whole or not at all. Names glide on springs.
-import { placeLabels, canvasTextMeasurer } from '../../runtime/src/layout/labels.js';
-import { spring } from '../../runtime/src/physics/index.js';
-import { css } from './_kit.js';
+import {canvasTextMeasurer, placeLabels} from '../../runtime/src/layout/labels.js';
+import {hsla, toHex} from '../../runtime/src/color/index.js';
+import {css, ink} from './_kit.js';
 
-const CSS = `.mld { position: relative; height: 380px; } .mld canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
-.mld-say { position: absolute; left: 24px; right: 24px; bottom: 14px; font-size: 13.5px; color: var(--muted); pointer-events: none; min-height: 1.4em; }
-.mld-say b { color: var(--ink); font-weight: 600; } .mld-say.no b { color: hsl(8 70% var(--accent-l)); }`;
-// Positions as fractions of the sky, roughly as the Swan flies over the Triangle.
+const CSS = `
+.mld-stage { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+.mld-chart { position: relative; height: 320px; }
+.mld-chart canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 15px 15px 0 0; }
+.mld-chart .mld-point {
+  position: absolute; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 50%;
+  background: transparent; transform: translate(-50%, -50%); cursor: grab; touch-action: none;
+}
+.mld-chart .mld-moon { width: 56px; height: 56px; }
+.mld-chart .mld-point:active { cursor: grabbing; }
+.mld-chart .mld-point:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.mld-status { margin: 0; padding: 0 1.25rem 1rem; min-height: 3.9em; color: var(--ink); font-size: .875rem; }
+@media (max-width: 500px) { .mld-chart { height: 360px; } }
+`;
 const STARS = [
-  ['Deneb', .58, .14, 1.25], ['Sadr', .52, .34, .9], ['Gienah', .70, .36, .75], ['Fawaris', .36, .28, .7],
-  ['Albireo', .40, .72, .8], ['Vega', .17, .22, 1.35], ['Sheliak', .2, .5, .6], ['Altair', .84, .7, 1.2], ['Tarazed', .8, .58, .65],
+  ['Deneb', .58, .14, 1.25], ['Sadr', .52, .34, .9], ['Gienah', .70, .36, .75],
+  ['Fawaris', .36, .28, .7], ['Albireo', .40, .72, .8], ['Vega', .17, .22, 1.35],
+  ['Sheliak', .20, .50, .6], ['Altair', .84, .70, 1.2], ['Tarazed', .80, .58, .65],
 ];
-const LINES = [['Deneb', 'Sadr'], ['Sadr', 'Albireo'], ['Gienah', 'Sadr'], ['Sadr', 'Fawaris'], ['Vega', 'Deneb'], ['Deneb', 'Altair'], ['Altair', 'Vega'], ['Vega', 'Sheliak'], ['Altair', 'Tarazed']];
-const FONT = '500 14px ui-sans-serif, -apple-system, "Segoe UI", sans-serif', GAP = 6;
+const LINES = [
+  ['Deneb', 'Sadr'], ['Sadr', 'Albireo'], ['Gienah', 'Sadr'], ['Sadr', 'Fawaris'],
+  ['Vega', 'Deneb'], ['Deneb', 'Altair'], ['Altair', 'Vega'], ['Vega', 'Sheliak'], ['Altair', 'Tarazed'],
+];
+const MOON = 'Moon';
+const FONT = '500 14px ui-sans-serif, -apple-system, "Segoe UI", sans-serif';
+const GAP = 6;
+const MOON_RADIUS = 28;
+const IDLE = 'The dashed square is the Moon’s obstacle box.';
+const shade = (h, s, l, a = 1) => toHex(hsla(((h % 360) + 360) % 360, s, l, a));
 
 export default async function measuredLabelsDrag(stage, ctx) {
   css('measured-labels-drag', CSS);
-  stage.innerHTML = '<div class="mld"><canvas role="img" aria-label="A star chart. Drag a star or the Moon; the star names re-plan to stay clear of each other."></canvas><div class="mld-say"></div></div>';
-  const box = stage.querySelector('.mld'), canvas = box.querySelector('canvas'), g = canvas.getContext('2d'), say = box.querySelector('.mld-say');
-  const events = new AbortController(), media = matchMedia('(prefers-reduced-motion: reduce)');
-  let reducedMotion = Boolean(ctx.still || media.matches);
-  const still = () => reducedMotion;
-  let disposed = false, visible = true, request = null, until = 0;
-  const allowed = () => !disposed && visible && !document.hidden;
-  const stop = () => { if (request !== null) cancelAnimationFrame(request);request = null; };
-  function wake(milliseconds = 0) {
-    if (!allowed()) return;
-    until = Math.max(until, performance.now() + milliseconds);
-    if (request === null) request = requestAnimationFrame(frame);
-  }
-  let w = 0, h = 0;
-  const stars = STARS.map(([id, fx, fy, mag], k) => ({ id, fx, fy, mag, k, x: 0, y: 0, twinkle: Math.random() * 6.28 }));
-  const moon = { fx: .3, fy: .58, r: 30, x: 0, y: 0 };
-  const shown = new Map(); // id → {x, y} springs toward the planned box
-  let captured = null;
-  const releaseCapture = () => { if (captured !== null && canvas.hasPointerCapture(captured)) canvas.releasePointerCapture(captured);captured = null; };
-  let plan = null, held = null, refused = null, pointer = { x: -1e3, y: -1e3 };
-  const measure = canvasTextMeasurer(g, { font: FONT, lineHeight: 20 });
-  const bounds = () => ({ x: 10, y: 10, width: w - 20, height: h - 48 });
-  const moonBox = () => ({ x: moon.x - moon.r, y: moon.y - moon.r, width: moon.r * 2, height: moon.r * 2 });
+  stage.classList.add('mld-stage');
+  stage.innerHTML = `<div class="mld-chart"><canvas aria-hidden="true"></canvas></div><p class="mld-status" role="status">${IDLE}</p>`;
+  const chart = stage.querySelector('.mld-chart');
+  const canvas = chart.querySelector('canvas');
+  const g = canvas.getContext('2d');
+  const status = stage.querySelector('.mld-status');
+  await document.fonts.ready;
+  const measure = canvasTextMeasurer(g, {font: FONT, lineHeight: 20});
+  const initial = new Map([...STARS, [MOON, .30, .58]].map(([id, x, y]) => [id, {x, y}]));
+  const controls = new Map();
+  const events = new AbortController();
+  const on = {signal: events.signal};
+  let positions = initial;
+  let anchors, boxes, width, height;
+  let selected = null;
+  let rejected = null;
+  let drag = null;
 
-  // The plan: every name, in author order, measured; the Moon's box is the one obstacle.
-  const replan = () => {
+  function say(message) {
+    if (status.textContent !== message) status.textContent = message;
+  }
+
+  function moonBox({x, y}) {
+    return {x: x - MOON_RADIUS, y: y - MOON_RADIUS, width: 2 * MOON_RADIUS, height: 2 * MOON_RADIUS};
+  }
+
+  function plan(next) {
+    const points = new Map([...next].map(([id, {x, y}]) => [id, {x: x * width, y: y * height}]));
+    const labels = STARS.map(([id]) => ({id, text: id, anchor: points.get(id)}));
+    const layout = placeLabels(labels, {
+      bounds: {x: 10, y: 10, width: width - 20, height: height - 20},
+      obstacles: [moonBox(points.get(MOON))],
+      measure,
+      gap: GAP,
+    });
+    positions = next;
+    anchors = points;
+    boxes = layout;
+  }
+
+  function strokeRect({x, y, width, height}, color, dash = []) {
+    g.strokeStyle = color;
+    g.setLineDash(dash);
+    g.strokeRect(x, y, width, height);
+    g.setLineDash([]);
+  }
+
+  function disc({x, y}, radius, fill) {
+    g.fillStyle = fill;
+    g.beginPath();
+    g.arc(x, y, radius, 0, 2 * Math.PI);
+    g.fill();
+  }
+
+  function drawMoon(moon, dark) {
+    const {x, y} = moon;
+    const glow = g.createRadialGradient(x - 9, y - 10, 2, x, y, MOON_RADIUS);
+    glow.addColorStop(0, shade(45, 90, 96));
+    glow.addColorStop(1, shade(40, 59, dark ? 68 : 78));
+    disc(moon, MOON_RADIUS, glow);
+    disc({x: x - 16, y: y + 9}, 5, shade(39, 47, 56, .23));
+    disc({x: x + 14, y: y - 14}, 4, shade(39, 47, 56, .23));
+
+    const nearest = STARS.map(([id]) => anchors.get(id)).reduce((a, b) => (
+      Math.hypot(a.x - x, a.y - y) < Math.hypot(b.x - x, b.y - y) ? a : b
+    ));
+    const distance = Math.max(20, Math.hypot(nearest.x - x, nearest.y - y));
+    const face = shade(34, 37, 23);
+    for (const eye of [x - 7, x + 7]) {
+      disc({x: eye, y: y - 4}, 4, shade(46, 80, 98));
+      disc({x: eye + 1.6 * (nearest.x - x) / distance, y: y - 4 + 1.6 * (nearest.y - y) / distance}, 2, face);
+    }
+    if (rejected?.id === MOON) {
+      disc({x, y: y + 8}, 3, face);
+    } else {
+      g.strokeStyle = face;
+      g.beginPath();
+      g.moveTo(x - 5, y + 6);
+      g.quadraticCurveTo(x, y + 14, x + 5, y + 6);
+      g.stroke();
+    }
+  }
+
+  function paint() {
+    if (!anchors) return;
+    const dark = ctx.dark();
+    const accent = shade(ctx.hue, 60, dark ? 76 : 36);
+    const faint = shade(ctx.hue, 28, dark ? 72 : 35, .33);
+    g.clearRect(0, 0, width, height);
+    const sky = g.createLinearGradient(0, 0, width * .75, height);
+    sky.addColorStop(0, shade(ctx.hue - 28, 55, dark ? 29 : 88, .23));
+    sky.addColorStop(1, shade(ctx.hue + 18, 55, dark ? 24 : 93, 0));
+    g.fillStyle = sky;
+    g.fillRect(0, 0, width, height);
+    g.lineWidth = 1;
+    g.strokeStyle = faint;
+    g.beginPath();
+    for (const [from, to] of LINES) {
+      const a = anchors.get(from), b = anchors.get(to);
+      g.moveTo(a.x, a.y);
+      g.lineTo(b.x, b.y);
+    }
+    g.stroke();
+
+    const moon = anchors.get(MOON);
+    drawMoon(moon, dark);
+    strokeRect(moonBox(moon), selected === MOON ? accent : faint, [4, 3]);
+
+    STARS.forEach(([id, , , magnitude], index) => {
+      const point = anchors.get(id);
+      const hue = ctx.hue - 30 + 12 * index;
+      if (selected === id) disc(point, 9, shade(hue, 70, dark ? 70 : 45, .24));
+      disc(point, 2.5 + magnitude * 1.4, shade(hue, 60, dark ? 81 : 42));
+    });
+
+    g.font = FONT;
+    g.textAlign = 'left';
+    g.textBaseline = 'middle';
+    for (const box of boxes) {
+      if (box.id === selected) strokeRect(box, accent);
+      g.fillStyle = ink(ctx);
+      g.fillText(box.text, box.x, box.y + box.height / 2);
+    }
+    if (rejected) {
+      const {x, y} = rejected.point;
+      const outline = rejected.id === MOON ? moonBox({x, y}) : {x: x - 5, y: y - 5, width: 10, height: 10};
+      strokeRect(outline, shade(12, 75, dark ? 72 : 37), [3, 2]);
+    }
+    for (const [id, control] of controls) {
+      const point = anchors.get(id);
+      control.style.left = `${point.x}px`;
+      control.style.top = `${point.y}px`;
+    }
+  }
+
+  function describe(id) {
+    if (id === MOON) {
+      say('The labels keep their gap from the Moon’s dashed square.');
+      return;
+    }
+    const {x, y} = anchors.get(id);
+    const box = boxes.find((label) => label.id === id);
+    const horizontal = box.x > x ? 'right' : box.x + box.width < x ? 'left' : '';
+    const vertical = box.y > y ? 'below' : box.y + box.height < y ? 'above' : '';
+    const position = [vertical, horizontal].filter(Boolean).join(' and ');
+    say(`${id}’s label fits ${position}.`);
+  }
+
+  function move(id, x, y) {
+    const inset = id === MOON ? MOON_RADIUS + 10 : 16;
+    const point = {
+      x: Math.max(inset, Math.min(width - inset, x)),
+      y: Math.max(inset, Math.min(height - inset, y)),
+    };
+    const next = new Map(positions);
+    next.set(id, {x: point.x / width, y: point.y / height});
     try {
-      const next = placeLabels(stars.map((s) => ({ id: s.id, text: s.id, anchor: { x: s.x, y: s.y } })), { bounds: bounds(), measure, obstacles: [moonBox()], gap: GAP });
-      plan = new Map(next.map((b) => [b.id, b]));refused = null;
-      const now = performance.now() / 1000;
-      for (const b of next) {
-        const s = shown.get(b.id);
-        if (!s) { shown.set(b.id, { x: b.x, y: b.y, sx: null, sy: null }); continue; }
-        if (s.tx === b.x && s.ty === b.y) continue;
-        const cur = at(s, now);
-        s.sx = spring({ from: cur.x, to: b.x, velocity: cur.vx, stiffness: 260, damping: 24, at: now });
-        s.sy = spring({ from: cur.y, to: b.y, velocity: cur.vy, stiffness: 260, damping: 24, at: now });
-        s.tx = b.x;s.ty = b.y;
-      }
+      plan(next);
+      rejected = null;
+      describe(id);
     } catch (error) {
       if (error.code !== 'LABEL_LAYOUT_OVERFLOW') throw error;
-      refused = error.message.replace(/;.*$/, '');
+      rejected = {id, point};
+      say(id === MOON
+        ? 'Eclipse denied. A star’s label ran out of room, so the Moon stays put.'
+        : 'That star needs more space. The dashed outline marks the rejected move.');
     }
-    tell();wake(1800);
-  };
-  const at = (s, now) => (still() && s.tx !== undefined ? { x: s.tx, y: s.ty, vx: 0, vy: 0 } : s.sx ? { x: s.sx.sample(now), y: s.sy.sample(now), vx: s.sx.velocity(now), vy: s.sy.velocity(now) } : { x: s.x, y: s.y, vx: 0, vy: 0 });
-  const tell = () => {
-    say.classList.toggle('no', !!refused);
-    say.innerHTML = refused
-      ? `<b>Refused: LABEL_LAYOUT_OVERFLOW.</b> ${refused.replace('No supported collision-free placement for', 'No clear place for')}. The last good layout stays: nothing is clipped, shrunk or dropped.`
-      : held ? `<b>${held === moon ? 'The Moon' : held.id}</b>: ${held === moon ? 'an obstacle. Every name keeps its gap from its box.' : `tries the right first, then left, above, below, then the corners. Place ${slotOf(held)} was clear.`}`
-        : 'Drag a star, or the Moon, into the crowd. Every name is re-planned on every move.';
-  };
-  const slotOf = (s) => {
-    const b = plan?.get(s.id);if (!b) return '?';
-    const k = slots(s).findIndex((c) => Math.abs(c.x - b.x) < .01 && Math.abs(c.y - b.y) < .01);
-    return k + 1;
-  };
-  // The eight candidates placeLabels tries, in its order (right, left, above, below, then the four corners).
-  const slots = (s) => {
-    const m = measure(s.id), W = m.width, H = m.height, x = s.x, y = s.y;
-    return [[x + GAP, y - H / 2], [x - W - GAP, y - H / 2], [x - W / 2, y - H - GAP], [x - W / 2, y + GAP], [x + GAP, y - H - GAP], [x - W - GAP, y - H - GAP], [x + GAP, y + GAP], [x - W - GAP, y + GAP]].map(([a, b]) => ({ x: a, y: b, width: W, height: H }));
-  };
-  const fit = () => {
-    const r = devicePixelRatio || 1;w = box.clientWidth;h = box.clientHeight;canvas.width = w * r;canvas.height = h * r;g.setTransform(r, 0, 0, r, 0, 0);
-    for (const s of stars) if (!s.moved) { s.x = s.fx * w;s.y = 18 + s.fy * (h - 80); }
-    if (!moon.moved) { moon.x = moon.fx * w;moon.y = 18 + moon.fy * (h - 80); }
-    shown.clear();replan();
-  };
-  const resize = new ResizeObserver(fit);resize.observe(box);
+    paint();
+  }
 
-  const local = (e) => { const r = canvas.getBoundingClientRect();return { x: e.clientX - r.left, y: e.clientY - r.top }; };
-  const pick = (p) => (Math.hypot(p.x - moon.x, p.y - moon.y) < moon.r + 4 ? moon : stars.reduce((best, s) => (Math.hypot(p.x - s.x, p.y - s.y) < Math.hypot(p.x - (best?.x ?? 1e9), p.y - (best?.y ?? 1e9)) ? s : best), null));
-  const pointerDown = (e) => {
-    if (!allowed()) return;
-    const p = local(e), hit = pick(p);
-    if (!hit || (hit !== moon && Math.hypot(p.x - hit.x, p.y - hit.y) > 26)) return;
-    held = hit;held.dx = hit.x - p.x;held.dy = hit.y - p.y;canvas.setPointerCapture(e.pointerId);captured = e.pointerId;tell();wake();
-  };
-  const pointerMove = (e) => {
-    if (!allowed()) return;
-    pointer = local(e);
-    if (!held) { const hit = pick(pointer);canvas.style.cursor = hit && (hit === moon || Math.hypot(pointer.x - hit.x, pointer.y - hit.y) < 26) ? 'grab' : 'default';return; }
-    canvas.style.cursor = 'grabbing';
-    held.x = Math.max(14, Math.min(w - 14, pointer.x + held.dx));held.y = Math.max(14, Math.min(h - 52, pointer.y + held.dy));held.moved = true;
-    replan();
-  };
-  const release = () => { releaseCapture();if (held) { held = null;tell();wake(); } };
-  canvas.addEventListener('pointerdown', pointerDown, {signal: events.signal});
-  canvas.addEventListener('pointermove', pointerMove, {signal: events.signal});
-  canvas.addEventListener('pointerup', release, {signal: events.signal});
-  canvas.addEventListener('pointercancel', release, {signal: events.signal});
-  canvas.addEventListener('pointerleave', () => { pointer = { x: -1e3, y: -1e3 };wake(); }, {signal: events.signal});
+  function fit() {
+    width = chart.clientWidth;
+    height = chart.clientHeight;
+    if (width <= 20 || height <= 20) return;
+    const dpr = Math.min(devicePixelRatio || 1, 3);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    g.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0);
+    const wasRejected = rejected !== null;
+    rejected = null;
+    try {
+      plan(positions);
+      if (wasRejected && selected) describe(selected);
+    } catch (error) {
+      if (error.code !== 'LABEL_LAYOUT_OVERFLOW') throw error;
+      plan(initial);
+      say('The chart returned to its starting layout to fit the new width.');
+    }
+    paint();
+  }
 
-  const frame = (ms) => {
-    request = null;if (!allowed()) return;
-    const now = still() ? 0 : ms / 1000, dark = ctx.dark();
-    g.clearRect(0, 0, w, h);
-    // A soft band of sky light behind the Swan.
-    const band = g.createLinearGradient(w * .2, 0, w * .75, h);
-    band.addColorStop(0, 'transparent');band.addColorStop(.5, `hsl(${ctx.hue + 20} 60% ${dark ? 60 : 55}% / ${dark ? .1 : .08})`);band.addColorStop(1, 'transparent');
-    g.fillStyle = band;g.fillRect(0, 0, w, h);
-    // The Moon, an obstacle: its box drawn faintly so the reader sees what the planner sees.
-    const mg = g.createRadialGradient(moon.x - 8, moon.y - 10, 2, moon.x, moon.y, moon.r);
-    mg.addColorStop(0, dark ? '#fbf3dc' : '#fff6d8');mg.addColorStop(1, dark ? '#c9b98f' : '#e8cf8c');
-    g.fillStyle = mg;g.beginPath();g.arc(moon.x, moon.y, moon.r, 0, 6.283);g.fill();
-    g.strokeStyle = `hsl(40 30% ${dark ? 70 : 45}% / ${held === moon ? .7 : .28})`;g.setLineDash([3, 4]);g.lineWidth = 1;g.strokeRect(moon.x - moon.r, moon.y - moon.r, moon.r * 2, moon.r * 2);g.setLineDash([]);
-    // The asterism lines.
-    g.strokeStyle = `hsl(${ctx.hue} 30% ${dark ? 70 : 40}% / .22)`;g.lineWidth = 1;
-    for (const [a, b] of LINES) { const p = stars.find((s) => s.id === a), q = stars.find((s) => s.id === b);g.beginPath();g.moveTo(p.x, p.y);g.lineTo(q.x, q.y);g.stroke(); }
-    // The eight candidates around the held star, numbered in the planner's order; the chosen one lit.
-    if (held && held !== moon) {
-      const chosen = plan?.get(held.id);
-      slots(held).forEach((c, k) => {
-        const on = !refused && chosen && Math.abs(c.x - chosen.x) < .01 && Math.abs(c.y - chosen.y) < .01;
-        g.strokeStyle = on ? `hsl(${ctx.hue} 70% ${dark ? 66 : 48}%)` : refused ? 'hsl(8 70% 55% / .5)' : `hsl(${ctx.hue} 20% ${dark ? 70 : 40}% / .3)`;
-        g.setLineDash(on ? [] : [2, 3]);g.lineWidth = on ? 1.6 : 1;g.beginPath();g.roundRect(c.x - 3, c.y - 1, c.width + 6, c.height + 2, 5);g.stroke();g.setLineDash([]);
-        g.fillStyle = g.strokeStyle;g.font = '600 9px ui-sans-serif, sans-serif';g.textAlign = 'center';g.fillText(String(k + 1), c.x + c.width / 2, c.y + c.height / 2 + 3);
-      });
-    }
-    // Stars with halos that breathe.
-    for (const s of stars) {
-      const tw = 1 + .15 * Math.sin(now * 1.7 + s.twinkle), r = 2.2 + s.mag * 2.2, hot = held === s;
-      const col = `hsl(${ctx.hue - 40 + s.k * 14} ${dark ? 70 : 65}% ${dark ? 78 : 50}%`;
-      const halo = g.createRadialGradient(s.x, s.y, 0, s.x, s.y, r * 5 * tw);halo.addColorStop(0, `${col} / ${hot ? .55 : .35})`);halo.addColorStop(1, 'transparent');
-      g.fillStyle = halo;g.beginPath();g.arc(s.x, s.y, r * 5 * tw, 0, 6.283);g.fill();
-      g.fillStyle = dark ? '#fff' : `${col})`;g.beginPath();g.arc(s.x, s.y, r * (hot ? 1.3 : 1), 0, 6.283);g.fill();
-      if (hot && refused) { g.strokeStyle = 'hsl(8 75% 55%)';g.lineWidth = 2;g.beginPath();g.arc(s.x, s.y, r + 9 + Math.sin(now * 12) * 1.5, 0, 6.283);g.stroke(); }
-    }
-    // The names, at their springing positions; a hairline leads back when a name sits away from its star.
-    g.font = FONT;g.textAlign = 'left';g.textBaseline = 'middle';
-    for (const s of stars) {
-      const p = shown.get(s.id);if (!p) continue;
-      const q = at(p, now), m = measure(s.id);
-      const cx = Math.max(q.x, Math.min(s.x, q.x + m.width)), cy = Math.max(q.y, Math.min(s.y, q.y + m.height));
-      if (Math.hypot(cx - s.x, cy - s.y) > GAP + 4) { g.strokeStyle = `hsl(${ctx.hue} 20% ${dark ? 70 : 40}% / .35)`;g.beginPath();g.moveTo(s.x, s.y);g.lineTo(cx, cy);g.stroke(); }
-      g.fillStyle = dark ? '#e5e1dc' : '#2c2a27';g.globalAlpha = held && held !== s && held !== moon ? .7 : 1;
-      g.fillText(s.id, q.x, q.y + m.height / 2 + 1);g.globalAlpha = 1;
-    }
-    if (!still() && ms < until) request = requestAnimationFrame(frame);
-  };
-  const visibility = () => { stop();if (!allowed()) { releaseCapture();held = null; }if (allowed()) wake(); };
-  const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting;visibility(); });
-  observer.observe(stage);
-  document.addEventListener('visibilitychange', visibility, {signal: events.signal});
-  media.addEventListener('change', () => { reducedMotion = media.matches;visibility(); }, {signal: events.signal});
-  const offTheme = ctx.onTheme(() => wake());
+  function select(id) {
+    selected = id;
+    rejected = null;
+    describe(id);
+    paint();
+  }
+
+  const directions = {ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1]};
+  for (const id of initial.keys()) {
+    const control = document.createElement('button');
+    control.type = 'button';
+    control.className = id === MOON ? 'mld-point mld-moon' : 'mld-point';
+    control.setAttribute('aria-label', `Move ${id === MOON ? 'the Moon' : id} with the arrow keys`);
+    controls.set(id, control);
+    chart.append(control);
+    control.addEventListener('focus', () => select(id), on);
+    control.addEventListener('click', (event) => { if (event.detail === 0) select(id); }, on);
+    control.addEventListener('keydown', (event) => {
+      const direction = directions[event.key];
+      if (!direction || drag) return;
+      event.preventDefault();
+      selected = id;
+      const {x, y} = anchors.get(id);
+      move(id, x + direction[0] * 12, y + direction[1] * 12);
+    }, on);
+    control.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0 || drag) return;
+      const {x, y} = anchors.get(id);
+      drag = {control, pointerId: event.pointerId, dx: x - event.clientX, dy: y - event.clientY};
+      control.setPointerCapture(event.pointerId);
+      select(id);
+    }, on);
+    control.addEventListener('pointermove', (event) => {
+      if (drag?.pointerId !== event.pointerId) return;
+      move(id, event.clientX + drag.dx, event.clientY + drag.dy);
+    }, on);
+    control.addEventListener('lostpointercapture', () => { if (drag?.control === control) drag = null; }, on);
+  }
+
+  const resize = new ResizeObserver(fit);
+  resize.observe(chart);
+  const offTheme = ctx.onTheme(paint);
   fit();
   return () => {
-    if (disposed) return;
-    disposed = true;stop();events.abort();resize.disconnect();observer.disconnect();offTheme();
-    releaseCapture();held = null;shown.clear();
+    if (drag?.control.hasPointerCapture(drag.pointerId)) drag.control.releasePointerCapture(drag.pointerId);
+    events.abort();
+    resize.disconnect();
+    offTheme();
   };
 }

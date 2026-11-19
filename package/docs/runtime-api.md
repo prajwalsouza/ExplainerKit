@@ -297,6 +297,10 @@ For a two-link reach, the bend direction selects the side on which the elbow or 
 
 A captured frame stores a validated, immutable snapshot that can be compared with another frame. `createTransition(from,to,{discrete:'end'})` matches their stable object IDs once and returns `sample(progress)` for progress in `[0,1]`. Matching objects must keep their types and parents, and paths must have the same sequence of command types. Within that structure, numeric geometry and compatible path coordinates interpolate while text and paint switch at the chosen boundary.
 
+```demo design-pancake-passage
+Batter up. Drag the dial to carry a stack of pancakes from the kitchen to the table. Position changes along the way. The label switches at the end because this transition uses `discrete:'end'`.
+```
+
 This operation calculates frames without changing a scene or deciding how an object should be added, split or merged. Use explicitly authored [fades and shape partitions](modules/shape-operations.md) when the explanation needs those changes, because automatic matching of their intended meaning is unsupported. The proposed `scene.state` and `scene.transition` convenience methods are not implemented. Captured frame dimensions also remain the authored dimensions rather than automatically solving a new responsive layout.
 
 ## The player and the page

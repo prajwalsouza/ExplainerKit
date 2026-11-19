@@ -24,6 +24,10 @@ renderer.render({
 renderer.dispose();
 ```
 
+```demo design-net-points
+The net result. Drag the landing net through this school, or focus it and use the arrow keys. Points inside the net change colour. WebGL draws the points and the lines between indexed pairs from the supplied typed buffers.
+```
+
 ## One explicit GPU frame
 
 `createWebGLRenderer(container, options)` creates and owns one canvas and its WebGL2 context. The default limits are 100,000 points and 200,000 lines, configured through `maxPoints` and `maxLines`. You can lower those limits but cannot raise them above the supported maximums. If WebGL2 is unavailable, construction throws `RENDER_UNSUPPORTED` rather than choosing another renderer silently.

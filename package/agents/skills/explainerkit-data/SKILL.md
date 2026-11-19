@@ -9,12 +9,12 @@ This skill is generated from the ExplainerKit package by `scripts/agents/build.m
 
 ## Modules
 
-- `explainerkit/data`: Scales, units, transformations and plot/axis blueprints. Read `docs/modules/data-modeling.md`.
-  Exports: `areaPath`, `axisBlueprint`, `bandScale`, `bin`, `convert`, `defineUnit`, `divideUnits`, `filterRows`, `linePath`, `mapRows`, `multiplyUnits`, `ordinalScale`, `powerUnit`, `replaceMapped`, `scale`, `stack`, `summarize`, `ticks`, `units`.
+- `explainerkit/data`: Scales, units, table transforms, plots and interactive charts. Read `docs/modules/data-modeling.md`.
+  Exports: `areaPath`, `axisBlueprint`, `bandScale`, `bin`, `chartTheme`, `convert`, `defineUnit`, `divideUnits`, `filterRows`, `flowLayout`, `linePath`, `mapRows`, `mountDataChart`, `mountFlowChart`, `multiplyUnits`, `ordinalScale`, `parseMermaidFlow`, `powerUnit`, `radialChart`, `replaceMapped`, `scale`, `silkBrush`, `stack`, `summarize`, `ticks`, `units`.
 - `explainerkit/layout`: Placement, text wrapping, callouts, measured labels and responsive planning. Read `docs/modules/compose.md`, `docs/modules/annotations.md`.
-  Exports: `analyse`, `applyLayout`, `attach`, `bubble`, `callout`, `canvasTextMeasurer`, `effectBatch`, `estimateText`, `inkFor`, `measureNode`, `panel`, `paragraph`, `pathPoint`, `place`, `placeLabels`, `planAnnotations`, `planLayout`, `stage`, `toAuthored`, `wrapText`.
+  Exports: `analyse`, `applyLayout`, `attach`, `bubble`, `callout`, `canvasTextMeasurer`, `effectBatch`, `estimateText`, `inkFor`, `measureNode`, `panel`, `paragraph`, `pathPoint`, `place`, `placeLabels`, `placeRadialLabels`, `planAnnotations`, `planLayout`, `stage`, `toAuthored`, `wrapText`.
 - `explainerkit/layout/labels`: Focused measured-label API. Read `docs/modules/measured-labels.md`.
-  Exports: `canvasTextMeasurer`, `placeLabels`.
+  Exports: `canvasTextMeasurer`, `placeLabels`, `placeRadialLabels`.
 - `explainerkit/layout/annotations`: Focused annotation policy. Read `docs/modules/annotations.md`.
   Exports: `planAnnotations`.
 - `explainerkit/audit`: Composition, motion, continuity, contrast, measured palette and 3D rendering diagnostics. Read `docs/modules/composition-audit.md`, `docs/modules/motion-diagnostics.md`, `docs/modules/continuity-audit.md`, `docs/modules/palette-audit.md`, `docs/modules/render-audit.md`.

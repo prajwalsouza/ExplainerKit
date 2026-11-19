@@ -18,12 +18,14 @@ The tables list implemented modules, with links to their examples and supported 
 | --- | --- | --- |
 | `explainerkit/core` | Scene identity, handles, components, keyed data, parameters, bindings, tracks and sampling | [Runtime API](../runtime-api.md) |
 | `explainerkit` | Shorter import for the same `Scene` and `scene` constructors | [Library layers](library-layers.md) |
-| `explainerkit/data` | Scales, units, transformations and plot/axis blueprints | [Data](data-modeling.md) |
+| `explainerkit/data` | Scales, units, table transforms, plots and interactive charts | [Data](data-modeling.md) |
 | `explainerkit/geometry` | Path construction, placements, measurement, deformation, polyhedra and drawing tools | [Constructions](advanced-constructions.md), [drawing](drawing-batches.md), [polyhedra](polyhedra.md) |
 | `explainerkit/geometry/shapes` | Combine, intersect, subtract or split polygons and outlines | [Shape operations](shape-operations.md) |
 | `explainerkit/graphics` | Validated paint, gradients, clipping and textures | [Graphics](graphics.md) |
 | `explainerkit/color` | Procedural HSLA, safe conversions, hue-aware mixing and explicit RGB interpolation | [Color](color.md) |
 | `explainerkit/typography` | Editable letters and symbols, plus animated HTML text | [Glyphs](glyph-objects.md), [DOM text](dom-typography.md) |
+| `explainerkit/typography/source` | Lay text into document templates, find a phrase, map it onto a 3D page, and schedule its highlight and lift | [Lift text from a page](source-text.md) |
+| `explainerkit/math` | Turn LaTeX and MathML into editable outlines for equations and morphs | [Animate equations](math.md) |
 
 ## Move and transform
 
@@ -33,10 +35,12 @@ The tables list implemented modules, with links to their examples and supported 
 | `explainerkit/motion/effects` | Seekable typewriter, object wipe, fly-in, pulse, teeter and colour flash presets | [Common effects](common-effects.md) |
 | `explainerkit/inputs` | Live observations, settled hover intent and reactive parameter/data bindings | [Live inputs](live-inputs.md), [hover intent](story-cues-hover-intent.md) |
 | `explainerkit/physics` | Analytic oscillator and trajectory models; no universal physics simulation | [Secondary motion](secondary-motion.md) |
+| `explainerkit/juicy` | Live physical feel for interactive pages: soft chains, wind fields, spring followers, squash, pop, sway, tug, shake and hit-stop | [Juicy motion](juicy.md) |
 | `explainerkit/morph` | Match points and outlines, change shapes, and animate splits or merges | [Morph safety](morph-safety.md) |
 | `explainerkit/transitions` | Capture and interpolate supported scene states | [Runtime API](../runtime-api.md) |
 | `explainerkit/rigs` | Calculate joint positions and deform artwork with skeletons and skins | [Rigs](advanced-rigs.md) |
 | `explainerkit/noise` | Scalar/vector fields, fractal/ridged noise, domain warp and deterministic grids | [Procedural](procedural.md), [fractal fields](procedural-fields-networks.md) |
+| `explainerkit/variation` | Seeded, bounded and correlated differences between repeated things, with an audit for machine-made uniformity | [Organic variation](variation.md) |
 
 ## Arrange and frame
 
@@ -49,6 +53,7 @@ The tables list implemented modules, with links to their examples and supported 
 | `explainerkit/spatial` | First-party 3D transforms, projection and picking | [Spatial](spatial-three.md) |
 | `explainerkit/zoom` | Nested coordinate systems and detail that changes with screen size | [Deep zoom](deep-zoom.md) |
 | `explainerkit/look` | Visual effects and color adjustments, with resource limits | [Look](look.md) |
+| `explainerkit/emphasis` | Draw the eye to a word, term or part while its context recedes, with one colour per topic | [Emphasis](emphasis.md) |
 | `explainerkit/parallax` | Depth-layer relationships for scroll presentation | [Parallax](parallax.md) |
 | `explainerkit/audit` | Composition, motion, continuity, contrast, measured palette and 3D rendering diagnostics | [Composition](composition-audit.md), [motion](motion-diagnostics.md), [continuity](continuity-audit.md), [palettes](palette-audit.md), [3D rendering](render-audit.md) |
 | `explainerkit/perception` | Grouping suggestions with author overrides | [Grouping](rigs-morphing-perception.md) |
@@ -58,6 +63,7 @@ The tables list implemented modules, with links to their examples and supported 
 | Import | Responsibility | Guide |
 | --- | --- | --- |
 | `explainerkit/vfx` | Recorded footage analysis, camera track preparation with default stabilization, point and plane tracking, and compositing | [Track graphics on recorded video](video-vfx.md) |
+| `explainerkit/vfx/post` | Film finishing on pixel buffers: tilt-shift, depth of field, bloom, halation, light rays, motion blur, lens distortion, grade and grain | [Finish film frames](film-post.md) |
 | | Text attached to recorded footage | [Text anchors](video-vfx.md#compare-text-anchors) |
 | | A screen replacement behind a moving person | [Foreground mattes](video-vfx.md#replace-a-screen-behind-a-speaker) |
 | | Automatic proposals and selected plane tracks | [Surface tracking](video-vfx.md#track-screens-and-surfaces) |
@@ -73,10 +79,17 @@ The tables list implemented modules, with links to their examples and supported 
 
 | Import | Responsibility | Guide |
 | --- | --- | --- |
-| `explainerkit/characters` | Character runtime, faces, poses, walking and acting | [Characters](characters.md), [shared 2D/3D biped motion](biped-motion.md), [profile rigs](character-profiles.md), [coordinated timing](coordinated-motion.md), [pose keys](keyed-poses-follow.md) |
+| `explainerkit/characters` | Character runtime, faces, poses, walking and acting | [Characters](characters.md), [shared 2D/3D biped motion](biped-motion.md), [profile rigs](character-profiles.md), [coordinated timing](coordinated-motion.md), [pose keys](keyed-poses-follow.md), [quadruped gaits](quadruped-gait.md) |
 | `explainerkit/mechanisms` | Connect 2D movement in gears, rolling objects, cranks and belts | [Mechanisms](particles-mechanisms.md) |
 | `explainerkit/particles` | Seeded emitters sampled by time | [Particles](particles-mechanisms.md) |
 | `explainerkit/procedural` | Points, density fields, network spacing, instances and generated masses | [Procedural](procedural.md), [fields and networks](procedural-fields-networks.md) |
+| `explainerkit/maps` | Regional projection, heightfields, hillshade, water flow, rivers, contours, draping, elevation colour, clouds and river reveals | [Relief maps](relief-maps.md) |
+| `explainerkit/maps/fetch` | Download elevation, rivers, lakes and OpenStreetMap street data for a region only when it is needed, through your `fetch` and cache, with the licence and attribution of each source | [Real map data](map-data.md) |
+| `explainerkit/import/geotiff` | Read single-band GeoTIFF elevation tiles, such as the Copernicus DEM | [Read an elevation tile](map-data.md#read-an-elevation-tile-yourself) |
+| `explainerkit/maps/osm` | Parse OpenStreetMap data from Overpass into projected buildings, roads, water, green areas, trees, street lamps and crossings, with guessed values marked | [Street data](map-data.md#turn-openstreetmap-data-into-street-features) |
+| `explainerkit/renderers/three/cinematic` | Relief maps with real rivers and lakes, highlights for paths, areas and places, film and interactive finishing, camera shots and lifted source text, drawn with a Three.js module you supply | [Cinematic maps in 3D](cinematic-maps.md) |
+| `explainerkit/procedural/city` | Streets and neighbourhoods as geometry from parsed map data: buildings with facades and roofs, a street field for the ground, lamps, trees, vehicles, furniture, plants and walkers, regional styles, and weather conditions as plain numbers | [Cinematic streets](cinematic-streets.md) |
+| `explainerkit/renderers/three/city` | Draws a city model with a Three.js module you supply: shaded ground and water, sky, sun and lamps, rain, snow and fog, level of detail by distance and a quality ladder up to film frames | [Cinematic streets](cinematic-streets.md#draw-the-street) |
 
 These toolkits are optional. Their models connect to the same scene inputs and properties; a basic
 scene does not import the character, mechanism or sound runtime. Artwork packs

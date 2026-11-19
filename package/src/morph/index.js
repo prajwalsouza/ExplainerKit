@@ -5,3 +5,4 @@ export { colorInterpolator } from '../color/interpolate.js';
 export { createSceneTransition } from './states.js';
 export { createSplitMorph, createMergeMorph } from './pieces.js';
 export { matchCut } from './match-cut.js';
+export { createObjectMorph } from './object.js';

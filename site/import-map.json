@@ -65,6 +65,19 @@
     "explainerkit/sound/mix": "./runtime/src/sound/mix.js",
     "explainerkit/sound/studio": "./runtime/src/sound/studio/index.js",
     "explainerkit/music": "./runtime/src/music/index.js",
-    "explainerkit/vfx": "./runtime/src/vfx/index.js"
+    "explainerkit/vfx": "./runtime/src/vfx/index.js",
+    "explainerkit/variation": "./runtime/src/variation/index.js",
+    "explainerkit/emphasis": "./runtime/src/emphasis/index.js",
+    "explainerkit/juicy": "./runtime/src/juicy/index.js",
+    "explainerkit/maps": "./runtime/src/maps/index.js",
+    "explainerkit/typography/source": "./runtime/src/typography/source/index.js",
+    "explainerkit/vfx/post": "./runtime/src/vfx/post/index.js",
+    "explainerkit/renderers/three/cinematic": "./runtime/src/renderers/three-cinematic.js",
+    "explainerkit/maps/fetch": "./runtime/src/maps/fetch.js",
+    "explainerkit/import/geotiff": "./runtime/src/import/geotiff.js",
+    "explainerkit/maps/osm": "./runtime/src/maps/osm.js",
+    "explainerkit/procedural/city": "./runtime/src/procedural/city/index.js",
+    "explainerkit/renderers/three/city": "./runtime/src/renderers/three-city.js",
+    "explainerkit/math": "./runtime/src/math/index.js"
   }
 }

@@ -6,6 +6,10 @@ For outlines with concavity or holes, such as chipping a stone, use `booleanPath
 
 A fracture piece contains only its portion of the source geometry. This lets you separate real pieces instead of duplicating the complete silhouette and fading several copies. Start with a supported polygon and inspect the generated pieces before adding motion.
 
+```demo design-cookie-cutter
+Take a byte out of a cookie. Drag the round cutter, or focus it and use the arrow keys. Union keeps both shapes, subtraction takes a bite out of the cookie, and intersection keeps only where the shapes overlap.
+```
+
 ## Polygon set operations
 
 ```js
@@ -52,6 +56,12 @@ Call `fracture(shape,{pieces=8,seed=1,sites})` to divide the actual source into 
 
 The result records `{pieces,source,seed,area,diagnostics}`. Each piece has a stable ID, compiled shape, commands, polygons, area and generating site. If the source is disconnected, one Voronoi cell can contain several disconnected polygons. The pieces' interiors are disjoint and their union covers the source within floating-point tolerance. Fracture therefore supplies a geometric partition without simulating shatter physics.
 
+```demo design-ice-fracture
+This ice has separation issues. Drag the orange site to redraw the cracks, then slide the pieces apart with the lower handle. The pieces keep the same total area as the starting slab.
+```
+
+The sites determine the cells. Sliding the pieces apart only changes where the demo draws them. Compare the total reported area before and after you move the orange site.
+
 Site generation tries at most 100,000 candidates. Supply sites explicitly when a source is too thin or disconnected for reliable random sampling. The fracture shares clipping-work and total output-vertex budgets across all pieces. Collapsed cells throw `NUMERIC_DEGENERACY` instead of being returned as useful geometry. Outside sites, duplicates, unknown options, accessors and sparse data are rejected.
 
 ## Split and merge
@@ -70,6 +80,10 @@ const frame = split.frame(progress, {width: 960, height: 540, fill: '#278b88'});
 ```
 
 A split first partitions the source into as many pieces as there are targets. Pass a `fracture(...)` result when you want to control that partition. A merge partitions the target and brings source pieces into those regions. Either endpoint list can contain compiled polygons, convex point arrays or `{id,shape}` records. Both ends must contain the same number of pieces within 1–64.
+
+```demo design-split-decision
+Give the crew some space. Drag the shuttle right to split the capsule into three craft, then dock them in a new silhouette. Follow each colour through both moves.
+```
 
 Pieces at either endpoint must have disjoint interiors within numerical tolerance. Overlaps throw `OVERLAPPING_PIECES`, and pairwise validation is limited by a total squared-vertex budget of 8,000,000. Every morph piece must have one convex contour. A disconnected or multi-polygon cell throws `MORPH_TOPOLOGY` because matching its separate boundaries would require an author decision. Decompose a concave outline or a letter with holes into explicit convex pieces before using this operation. It does not replace arbitrary lettering with a convex hull.
 
@@ -97,6 +111,10 @@ The transition uses three phases to bring the chosen shapes through a shared scr
 1. From progress 0 to `alignAt`, the source contour moves and scales to the common screen anchor.
 2. From `alignAt` to `releaseAt`, it morphs into the aligned target while other content crossfades.
 3. From `releaseAt` to 1, the target moves and scales back to its authored screen location.
+
+```demo design-pizza-time-cut
+It’s pizza time. Drag the film tab or use the arrow keys. The pizza outline moves to the shared anchor, becomes the clock face as the backgrounds crossfade, then moves into the clock shot.
+```
 
 Defaults are `alignAt:.2`, `releaseAt:.8`, `anchor:viewport center`, `scale:1` and `background:'crossfade'`. Choose `background:'hide'` to suppress other content inside the transition. At progress 0 and 1, sampling returns the exact captured full endpoint frames without changing duration, narration or model. Keep `0 < alignAt < releaseAt < 1` when choosing other staging times. The selected shape is excluded from the background copies to avoid drawing it twice.
 

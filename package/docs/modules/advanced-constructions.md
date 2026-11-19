@@ -82,6 +82,10 @@ Counts must be integers from 0 to 10,000. A count of zero returns an empty array
 
 A contour is one continuous path. A compound shape can have an outer contour and inner contours for openings. Give each contour an ID so the morph knows which source and target paths correspond.
 
+```demo design-key-phase
+This lock is going through a key phase. Drag the key or use the arrow keys to change both the lock plate and the shape of its opening.
+```
+
 ```js
 import {createCompoundMorph} from 'explainerkit/morph';
 const form = createCompoundMorph([

@@ -1,6 +1,6 @@
 ---
 name: explainerkit-scenes
-description: "Use when drawing shapes, text and colours, mounting and playing a scene, or adding sliders and other reader controls whose values drive the picture with the ExplainerKit JavaScript library. Covers explainerkit/core, explainerkit/color, explainerkit/graphics, explainerkit/typography, explainerkit/inputs, explainerkit/geometry, explainerkit/geometry/shapes, with tested recipes and the exact option vocabularies."
+description: "Use when drawing shapes, text and colours, mounting and playing a scene, or adding sliders and other reader controls whose values drive the picture with the ExplainerKit JavaScript library. Covers explainerkit/core, explainerkit/color, explainerkit/graphics, explainerkit/typography, explainerkit/typography/source, explainerkit/inputs, explainerkit/geometry, explainerkit/geometry/shapes, with tested recipes and the exact option vocabularies."
 ---
 
 # Scenes, shapes and interaction
@@ -17,6 +17,8 @@ This skill is generated from the ExplainerKit package by `scripts/agents/build.m
   Exports: `clipCircle`, `clipPath`, `clipRect`, `color`, `fillRule`, `linearGradient`, `paint`, `pathCommands`, `radialGradient`, `strokeDasharray`, `texture`, `textureTile`, `validateClip`, `validatePaint`.
 - `explainerkit/typography`: Editable letters and symbols, plus animated HTML text. Read `docs/modules/glyph-objects.md`, `docs/modules/dom-typography.md`.
   Exports: `glyphs`, `kineticText`, `segmentText`, `textStagger`.
+- `explainerkit/typography/source`: Lay text into document templates, find a phrase, map it onto a 3D page, and schedule its highlight and lift. Read `docs/modules/source-text.md`.
+  Exports: `findPhrase`, `highlightSchedule`, `layoutDocument`, `liftSchedule`, `sourceEase`, `surfaceMapper`.
 - `explainerkit/inputs`: Live observations, settled hover intent and reactive parameter/data bindings. Read `docs/modules/live-inputs.md`, `docs/modules/story-cues-hover-intent.md`.
   Exports: `bindData`, `bindInputs`, `cameraInput`, `deriveInput`, `deviceMotionInput`, `deviceOrientationInput`, `dragInput`, `fileInput`, `hoverIntent`, `inputSource`, `mapInput`, `microphoneInput`, `pointerInput`, `readInputFile`, `resizeInput`, `smoothInput`, `thresholdInput`.
 - `explainerkit/geometry`: Path construction, placements, measurement, deformation, polyhedra and drawing tools. Read `docs/modules/advanced-constructions.md`, `docs/modules/drawing-batches.md`, `docs/modules/polyhedra.md`.

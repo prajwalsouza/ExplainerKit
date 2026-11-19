@@ -36,6 +36,10 @@ player.restart();
 
 The `project` callback receives the current values and writes them to `machine`. The `onEvent` callback receives the planned `opened` event when playback or a seek crosses it. All times use seconds. Read the [timeline guide](timelines.md) for labels, relative positions, keyframes and repetition, or use a scene player when the output should be native scene handles and camera-projected frames.
 
+```demo design-encore-events
+The curtain call works in reverse. Drag the clock across the star, then go back. The timeline player delivers the event in either direction and updates the curtain from the sampled values.
+```
+
 ## Clock and event ownership
 
 Creating a player draws its time-zero values and leaves it paused without dispatching events. Its play, pause, seek, restart and speed controls use the same clock implementation as scene players. Multiple timeline and projection players on one browser host share a pending animation-frame request, while keeping independent pause, seek and cleanup state. Newly requested callbacks run on the following frame rather than joining a frame already being processed.

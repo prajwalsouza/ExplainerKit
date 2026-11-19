@@ -3,6 +3,10 @@
 Name regions of a scene, schedule camera shots, and add a steady camera drift when you need it.
 Existing `camera.to`, `follow`, `frame` and `zoomTo` keep their behavior and defaults.
 
+```demo design-crumb-scene
+Drag the filmstrip or use the arrow keys to go from the bakery to the crumb scene. The camera zooms through the oven window and cuts to a named detail region.
+```
+
 ```js
 scene.region('overview', {x: 0, y: 0, width: 960, height: 540});
 scene.region('detail', {x: 2000, y: 1000, width: 480, height: 270});

@@ -36,6 +36,10 @@ Changing cardinality requires constructing a new instance field.
 
 ## Painterly fills on the existing texture pipeline
 
+```demo design-wood-grain
+Go against the grain. Drag the brush or use the arrow keys to change the direction of the strokes inside this wooden tabletop.
+```
+
 ```js
 import {paint} from 'explainerkit/graphics';
 scene.rect({width:1920,height:1080,fill:paint({

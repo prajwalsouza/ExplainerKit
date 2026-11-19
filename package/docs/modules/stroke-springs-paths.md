@@ -69,6 +69,10 @@ bindMotionPath(marker, {commands, progress, offset: 8});
 
 Use `bindMotionPath(handle,{commands,progress,...options})` to apply the sampled path to x, y and rotation through an input from the same scene. It returns `{handle,path}`. Set `rotate:false` to bind only x and y and keep another authored rotation. Release an existing position driver first because competing channel owners are rejected. Animating progress produces movement along the path, but does not enforce an inextensible cable or continuous-curvature constraint.
 
+```demo design-maple-flight
+Drag the wind knot to give this flight a twist. The maple seed points along the path’s tangent at each position. Scrub back to see the same poses in reverse.
+```
+
 ## Evidence
 
 Native tests independently check the oscillator differential equation, undamped energy, all damping regimes, release displacement/velocity/bounds, fitted pointer velocity, trim distances, path tangents and reverse sampling. Browser checks compare visible/absent stroke pixels across SVG/Canvas, retain fills at empty trim, exercise actual player seeks and project first-party 3D line art through both native backends. Device-specific latency and touch gesture quality require further physical-device evaluation.

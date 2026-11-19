@@ -2,7 +2,7 @@
 
 > ExplainerKit is a JavaScript library for interactive visual explanations: scenes of shapes, text and characters whose values can be animated, driven by sliders or scroll, timed to narration or music, and rendered with SVG, Canvas or an optional Three.js renderer. Every frame is a pure function of time, so scenes can be seeked, exported and audited.
 
-The package is an alpha release (0.1.0-alpha.1). Its JavaScript API is the only interface, so an agent uses it by writing ES modules that import `explainerkit` or `explainerkit/<module>`. Before writing code, find the module for the task in the list below, read its guide and start from the closest recipe, because guessed option names are rejected at run time. Check the result by running it: the MCP server in `agents/mcp/server.mjs` and the command `node agents/cli.mjs preview <file>` render a module in headless Chromium and return screenshots and errors. Tools and setup are described in [docs/agents.md](docs/agents.md).
+The package is an alpha release (0.1.0-alpha.2). Its JavaScript API is the only interface, so an agent uses it by writing ES modules that import `explainerkit` or `explainerkit/<module>`. Before writing code, find the module for the task in the list below, read its guide and start from the closest recipe, because guessed option names are rejected at run time. Check the result by running it: the MCP server in `agents/mcp/server.mjs` and the command `node agents/cli.mjs preview <file>` render a module in headless Chromium and return screenshots and errors. Tools and setup are described in [docs/agents.md](docs/agents.md).
 
 ## Start here
 
@@ -18,10 +18,12 @@ The package is an alpha release (0.1.0-alpha.1). Its JavaScript API is the only 
 - `explainerkit/core`: Scene identity, handles, components, keyed data, parameters, bindings, tracks and sampling. Guides: [Runtime API](docs/runtime-api.md).
 - `explainerkit/graphics`: Validated paint, gradients, clipping and textures. Guides: [Reveal, fill and frame](docs/modules/graphics.md).
 - `explainerkit/typography`: Editable letters and symbols, plus animated HTML text. Guides: [Glyph objects and animated reflow](docs/modules/glyph-objects.md), [Animate the page you already have](docs/modules/dom-typography.md).
-- `explainerkit/data`: Scales, units, transformations and plot/axis blueprints. Guides: [Give data a visual meaning](docs/modules/data-modeling.md).
+- `explainerkit/data`: Scales, units, table transforms, plots and interactive charts. Guides: [Give data a visual meaning](docs/modules/data-modeling.md).
 - `explainerkit/geometry`: Path construction, placements, measurement, deformation, polyhedra and drawing tools. Guides: [Connected constructions](docs/modules/advanced-constructions.md), [Drawing, correspondence and batch sampling](docs/modules/drawing-batches.md), [Turn and split a 3D shape](docs/modules/polyhedra.md).
 - `explainerkit/geometry/shapes`: Combine, intersect, subtract or split polygons and outlines. Guides: [Cut a shape. Keep track of the pieces.](docs/modules/shape-operations.md).
 - `explainerkit/color`: Procedural HSLA, safe conversions, hue-aware mixing and explicit RGB interpolation. Guides: [Color: procedural HSLA, explicit conversions](docs/modules/color.md).
+- `explainerkit/typography/source`: Lay text into document templates, find a phrase, map it onto a 3D page, and schedule its highlight and lift. Guides: [Lift text from a page](docs/modules/source-text.md).
+- `explainerkit/math`: Turn LaTeX and MathML into editable outlines for equations and morphs. Guides: [Animate equations](docs/modules/math.md).
 
 ## Present, edit and export
 
@@ -48,6 +50,8 @@ The package is an alpha release (0.1.0-alpha.1). Its JavaScript API is the only 
 - `explainerkit/motion/effects`: Seekable typewriter, object wipe, fly-in, pulse, teeter and colour flash presets. Guides: [Add a familiar animation effect](docs/modules/common-effects.md).
 - `explainerkit/noise`: Scalar/vector fields, fractal/ridged noise, domain warp and deterministic grids. Guides: [Procedural fields and instances](docs/modules/procedural.md), [Density fields, network spacing and fractal noise](docs/modules/procedural-fields-networks.md).
 - `explainerkit/inputs`: Live observations, settled hover intent and reactive parameter/data bindings. Guides: [Live inputs and reactive scenes](docs/modules/live-inputs.md), [Scroll cues and hover intent](docs/modules/story-cues-hover-intent.md).
+- `explainerkit/variation`: Seeded, bounded and correlated differences between repeated things, with an audit for machine-made uniformity. Guides: [Organic variation](docs/modules/variation.md).
+- `explainerkit/juicy`: Live physical feel for interactive pages: soft chains, wind fields, spring followers, squash, pop, sway, tug, shake and hit-stop. Guides: [Juicy motion](docs/modules/juicy.md).
 
 ## Render or import
 
@@ -73,6 +77,7 @@ The package is an alpha release (0.1.0-alpha.1). Its JavaScript API is the only 
 - `explainerkit/layout/labels`: Focused measured-label API. Guides: [Measured label placement](docs/modules/measured-labels.md).
 - `explainerkit/layout/annotations`: Focused annotation policy. Guides: [Place readable annotations around scene objects](docs/modules/annotations.md).
 - `explainerkit/layout`: Placement, text wrapping, callouts, measured labels and responsive planning. Guides: [Compose: decide where things go](docs/modules/compose.md), [Place readable annotations around scene objects](docs/modules/annotations.md).
+- `explainerkit/emphasis`: Draw the eye to a word, term or part while its context recedes, with one colour per topic. Guides: [Emphasis](docs/modules/emphasis.md).
 
 ## Write and design explanations
 
@@ -82,12 +87,20 @@ The package is an alpha release (0.1.0-alpha.1). Its JavaScript API is the only 
 
 - `explainerkit/particles`: Seeded emitters sampled by time. Guides: [Motion that can be sampled in either direction](docs/modules/particles-mechanisms.md).
 - `explainerkit/mechanisms`: Connect 2D movement in gears, rolling objects, cranks and belts. Guides: [Motion that can be sampled in either direction](docs/modules/particles-mechanisms.md).
-- `explainerkit/characters`: Character runtime, faces, poses, walking and acting. Guides: [Characters](docs/modules/characters.md), [Lightweight biped motion in 2D and 3D](docs/modules/biped-motion.md), [Characters in profile](docs/modules/character-profiles.md), [Independent character timing](docs/modules/coordinated-motion.md), [Keyed acting and track-driven travel](docs/modules/keyed-poses-follow.md).
+- `explainerkit/characters`: Character runtime, faces, poses, walking and acting. Guides: [Characters](docs/modules/characters.md), [Lightweight biped motion in 2D and 3D](docs/modules/biped-motion.md), [Characters in profile](docs/modules/character-profiles.md), [Independent character timing](docs/modules/coordinated-motion.md), [Keyed acting and track-driven travel](docs/modules/keyed-poses-follow.md), [Quadruped gaits](docs/modules/quadruped-gait.md).
 - `explainerkit/procedural`: Points, density fields, network spacing, instances and generated masses. Guides: [Procedural fields and instances](docs/modules/procedural.md), [Density fields, network spacing and fractal noise](docs/modules/procedural-fields-networks.md).
+- `explainerkit/maps`: Regional projection, heightfields, hillshade, water flow, rivers, contours, draping, elevation colour, clouds and river reveals. Guides: [Relief maps](docs/modules/relief-maps.md).
+- `explainerkit/renderers/three/cinematic`: Relief maps with real rivers and lakes, highlights for paths, areas and places, film and interactive finishing, camera shots and lifted source text, drawn with a Three.js module you supply. Guides: [Cinematic maps in 3D](docs/modules/cinematic-maps.md).
+- `explainerkit/maps/fetch`: Download elevation, rivers, lakes and OpenStreetMap street data for a region only when it is needed, through your `fetch` and cache, with the licence and attribution of each source. Guides: [Real map data](docs/modules/map-data.md).
+- `explainerkit/import/geotiff`: Read single-band GeoTIFF elevation tiles, such as the Copernicus DEM. Guides: [Read an elevation tile yourself](docs/modules/map-data.md#read-an-elevation-tile-yourself).
+- `explainerkit/maps/osm`: Parse OpenStreetMap data from Overpass into projected buildings, roads, water, green areas, trees, street lamps and crossings, with guessed values marked. Guides: [Turn OpenStreetMap data into street features](docs/modules/map-data.md#turn-openstreetmap-data-into-street-features).
+- `explainerkit/procedural/city`: Streets and neighbourhoods as geometry from parsed map data: buildings with facades and roofs, a street field for the ground, lamps, trees, vehicles, furniture, plants and walkers, regional styles, and weather conditions as plain numbers. Guides: [Cinematic streets from map data](docs/modules/cinematic-streets.md).
+- `explainerkit/renderers/three/city`: Draws a city model with a Three.js module you supply: shaded ground and water, sky, sun and lamps, rain, snow and fog, level of detail by distance and a quality ladder up to film frames. Guides: [Draw the street](docs/modules/cinematic-streets.md#draw-the-street).
 
 ## Video VFX
 
 - `explainerkit/vfx`: Recorded footage analysis, camera track preparation with default stabilization, point and plane tracking, and compositing. Guides: [Track graphics on recorded video](docs/modules/video-vfx.md).
+- `explainerkit/vfx/post`: Film finishing on pixel buffers: tilt-shift, depth of field, bloom, halation, light rays, motion blur, lens distortion, grade and grain. Guides: [Finish film frames](docs/modules/film-post.md).
 
 ## Recipes
 
@@ -99,10 +112,12 @@ Each recipe is a complete module, run in Chromium by `npm run test:agents`. It r
 - [Use ready-made entrances: fly in, typewriter and wipe](agents/recipes/common-effects.js): Apply seekable preset effects such as flyIn, typewriter, wipe and pulse to shapes and text. Uses `explainerkit/core`, `explainerkit/motion/effects`.
 - [Draw a bar chart from data with scales](agents/recipes/data-chart.js): Map numbers and categories to positions with linear and band scales and draw labelled bars with ticks. Uses `explainerkit/core`, `explainerkit/data`.
 - [Turn meshing gears and a crank from one angle](agents/recipes/gears.js): Build a mechanism of meshing gears and a crank linkage, sample it from a driving angle and draw it. Uses `explainerkit/core`, `explainerkit/mechanisms`.
+- [Mount an interactive chart that morphs between five views](agents/recipes/interactive-chart.js): Give readers radial, chord, sunburst, arc and bar views of the same data, with hover, focus and a pointer light. Uses `explainerkit/data`.
 - [Time visual changes to the beats and moments of a song](agents/recipes/music-grid.js): Analyse decoded music, then pin actions to bars, beats and events such as the drop and pulse a shape on every beat. Uses `explainerkit/core`, `explainerkit/music`.
 - [Time shapes to narration lines](agents/recipes/narrated-beats.js): Turn narration sentences into beat times, then make shapes enter, move, dim and explain themselves at those beats. Uses `explainerkit/core`.
 - [Emit seeded particles that can be seeked](agents/recipes/particles.js): Create a deterministic particle emitter and draw its particles at the scene time as a point cloud. Uses `explainerkit/core`, `explainerkit/particles`.
 - [Arrange parts and produce a mastered mix](agents/recipes/produce-score.js): Write a pad, a harp figure and a drum in bars and beats, mix them through a shared hall to a loudness target and show the parts with the measured result. Uses `explainerkit/core`, `explainerkit/color`, `explainerkit/music`, `explainerkit/sound/studio`.
+- [Animate a themed radial chart](agents/recipes/radial-chart.js): Show measurements as radial spokes and trace connections between them with the Signal theme. Uses `explainerkit/core`, `explainerkit/data`.
 - [Draw a scene, animate it and play it](agents/recipes/scene-and-player.js): Create a scene with shapes, schedule a move with easing, mount it in the page and play it. Uses `explainerkit/core`.
 - [Compose a phrase and vary its ending](agents/recipes/score-variation.js): Repeat a short score, edit the last note, render stereo audio and show the result on a piano roll. Uses `explainerkit/core`, `explainerkit/color`, `explainerkit/music`.
 - [Drive a scene by scrolling the page](agents/recipes/scroll-story.js): Pin the scene in a sticky stage and map scroll position to scene time through acts with held moments. Uses `explainerkit/core`, `explainerkit/story`.

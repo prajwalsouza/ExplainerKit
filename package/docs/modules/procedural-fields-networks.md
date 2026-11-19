@@ -31,6 +31,10 @@ every field, boundary, unsaturated count or seed.
 
 ## Paths and explicit networks
 
+```demo design-network-streetlights
+Lighten up the road network. Drag the spacing marker to spread the streetlights farther apart. Samples on the connecting roads change, while a single anchored light stays at the shared junction.
+```
+
 ```js
 const roads = points({
   seed: 5,

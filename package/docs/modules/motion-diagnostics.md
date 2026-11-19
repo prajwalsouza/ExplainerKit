@@ -41,6 +41,10 @@ const grip = auditMotion(hand, {
 
 The prop target in this example is its local origin transformed into world coordinates. If another point on the prop should meet the hand, transform that anchor with `locate(...).matrix` instead. Choose both anchors explicitly because a socket and an object's origin need not coincide with the intended physical contact points.
 
+```demo design-drone-landing
+Move the landing pad while the drone’s path stays fixed. The audit checks the distance from the final point to the pad at exactly one second. Move the pad outside the tolerance and the verdict switches to Return to sender.
+```
+
 ## Inputs and ownership
 
 | Option | Contract |

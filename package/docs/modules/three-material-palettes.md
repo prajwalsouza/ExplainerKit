@@ -29,6 +29,10 @@ Observers of resource disposal run after a valid projection and its palette map 
 
 ## The built-in darkClay policy
 
+```demo design-kiln-palette
+Give a pot a kiln makeover. Slide the switch right to apply the standalone `darkClay` helper, or left to return to the authored swatches. The red ornament is treated as an accent.
+```
+
 Use the optional pure helper `darkClay(colour, context?)` for a palette that deepens pale and neutral colors while keeping saturated colors as accents. It uses the shared HSLA module to inspect encoded sRGB colors. It preserves hue and lightness order, keeps greys neutral, and leaves saturated colors with middle lightness unchanged. It contains no brand colors or example-specific material IDs. This artistic mapping does not guarantee perceptual contrast or compliance with the Web Content Accessibility Guidelines (WCAG).
 
 Pass `role:'accent'` to preserve a supplied color. The standalone helper also accepts `hasMap:true`, which returns a neutral sRGB color suitable for multiplication with a texture. You must apply that result to any textured materials you own. This helper option does not add texture support to the adapter. Supply your own palette callback when your theme needs different rules.

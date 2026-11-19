@@ -67,6 +67,10 @@ Each piece has a `side` value and its own `offset` parameter. The `side` identif
 
 The two offset animations in the example begin at one second and reach `.2` at two seconds. Both pieces continue to use the solid's rotation and scale, which makes the opening follow the turning shape. They cannot be translated or rotated independently through this API because the renderer relies on their shared separating plane to keep their overlap correct.
 
+```demo design-gem-inside-job
+This gem is an inside job. Drag the horizontal handle to turn it, then pull the side handle up to separate the halves. The cut surfaces keep their own color as the shape turns.
+```
+
 ## Keep placement and drawing order together
 
 Splitting inserts the new drawing inside the original shape's group and hides the original face paths. This preserves positioning and animation already applied to `solid.handle`. Use `cut.handle` when you need to control the new shared drawing group. The two logical pieces are controlled through their offset parameters and face records rather than separate scene groups.

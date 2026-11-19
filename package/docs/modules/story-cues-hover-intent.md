@@ -40,7 +40,9 @@ Attaching after the browser restores scroll position runs already-crossed entrie
 
 ## Settled pointer identity
 
-Create and start a pointer source before using hover intent. The hit callback should return the stable ID of the item under the supplied coordinates, or null for empty space. Hover intent delays a new selection so a passing pointer does not immediately activate every item it crosses.
+```demo design-waiter-fish
+Playing koi will get the waiter’s attention eventually. Sweep past the fish, then rest the pointer over one to select it. With touch or a keyboard, activate a fish directly.
+```
 
 Create and start a pointer source before using hover intent. The hit callback should return the stable ID of the item under the supplied coordinates, or null for empty space. Hover intent delays a new selection so a passing pointer does not immediately activate every item it crosses.
 

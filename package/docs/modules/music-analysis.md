@@ -95,6 +95,10 @@ const cues = grid.pin([
 for (const cue of cues) if (!cue.missing) console.log(cue.id, cue.time.toFixed(2));
 ```
 
+```demo design-drop-the-beet
+Drop the beet. Drag it along the click track, or focus it and use the arrow keys. The dashed line points to the nearest detected beat, where the grid places your cue. Press the listen control to hear the recording.
+```
+
 Each action needs an `at`. That can be a time in seconds, a grid position `{bar, beat, fraction}`, an event `{event, index, edge}` or a section `{section, edge}`, where a section is named by its letter or index and `edge` is `'start'` or `'end'`. The grid resolves `at` to a time, snaps it to the unit in `snap` when you give one, moves it by `beats` along the grid and finally adds `offset` seconds. The `reveal` cue above therefore lands half a beat before the first drop, which lets a visual anticipate the hit. Actions whose event or section does not exist come back with `time: null` and `missing: true`, so a song without a drop does not silently move your reveal. The result is sorted by time, and any `data` you attach is copied through. Use each resolved `time` wherever your scene takes a time, such as the `at` of a keyframe or a story cue.
 
 Snap units are `bar`, `beat`, `half`, `third` and `quarter` for the grid and its subdivisions, plus `onset` and `section`. `GRID_UNITS` lists them. Half beats are the off-beats, and thirds suit swung or triplet feels. Subdivisions are spaced evenly between the detected beats, so they follow a drifting tempo.

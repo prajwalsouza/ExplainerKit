@@ -22,6 +22,10 @@ const editor = createTimeline(player, panel, {
 
 The `tracks` option tells the editor which properties to show. Each track identifies a handle, a numeric property and the same keys used to create its animation. Opening the editor inspects that supplied list without creating another animation or discovering unrelated scene properties. It adds one styled region to `panel` and preserves any children already there.
 
+```demo design-rabbit-late
+Move a diamond. Make a rabbit late. Select the middle key, edit its Time, then move the editor’s time slider to see when the rabbit reaches that position.
+```
+
 ## Move through the animation
 
 Play, Pause and the native time slider control the existing player. When scrolling controls the player's clock, the editor disables manual playback controls so two inputs cannot compete for time. A media-controlled player instead receives the editor's normal transport requests. Reduced-motion preferences also remain the player's responsibility.

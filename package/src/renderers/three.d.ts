@@ -103,6 +103,7 @@ export function createThreeRenderer(container: any, spec?: {}): Readonly<{
     dispose: () => void;
 }>;
 export { darkClay } from "./material-palette.js";
+export { createThreeFramePlane } from "./three-frame-plane.js";
 export type MaterialPalette = (colour: string, context: Readonly<{
     id: string;
     role: "fill" | "stroke";

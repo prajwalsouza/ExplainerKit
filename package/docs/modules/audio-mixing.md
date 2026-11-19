@@ -11,6 +11,10 @@ const rendered = mix.render({sampleRate: 48000, from: 0, duration: 30});
 const wav = encodeWav(rendered);
 ```
 
+```demo design-ducking-duck
+Duck while the duck talks. Drag the narrator along the track and watch the music dip under its quack. Use the listen control to hear the current mix.
+```
+
 The mixer copies its source samples so callers cannot change a prepared mix by editing the input buffers. Each track supplies an ID, sample rate, start offset, gain and role of `narration`, `music` or `effect`. Mono tracks are duplicated into stereo, and linear interpolation converts between sample rates. `sample(seconds)` returns an immutable left/right pair at any requested time.
 
 Use `render` when you need writable output channels and a count of clipped samples in `clippedSamples`. Source buffers are not exposed. `encodeWav` converts the result to signed 16-bit PCM and clips values that exceed that format’s range. The mixer does not normalize loudness, limit peaks, provide band-limited resampling or decode compressed audio.

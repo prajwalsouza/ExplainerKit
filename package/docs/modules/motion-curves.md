@@ -38,3 +38,16 @@ Progress must be finite and within 0–1. The `back` and `elastic` families can 
 Choose units that match the value you are calculating. A stagger used as a delay supplies seconds, while one used for geometric spacing supplies scene units. The helper accepts numeric values rather than strings or DOM selectors.
 
 With a grid, radial distance creates the rings shown in the interactive example. Selecting an axis instead preserves the sign of the distance, so objects on one side of a centered origin can receive negative offsets. Normalization uses the full declared grid even when it is only partly populated. Counts and grid sizes cannot exceed 10,000, and the index, count and dimensions must be integers. Accessor properties are rejected without execution. Your application is responsible for converting its own labels or target objects into those indices.
+## Map scroll progress onto effects
+
+A scroll story usually drives many effects from one progress value. One element fades in over part of the scroll, another holds and then fades out, and a camera moves between keyed positions. `explainerkit/motion` provides four small functions for those mappings, so a page does not need its own copies.
+
+```js
+import {smoothWindow, remap, envelope, keyed} from 'explainerkit/motion';
+const titleIn = smoothWindow(0.1, 0.25, progress);          // 0 before 0.1, 1 after 0.25
+const fog = envelope(progress, 0.3, 0.6, 0.05);             // rises, holds, falls
+const height = keyed(progress, [[0, 2], [0.4, 30], [1, 800]]);
+const zoom = remap(progress, 0.4, 1, 1, 6);                 // straight line, clamped
+```
+
+`smoothWindow(from, to, value)` returns 0 before `from` and 1 after `to`, with a smooth S-curve called smoothstep between them. Swapping the bounds gives a falling ramp. `envelope(value, start, end, rise, fall)` rises to 1 over `rise` from `start`, holds until `end` and falls to 0 over `fall`. `keyed(value, keys, ease)` interpolates between `[at, value]` keys whose times increase and holds the first and last values outside them. Each span uses smoothstep by default, and `'linear'` gives straight segments. `remap(value, a0, a1, b0, b1, clamp)` maps one range onto another and clamps to the output range unless `clamp` is `false`. All four are pure functions of their inputs and reject non-finite numbers.

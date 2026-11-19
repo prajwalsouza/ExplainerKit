@@ -14,6 +14,10 @@ staging.restore([leftPart, rightPart], {at: 9, duration: .5});
 
 The controller adds offsets sampled from time to existing handles rather than replacing their positions, tracks or bindings. Restoring a handle therefore lands on its authored position at that time, including motion that continued while it was absent. Seeking backward reproduces the same staging state. Disposal removes the controller's effects and prevents further use.
 
+```demo design-gears-time-off
+Give the gears a little time off. Drag the clock’s time knob or use the arrow keys. The gears clock back in at the angles their motion has reached.
+```
+
 Use `isolate(keep,{drop,...})` to retain one branch while moving the listed branches away. Use `explode(parts,options)` to move several parts outward from their shared arrangement. Both accept `up`, `down`, `left`, `right` or a numeric `[x,y]` direction, and explosion defaults to radial screen-space directions. `restore` uses the original outgoing direction, margin and group of radial parts, even when you obtain a handle again with `part()`.
 
 Times use seconds. Defaults are .6 s duration, `smooth` easing and a 16-pixel extra margin. Set `returnAt` on an outgoing move to schedule a return of the same duration, or call `restore` with its own `at`, `duration` and `ease`.

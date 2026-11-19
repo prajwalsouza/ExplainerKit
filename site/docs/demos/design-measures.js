@@ -1,6 +1,6 @@
 // Measures on narration, live. Edit the text: scriptStats counts it, shortRuns finds the runs of short sentences that
 // make narration sound choppy, and voiceProblems applies the voice gate the explainer uses before its last polish.
-// Choppy runs are marked in the preview; hedge words are underlined.
+// Choppy runs are marked in the preview; hedge words receive a warm background.
 import { HEDGES, scriptStats, shortRuns, voiceProblems } from '../../runtime/src/design/index.js';
 import { css } from './_kit.js';
 
@@ -17,7 +17,7 @@ const CSS = `
 .dm .preview { font-size: 14px; line-height: 1.6; color: var(--ink); }
 .dm .preview p { margin: 0 0 10px; }
 .dm mark { background: hsl(var(--h) 70% 60% / .22); color: inherit; border-radius: 3px; padding: 0 1px; }
-.dm .hedge { text-decoration: underline wavy hsl(18 80% 52% / .8); text-underline-offset: 3px; }
+.dm .hedge { background: hsl(18 80% 52% / .15); border-radius: 3px; }
 .dm .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0; }
 .dm .stat b { display: block; font: 650 19px var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
 .dm .stat span { font-size: 11.5px; color: var(--muted); }

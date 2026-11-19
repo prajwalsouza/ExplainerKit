@@ -65,6 +65,10 @@ const pose = motion.sample(0.4, {
 console.log(pose.diagnostics.armError);
 ```
 
+```demo design-doorbell-reach
+Move the doorbell and try a long-distance ding-dong. Once the button is out of reach, the arm stops short and the dashed line marks the gap.
+```
+
 Reach weight moves the hand direction from its neutral pose along an arc toward the target and blends the distance within the arm’s bent-elbow reach. The shoulder and elbow are solved together rather than delayed independently. Unreachable requests are clamped without stretching bones, and the result reports the remaining error. Smooth targets and intent in your application when continuous motion is required. For live controls, derive the intent record with `drawing.derive` and pass it to `bipedRig`.
 
 Support sway is a pelvis-placement heuristic, not anatomical center of mass.

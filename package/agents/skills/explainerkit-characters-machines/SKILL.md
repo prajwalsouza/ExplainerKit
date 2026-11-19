@@ -9,8 +9,8 @@ This skill is generated from the ExplainerKit package by `scripts/agents/build.m
 
 ## Modules
 
-- `explainerkit/characters`: Character runtime, faces, poses, walking and acting. Read `docs/modules/characters.md`, `docs/modules/biped-motion.md`, `docs/modules/character-profiles.md`, `docs/modules/coordinated-motion.md`, `docs/modules/keyed-poses-follow.md`.
-  Exports: `BEAN_PALETTES`, `BIPED_POSES`, `BIRD_PALETTES`, `BUILDERS`, `FAMILY_PRESETS`, `FISH_PALETTES`, `HAIR`, `MICROBE_PALETTES`, `MOODS`, `MOTION_STYLES`, `MOUTH_SHAPES`, `SKIN`, `STARTERS`, `STICK_BUILDS`, `STICK_STYLES`, `add`, `appendage`, `appendageShapes`, `auditCharacter`, `bean`, `bipedActions`, `bipedDefaults`, `bipedMotion`, `bipedRig`, `bird`, `blend`, `blinkAt`, `browPath`, `character`, `characterFromSVG`, `characterPoseFromSkeleton`, `compileCharacter`, `contactSheet`, `contactTiming`, `cow`, `crowd`, `dampedStep`, `dragonfly`, `egg`, `ellipse` and 44 more.
+- `explainerkit/characters`: Character runtime, faces, poses, walking and acting. Read `docs/modules/characters.md`, `docs/modules/biped-motion.md`, `docs/modules/character-profiles.md`, `docs/modules/coordinated-motion.md`, `docs/modules/keyed-poses-follow.md`, `docs/modules/quadruped-gait.md`.
+  Exports: `BEAN_PALETTES`, `BIPED_POSES`, `BIRD_PALETTES`, `BUILDERS`, `FAMILY_PRESETS`, `FISH_PALETTES`, `HAIR`, `MICROBE_PALETTES`, `MOODS`, `MOTION_STYLES`, `MOUTH_SHAPES`, `QUADRUPED_GAITS`, `SKIN`, `STARTERS`, `STICK_BUILDS`, `STICK_STYLES`, `add`, `appendage`, `appendageShapes`, `auditCharacter`, `bean`, `bipedActions`, `bipedDefaults`, `bipedMotion`, `bipedRig`, `bird`, `blend`, `blinkAt`, `browPath`, `character`, `characterFromSVG`, `characterPoseFromSkeleton`, `compileCharacter`, `contactSheet`, `contactTiming`, `cow`, `crowd`, `dampedStep`, `dragonfly`, `egg` and 47 more.
 - `explainerkit/mechanisms`: Connect 2D movement in gears, rolling objects, cranks and belts. Read `docs/modules/particles-mechanisms.md`.
   Exports: `beltGeometry`, `gearPath`, `mechanism`, `meshPhase`, `sliderCrank`.
 - `explainerkit/particles`: Seeded emitters sampled by time. Read `docs/modules/particles-mechanisms.md`.

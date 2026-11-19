@@ -10,6 +10,10 @@ import {auditHandover, auditHandoverWindow, fitSimilarity, auditTextOverPixels} 
 
 When a 2D drawing changes into a 3D model or one camera replaces another, matching a few recognizable features helps the view remain continuous. A crossfade alone does not align those features. Give the audit the same named anchors in screen pixels on both sides so it can measure their position, size, angle and color differences.
 
+```demo design-cup-continuity
+The coffee has continuity issues. Drag the cup in the incoming shot or move it with the arrow keys until its anchor matches the outgoing shot.
+```
+
 ```js
 const report = auditHandover({
   at: time,

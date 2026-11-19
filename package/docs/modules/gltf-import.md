@@ -6,6 +6,10 @@ This is a geometry importer for SVG/Canvas/WebGL line art. Materials, texture ap
 
 ## Import supplied bytes
 
+```demo design-cheese-wireframe
+Pre-sliced cheese is a feature of this wireframe. Drag the turntable to inspect the faces. The importer keeps triangle edges, including the diagonals inside flat faces.
+```
+
 ```js
 import {importGLTF} from 'explainerkit/import/gltf';
 import {projectLines, perspectiveCamera} from 'explainerkit/spatial';
